@@ -316,7 +316,7 @@ export default function AlshyamHeroSection() {
                   />
 
                   {/* Rotating Border Gradient */}
-                  <motion.div
+                  {/* <motion.div
                     className="absolute -inset-[2px] rounded-2xl opacity-60 blur-sm"
                     style={{
                       background:
@@ -330,7 +330,7 @@ export default function AlshyamHeroSection() {
                       repeat: Infinity,
                       ease: "linear",
                     }}
-                  />
+                  /> */}
 
                   {/* Main Card */}
                   <div className="relative h-64 lg:h-80 rounded-2xl bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-xl border border-white/20 p-4 lg:p-6 shadow-2xl overflow-hidden">
