@@ -1,8 +1,8 @@
 // components/AlshyamHeroSection.js
 "use client";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronRight, TrendingUp, Activity, BarChart3 } from "lucide-react";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 
 // Smooth entrance animations
 const fadeInUp = {
@@ -32,6 +32,17 @@ const fadeInLeft = {
 };
 
 export default function AlshyamHeroSection() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Parallax transforms
+  const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.8, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+
   // FIXED: Generate stable values with useMemo to prevent hydration errors
   const chartElements = useMemo(() => {
     const candlesticks = Array.from({ length: 50 }, (_, i) => {
@@ -40,41 +51,47 @@ export default function AlshyamHeroSection() {
       const baseHeight = 35 + Math.sin(phase) * 15;
       const volatility = Math.abs(Math.sin(i * 0.7)) * 12;
 
+      // Round all decimal values to avoid floating point precision differences
       return {
         id: `candle-${i}`,
-        height: baseHeight + volatility,
+        height: Math.round((baseHeight + volatility) * 100) / 100,
         isGreen: Math.sin(i * 0.5) > 0,
-        delay: i * 0.02,
-        wickTop: 8 + Math.abs(Math.cos(i * 0.4)) * 8,
-        wickBottom: 8 + Math.abs(Math.sin(i * 0.6)) * 8,
+        delay: Math.round(i * 0.02 * 100) / 100,
+        wickTop: Math.round((8 + Math.abs(Math.cos(i * 0.4)) * 8) * 100) / 100,
+        wickBottom:
+          Math.round((8 + Math.abs(Math.sin(i * 0.6)) * 8) * 100) / 100,
       };
     });
 
     const particles = Array.from({ length: 12 }, (_, i) => ({
       id: `particle-${i}`,
-      x: 15 + ((i * 6.5) % 70),
-      y: 20 + ((i * 4.3) % 50),
+      x: Math.round((15 + ((i * 6.5) % 70)) * 100) / 100,
+      y: Math.round((20 + ((i * 4.3) % 50)) * 100) / 100,
       size: 2 + (i % 2),
-      duration: 4 + (i % 3) * 1.5,
-      delay: i * 0.25,
+      duration: Math.round((4 + (i % 3) * 1.5) * 100) / 100,
+      delay: Math.round(i * 0.25 * 100) / 100,
     }));
 
     return { candlesticks, particles };
   }, []); // Empty dependency array ensures this runs once
 
   return (
-    <section className="relative w-full min-h-screen overflow-hidden bg-black">
-      {/* Video Background - Fully Visible */}
-      <video
+    <section
+      ref={containerRef}
+      className="relative w-full min-h-screen overflow-hidden bg-black"
+    >
+      {/* Video Background - Fully Visible with Parallax */}
+      <motion.video
         autoPlay
         loop
         muted
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
         src="/videos/dubai-skyline.mp4"
+        style={{ y, scale }}
       >
         Your browser does not support the video tag.
-      </video>
+      </motion.video>
 
       {/* Gradient Overlays - More breathing room in center */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-black/80" />
@@ -270,7 +287,7 @@ export default function AlshyamHeroSection() {
                 </motion.div>
               </motion.div>
 
-              {/* RIGHT SIDE - Mini Chart Preview (Hidden on mobile, visible on tablet+) */}
+              {/* RIGHT SIDE - Mini Chart Preview with Parallax & Pulsing Border */}
               <motion.div
                 className="hidden md:block lg:col-span-5"
                 initial={{ opacity: 0, x: 60 }}
@@ -280,99 +297,225 @@ export default function AlshyamHeroSection() {
                   duration: 1,
                   ease: [0.22, 1, 0.36, 1],
                 }}
+                style={{ y: useTransform(scrollYProgress, [0, 1], [0, -100]) }}
               >
-                <div className="relative h-64 lg:h-80 rounded-2xl bg-gradient-to-br from-black/40 to-black/20 backdrop-blur-xl border border-white/10 p-4 lg:p-6 shadow-2xl">
-                  {/* Chart Header */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      <BarChart3 className="w-4 h-4 text-cyan-400" />
-                      <div>
-                        <div className="text-white font-bold text-sm lg:text-base">
-                          BTC/USD
-                        </div>
-                        <div className="text-gray-400 text-[10px]">
-                          Real-time
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-lg lg:text-xl font-black text-white">
-                        $67,432
-                      </div>
-                      <motion.div
-                        className="text-green-400 text-xs font-semibold flex items-center justify-end gap-1"
-                        animate={{ opacity: [0.7, 1, 0.7] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      >
-                        <TrendingUp className="w-3 h-3" />
-                        +3.24%
-                      </motion.div>
-                    </div>
-                  </div>
+                {/* Animated Border Glow Container */}
+                <div className="relative">
+                  {/* Pulsing Border Effect */}
+                  <motion.div
+                    className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 opacity-75"
+                    animate={{
+                      opacity: [0.5, 0.8, 0.5],
+                      scale: [1, 1.02, 1],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
 
-                  {/* Mini Candlesticks */}
-                  <div className="absolute inset-x-4 lg:inset-x-6 bottom-16 top-20 flex items-end justify-between gap-[2px]">
-                    {chartElements.candlesticks.slice(0, 30).map((candle) => (
-                      <motion.div
-                        key={candle.id}
-                        className="relative flex flex-col items-center justify-end flex-1"
-                        initial={{ scaleY: 0, opacity: 0 }}
-                        animate={{ scaleY: 1, opacity: 1 }}
-                        transition={{
-                          delay: candle.delay,
-                          duration: 0.5,
-                          ease: "easeOut",
-                        }}
-                      >
-                        {/* Simplified candle for mini view */}
+                  {/* Rotating Border Gradient */}
+                  <motion.div
+                    className="absolute -inset-[2px] rounded-2xl opacity-60 blur-sm"
+                    style={{
+                      background:
+                        "conic-gradient(from 0deg, #06b6d4, #3b82f6, #8b5cf6, #06b6d4)",
+                    }}
+                    animate={{
+                      rotate: [0, 360],
+                    }}
+                    transition={{
+                      duration: 8,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                  />
+
+                  {/* Main Card */}
+                  <div className="relative h-64 lg:h-80 rounded-2xl bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-xl border border-white/20 p-4 lg:p-6 shadow-2xl overflow-hidden">
+                    {/* Animated Grid Lines Background */}
+                    <div className="absolute inset-0 opacity-10">
+                      {[...Array(4)].map((_, i) => (
                         <motion.div
-                          className={`w-full ${
-                            candle.isGreen
-                              ? "bg-gradient-to-t from-green-500 to-green-400"
-                              : "bg-gradient-to-t from-red-500 to-red-400"
-                          } rounded-sm`}
-                          style={{
-                            height: `${candle.height * 0.8}px`,
+                          key={`h-${i}`}
+                          className="absolute left-0 right-0 h-px bg-cyan-400"
+                          style={{ top: `${(i + 1) * 20}%` }}
+                          animate={{ opacity: [0.3, 0.7, 0.3] }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            delay: i * 0.3,
                           }}
-                          animate={{
-                            scaleY: [1, 1.05, 1],
-                            opacity: [0.9, 1, 0.9],
+                        />
+                      ))}
+                      {[...Array(6)].map((_, i) => (
+                        <motion.div
+                          key={`v-${i}`}
+                          className="absolute top-0 bottom-0 w-px bg-cyan-400"
+                          style={{ left: `${(i + 1) * 15}%` }}
+                          animate={{ opacity: [0.3, 0.7, 0.3] }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            delay: i * 0.2,
                           }}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Floating Orbs */}
+                    <motion.div
+                      className="absolute top-10 right-10 w-32 h-32 rounded-full bg-cyan-400/10 blur-3xl"
+                      animate={{
+                        scale: [1, 1.2, 1],
+                        opacity: [0.3, 0.5, 0.3],
+                      }}
+                      transition={{ duration: 4, repeat: Infinity }}
+                    />
+                    <motion.div
+                      className="absolute bottom-10 left-10 w-40 h-40 rounded-full bg-purple-400/10 blur-3xl"
+                      animate={{
+                        scale: [1, 1.3, 1],
+                        opacity: [0.3, 0.5, 0.3],
+                      }}
+                      transition={{ duration: 5, repeat: Infinity, delay: 1 }}
+                    />
+
+                    {/* Chart Header */}
+                    <div className="relative flex items-center justify-between mb-4 z-10">
+                      <div className="flex items-center gap-2">
+                        <motion.div
+                          animate={{ rotate: [0, 360] }}
                           transition={{
                             duration: 3,
                             repeat: Infinity,
-                            delay: candle.delay,
+                            ease: "linear",
                           }}
-                        />
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  {/* AI Indicator */}
-                  <motion.div
-                    className="absolute bottom-4 left-4 px-3 py-1.5 rounded-lg bg-cyan-500/20 border border-cyan-400/30 backdrop-blur-sm"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 2, duration: 0.5 }}
-                  >
-                    <div className="flex items-center gap-2">
-                      <motion.div
-                        className="w-1.5 h-1.5 rounded-full bg-cyan-400"
-                        animate={{ opacity: [1, 0.3, 1] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                      />
-                      <span className="text-cyan-400 text-[10px] font-bold">
-                        AI: BULLISH
-                      </span>
+                        >
+                          <BarChart3 className="w-4 h-4 text-cyan-400" />
+                        </motion.div>
+                        <div>
+                          <div className="text-white font-bold text-sm lg:text-base">
+                            BTC/USD
+                          </div>
+                          <div className="text-gray-400 text-[10px]">
+                            Real-time
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <motion.div
+                          className="text-lg lg:text-xl font-black text-white"
+                          animate={{ scale: [1, 1.05, 1] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        >
+                          $67,432
+                        </motion.div>
+                        <motion.div
+                          className="text-green-400 text-xs font-semibold flex items-center justify-end gap-1"
+                          animate={{ opacity: [0.7, 1, 0.7] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        >
+                          <TrendingUp className="w-3 h-3" />
+                          +3.24%
+                        </motion.div>
+                      </div>
                     </div>
-                  </motion.div>
+
+                    {/* Mini Candlesticks */}
+                    <div className="absolute inset-x-4 lg:inset-x-6 bottom-16 top-20 flex items-end justify-between gap-[2px] z-10">
+                      {chartElements.candlesticks.slice(0, 30).map((candle) => (
+                        <motion.div
+                          key={candle.id}
+                          className="relative flex flex-col items-center justify-end flex-1"
+                          initial={{ scaleY: 0, opacity: 0 }}
+                          animate={{ scaleY: 1, opacity: 1 }}
+                          transition={{
+                            delay: candle.delay,
+                            duration: 0.5,
+                            ease: "easeOut",
+                          }}
+                        >
+                          {/* Simplified candle for mini view */}
+                          <motion.div
+                            className={`w-full ${
+                              candle.isGreen
+                                ? "bg-gradient-to-t from-green-500 to-green-400"
+                                : "bg-gradient-to-t from-red-500 to-red-400"
+                            } rounded-sm`}
+                            style={{
+                              height: `${candle.height * 0.8}px`,
+                            }}
+                            animate={{
+                              scaleY: [1, 1.05, 1],
+                              opacity: [0.9, 1, 0.9],
+                            }}
+                            transition={{
+                              duration: 3,
+                              repeat: Infinity,
+                              delay: candle.delay,
+                            }}
+                          />
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    {/* AI Indicator with Pulse */}
+                    <motion.div
+                      className="absolute bottom-4 left-4 px-3 py-1.5 rounded-lg bg-cyan-500/20 border border-cyan-400/30 backdrop-blur-sm z-10"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                        boxShadow: [
+                          "0 0 20px rgba(6, 182, 212, 0.3)",
+                          "0 0 30px rgba(6, 182, 212, 0.6)",
+                          "0 0 20px rgba(6, 182, 212, 0.3)",
+                        ],
+                      }}
+                      transition={{
+                        opacity: { delay: 2, duration: 0.5 },
+                        y: { delay: 2, duration: 0.5 },
+                        boxShadow: { duration: 2, repeat: Infinity },
+                      }}
+                    >
+                      <div className="flex items-center gap-2">
+                        <motion.div
+                          className="w-1.5 h-1.5 rounded-full bg-cyan-400"
+                          animate={{
+                            opacity: [1, 0.3, 1],
+                            scale: [1, 1.3, 1],
+                            boxShadow: [
+                              "0 0 5px rgba(6, 182, 212, 0.5)",
+                              "0 0 15px rgba(6, 182, 212, 0.8)",
+                              "0 0 5px rgba(6, 182, 212, 0.5)",
+                            ],
+                          }}
+                          transition={{ duration: 1.5, repeat: Infinity }}
+                        />
+                        <span className="text-cyan-400 text-[10px] font-bold">
+                          AI: BULLISH
+                        </span>
+                      </div>
+                    </motion.div>
+
+                    {/* Data Points Overlay */}
+                    <motion.div
+                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-cyan-400/20 font-mono text-xs font-bold z-0"
+                      animate={{ opacity: [0.1, 0.3, 0.1] }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                    >
+                      LIVE DATA
+                    </motion.div>
+                  </div>
                 </div>
               </motion.div>
             </div>
           </div>
         </div>
 
-        {/* BOTTOM - Heartbeat Candlestick Chart (Full Width) */}
+        {/* BOTTOM - Heartbeat Candlestick Chart (Full Width) - NO PULSE ON DESKTOP */}
         <motion.div
           className="relative w-full bg-gradient-to-t from-black/90 via-black/50 to-transparent backdrop-blur-sm border-t border-white/5"
           initial={{ opacity: 0, y: 50 }}
@@ -388,13 +531,9 @@ export default function AlshyamHeroSection() {
                   LIVE MARKET PULSE
                 </span>
               </div>
-              <motion.div
-                className="text-gray-400 font-mono text-[10px] sm:text-xs"
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
+              <div className="text-gray-400 font-mono text-[10px] sm:text-xs">
                 REAL-TIME DATA
-              </motion.div>
+              </div>
             </div>
 
             {/* Heartbeat Candlestick Display */}
@@ -416,10 +555,10 @@ export default function AlshyamHeroSection() {
                     className={`w-[2px] ${
                       candle.isGreen ? "bg-green-400/70" : "bg-red-400/70"
                     }`}
-                    style={{ height: `${candle.wickTop}px` }}
+                    style={{ height: `${candle.wickTop.toFixed(2)}px` }}
                   />
 
-                  {/* Candle Body - Heartbeat Animation */}
+                  {/* Candle Body - Heartbeat Animation (Mobile/Tablet Only) */}
                   <motion.div
                     className={`w-full ${
                       candle.isGreen
@@ -427,14 +566,28 @@ export default function AlshyamHeroSection() {
                         : "bg-gradient-to-t from-red-500 to-red-400"
                     } rounded-sm`}
                     style={{
-                      height: `${candle.height}px`,
+                      height: `${candle.height.toFixed(2)}px`,
                       boxShadow: candle.isGreen
                         ? "0 0 10px rgba(34, 197, 94, 0.3)"
                         : "0 0 10px rgba(239, 68, 68, 0.3)",
                     }}
                     animate={{
-                      scaleY: [1, 1.15, 0.95, 1.08, 1],
-                      opacity: [0.9, 1, 0.85, 1, 0.9],
+                      // No animation on desktop, heartbeat on mobile/tablet
+                      scaleY: 1,
+                      opacity: 0.9,
+                    }}
+                    whileInView={{
+                      // Only animate when in viewport
+                      scaleY:
+                        typeof window !== "undefined" &&
+                        window.innerWidth < 1024
+                          ? [1, 1.15, 0.95, 1.08, 1]
+                          : 1,
+                      opacity:
+                        typeof window !== "undefined" &&
+                        window.innerWidth < 1024
+                          ? [0.9, 1, 0.85, 1, 0.9]
+                          : 0.9,
                     }}
                     transition={{
                       duration: 2,
@@ -449,7 +602,7 @@ export default function AlshyamHeroSection() {
                     className={`w-[2px] ${
                       candle.isGreen ? "bg-green-400/70" : "bg-red-400/70"
                     }`}
-                    style={{ height: `${candle.wickBottom}px` }}
+                    style={{ height: `${candle.wickBottom.toFixed(2)}px` }}
                   />
                 </motion.div>
               ))}
