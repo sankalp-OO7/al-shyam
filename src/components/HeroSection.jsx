@@ -337,7 +337,7 @@ export default function AlshyamHeroSection() {
 
                   {/* Rotating Border Gradient */}
                   <motion.div
-                    className="absolute -inset-[2px] rounded-2xl opacity-60 blur-sm"
+                    className="absolute -inset-[2px] rounded-2xl opacity-60 blur-sm w-[50%]"
                     style={{
                       background:
                         "conic-gradient(from 0deg, #06b6d4, #3b82f6, #8b5cf6, #06b6d4)",
