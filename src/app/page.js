@@ -1,20 +1,22 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 
-// Existing component imports
+// --- Component Imports ---
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
-// import AboutUs from "@/components/AboutUs";
-// import Projects from "@/components/Projects";
-// import Career from "@/components/Gallery"; // NOTE: Original import was 'Career' but component is 'Gallery'
-// import ContactUs from "@/components/ContactUs";
-// import Services from "@/components/Services";
-// NEW Import for the separated component
 import LoadingOverlay from "@/components/LoadingOverlay";
 
-// --- CONTENT Animation Variants (Kept here as they apply to the main content) ---
+// New Component Imports
+import AboutUs from "@/components/AboutUs";
+import Services from "@/components/Services";
+import Pricing from "@/components/Pricing"; // Maps to former Projects slot
+import Technology from "@/components/Technology"; // Maps to former Career/Gallery slot
+import ContactUs from "@/components/ContactUs";
+
+// --- CONTENT Animation Variants ---
 const contentFadeIn = {
   hidden: { opacity: 0 },
   visible: {
@@ -84,7 +86,6 @@ export default function Home() {
         </motion.section>
 
         <main>
-          {/* All other sections follow the same pattern */}
           <motion.section
             id="hero"
             variants={sectionSlideIn}
@@ -94,7 +95,8 @@ export default function Home() {
           >
             <HeroSection />
           </motion.section>
-          {/* <motion.section
+
+          <motion.section
             id="about-us"
             variants={sectionSlideIn}
             initial="hidden"
@@ -103,6 +105,7 @@ export default function Home() {
           >
             <AboutUs />
           </motion.section>
+
           <motion.section
             id="services"
             variants={sectionSlideIn}
@@ -112,24 +115,29 @@ export default function Home() {
           >
             <Services />
           </motion.section>
+
+          {/* Mapped former 'projects' slot to 'pricing' */}
           <motion.section
-            id="projects"
+            id="pricing"
             variants={sectionSlideIn}
             initial="hidden"
             animate={!isLoading ? "visible" : "hidden"}
             transition={!isLoading ? { delay: 1.0 } : { duration: 0 }}
           >
-            <Projects />
+            <Pricing />
           </motion.section>
+
+          {/* Mapped former 'career' slot to 'technology' */}
           <motion.section
-            id="career"
+            id="technology"
             variants={sectionSlideIn}
             initial="hidden"
             animate={!isLoading ? "visible" : "hidden"}
             transition={!isLoading ? { delay: 1.2 } : { duration: 0 }}
           >
-            <Career />
+            <Technology />
           </motion.section>
+
           <motion.section
             id="contact-us"
             variants={sectionSlideIn}
@@ -138,7 +146,7 @@ export default function Home() {
             transition={!isLoading ? { delay: 1.4 } : { duration: 0 }}
           >
             <ContactUs />
-          </motion.section> */}
+          </motion.section>
         </main>
         <Footer />
       </motion.div>

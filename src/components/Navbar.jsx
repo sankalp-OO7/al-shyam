@@ -1,20 +1,15 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 import { Menu, X, TrendingUp } from "lucide-react";
 
-// --- Nav items ---
+// --- Nav items updated with new structure ---
 const navItems = [
   { label: "About", to: "about-us" },
   { label: "Services", to: "services" },
-  { label: "Projects", to: "projects" },
-  { label: "Gallery", to: "career" },
+  { label: "Pricing", to: "pricing" }, // Updated from 'Projects'
+  { label: "Technology", to: "technology" }, // Updated from 'Gallery'
   { label: "Contact", to: "contact-us" },
 ];
 
@@ -114,6 +109,7 @@ function NavbarComponent() {
       });
     };
 
+    // Use the updated navItems for observation
     observerRef.current = new IntersectionObserver(callback, options);
     const sections = ["hero", ...navItems.map((item) => item.to)]
       .map((id) => document.getElementById(id))

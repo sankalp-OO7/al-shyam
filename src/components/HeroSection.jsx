@@ -38,7 +38,18 @@ export default function AlshyamHeroSection() {
     target: containerRef,
     offset: ["start start", "end start"],
   });
+  const handleScrollToPricing = () => {
+    // 1. Get the target element by its ID
+    const pricingSection = document.getElementById("pricing");
 
+    if (pricingSection) {
+      // 2. Use the native scrollIntoView method
+      pricingSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
   // Parallax transforms
   const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.8, 0]);
@@ -229,8 +240,9 @@ export default function AlshyamHeroSection() {
                 >
                   {/* Primary CTA */}
                   <motion.button
-                    className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full overflow-hidden"
+                    className=" cursor-pointer group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full overflow-hidden"
                     whileHover={{ scale: 1.02 }}
+                    onClick={handleScrollToPricing}
                     whileTap={{ scale: 0.98 }}
                   >
                     <motion.div
@@ -251,16 +263,23 @@ export default function AlshyamHeroSection() {
 
                   {/* Secondary CTA */}
                   <motion.button
-                    className="group px-6 sm:px-8 py-3 sm:py-4 border-2 border-white/20 rounded-full backdrop-blur-sm hover:bg-white/5 transition-all"
+                    className="group px-6 sm:px-8 py-3 sm:py-4  cursor-pointer
+                 border-2 border-cyan-400/50 rounded-full 
+                 bg-cyan-500/10 backdrop-blur-md 
+                 hover:bg-cyan-500/20 transition-all 
+                 shadow-lg shadow-cyan-900/50"
+                    // 🎯 MODIFICATION HERE: Inline function in onClick
+                    onClick={handleScrollToPricing}
                     whileHover={{
-                      scale: 1.02,
-                      borderColor: "rgba(255,255,255,0.4)",
+                      scale: 1.05,
+                      borderColor: "rgba(52, 211, 255, 0.8)",
+                      boxShadow: "0 10px 30px -5px rgba(52, 211, 255, 0.4)",
                     }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <span className="flex items-center justify-center gap-2 text-base sm:text-lg font-semibold text-white">
-                      Get Live Demo
-                      <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    <span className="flex items-center justify-center gap-3 text-base sm:text-lg font-bold text-white tracking-wide">
+                      Get Live Demo & Pricing
+                      <TrendingUp className="w-5 h-5 text-cyan-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                     </span>
                   </motion.button>
                 </motion.div>
