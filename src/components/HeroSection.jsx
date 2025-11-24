@@ -92,18 +92,30 @@ export default function AlshyamHeroSection() {
       ref={containerRef}
       className="relative w-full min-h-screen overflow-hidden bg-black"
     >
-      {/* Video Background - Fully Visible with Parallax */}
+      {/* 🎯 MODIFICATION START: Responsive Background (Image for Mobile, Video for Desktop) */}
+
+      {/* 1. Mobile-First Image Background (Visible by default, hidden on large screens) */}
+      <motion.img
+        className="absolute inset-0 w-full h-full object-cover lg:hidden"
+        src="/dubai-mobile.jpg" // The new portrait image
+        alt="Dubai skyline background"
+        style={{ y, scale }}
+      />
+
+      {/* 2. Desktop Video Background (Hidden by default, visible on large screens) */}
       <motion.video
         autoPlay
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover hidden lg:block" // Added hidden and lg:block
         src="/videos/dubai-skyline.mp4"
         style={{ y, scale }}
       >
         Your browser does not support the video tag.
       </motion.video>
+
+      {/* 🎯 MODIFICATION END */}
 
       {/* Gradient Overlays - More breathing room in center */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-black/80" />
@@ -123,7 +135,7 @@ export default function AlshyamHeroSection() {
         />
       </div>
 
-      {/* Floating Particles */}
+      {/* Floating Particles - Removed blur-3xl */}
       <div className="absolute inset-0 pointer-events-none">
         {chartElements.particles.map((particle) => (
           <motion.div
@@ -238,29 +250,6 @@ export default function AlshyamHeroSection() {
                   variants={fadeInLeft}
                   className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4"
                 >
-                  {/* Primary CTA */}
-                  <motion.button
-                    className=" cursor-pointer group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full overflow-hidden"
-                    whileHover={{ scale: 1.02 }}
-                    onClick={handleScrollToPricing}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -skew-x-12"
-                      animate={{ x: ["-200%", "200%"] }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                    />
-
-                    <span className="relative flex items-center justify-center gap-2 text-base sm:text-lg font-bold text-white">
-                      Start Trading Now
-                      <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
-                    </span>
-                  </motion.button>
-
                   {/* Secondary CTA */}
                   <motion.button
                     className="group px-6 sm:px-8 py-3 sm:py-4  cursor-pointer
@@ -319,9 +308,9 @@ export default function AlshyamHeroSection() {
                 }}
                 style={{ y: useTransform(scrollYProgress, [0, 1], [0, -100]) }}
               >
-                {/* Animated Border Glow Container */}
+                {/* Animated Border Glow Container (now also houses the rotating image) */}
                 <div className="relative">
-                  {/* Pulsing Border Effect */}
+                  {/* Pulsing Border Effect - stays */}
                   <motion.div
                     className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 opacity-75"
                     animate={{
@@ -335,26 +324,30 @@ export default function AlshyamHeroSection() {
                     }}
                   />
 
-                  {/* Rotating Border Gradient */}
-                  <motion.div
-                    className="absolute -inset-[2px] rounded-2xl opacity-60 blur-sm w-[50%]"
+                  {/* Rotating Image - blur-md removed */}
+                  <motion.img
+                    src="/btcusd.png" // Path to the image in the public folder
+                    alt="BTC/USD Chart Icon"
+                    // Removed blur-md here, kept opacity and positioning for the circling effect
+                    className="absolute -top-1/4 -right-1/4 w-3/4 h-3/4 object-contain opacity-40 mix-blend-screen pointer-events-none"
                     style={{
-                      background:
-                        "conic-gradient(from 0deg, #06b6d4, #3b82f6, #8b5cf6, #06b6d4)",
-                      borderRadius: "200px",
+                      // Ensure it's above the card content but maybe below some very top-level UI if any
+                      zIndex: -1, // Adjust if other elements need to be behind it
                     }}
                     animate={{
                       rotate: [0, 360],
+                      x: ["-10%", "10%", "-10%"], // Slight horizontal movement
+                      y: ["-5%", "5%", "-5%"], // Slight vertical movement
                     }}
                     transition={{
-                      duration: 8,
+                      duration: 16, // Smoother, slower rotation
                       repeat: Infinity,
                       ease: "linear",
                     }}
                   />
 
-                  {/* Main Card */}
-                  <div className="relative h-64 lg:h-80 rounded-2xl bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-xl border border-white/20 p-4 lg:p-6 shadow-2xl overflow-hidden">
+                  {/* Main Card - Removed backdrop-blur-xl */}
+                  <div className="relative h-64 lg:h-80 rounded-2xl bg-gradient-to-br from-black/90 to-black/70 border border-white/20 p-4 lg:p-6 shadow-2xl overflow-hidden z-10">
                     {/* Animated Grid Lines Background */}
                     <div className="absolute inset-0 opacity-10">
                       {[...Array(4)].map((_, i) => (
@@ -385,9 +378,9 @@ export default function AlshyamHeroSection() {
                       ))}
                     </div>
 
-                    {/* Floating Orbs */}
+                    {/* Floating Orbs - Removed blur-3xl */}
                     <motion.div
-                      className="absolute top-10 right-10 w-32 h-32 rounded-full bg-cyan-400/10 blur-3xl"
+                      className="absolute top-10 right-10 w-32 h-32 rounded-full bg-cyan-400/10"
                       animate={{
                         scale: [1, 1.2, 1],
                         opacity: [0.3, 0.5, 0.3],
@@ -395,7 +388,7 @@ export default function AlshyamHeroSection() {
                       transition={{ duration: 4, repeat: Infinity }}
                     />
                     <motion.div
-                      className="absolute bottom-10 left-10 w-40 h-40 rounded-full bg-purple-400/10 blur-3xl"
+                      className="absolute bottom-10 left-10 w-40 h-40 rounded-full bg-purple-400/10"
                       animate={{
                         scale: [1, 1.3, 1],
                         opacity: [0.3, 0.5, 0.3],
@@ -483,10 +476,10 @@ export default function AlshyamHeroSection() {
                       </div>
                     </motion.div>
 
-                    {/* Data Points Overlay */}
+                    {/* Data Points Overlay - Increased opacity and z-index */}
                     <motion.div
-                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-cyan-400/20 font-mono text-xs font-bold z-0"
-                      animate={{ opacity: [0.1, 0.3, 0.1] }}
+                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-cyan-400/70 font-mono text-xs font-bold z-20"
+                      animate={{ opacity: [0.4, 0.7, 0.4] }}
                       transition={{ duration: 3, repeat: Infinity }}
                     >
                       LIVE DATA
