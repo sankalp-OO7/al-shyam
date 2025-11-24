@@ -1,4 +1,3 @@
-// components/Pricing.jsx
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
@@ -16,7 +15,6 @@ import {
   GitMerge,
   Award,
   ThumbsUp,
-  ThumbsDown,
   Info,
 } from "lucide-react";
 
@@ -236,7 +234,7 @@ const PricingCard = ({
   riskLevel,
   rewardLevel,
   pros,
-  cons,
+  // 'cons' is no longer used in rendering but kept in props for completeness
 }) => {
   const isRecommended = riskReward === "Balanced";
   return (
@@ -246,7 +244,9 @@ const PricingCard = ({
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
-      className={`relative p-5 sm:p-6 rounded-xl shadow-2xl transition-all duration-500 h-full flex flex-col justify-between
+      // Added w-full, max-w-lg, and min-w-[300px] (inherited from user request) for uniform card width/size on all screen sizes.
+      // min-h-[700px] maintains vertical uniformity.
+      className={`relative p-5 sm:p-6 rounded-xl shadow-2xl transition-all duration-500 h-full w-full max-w-lg min-w-[300px] mx-auto flex flex-col justify-between min-h-[700px]
                   ${
                     isRecommended
                       ? "bg-gray-800/90 border-2 border-cyan-500 shadow-cyan-900/70 z-20"
@@ -297,40 +297,27 @@ const PricingCard = ({
         {/* Risk/Reward Visualizations */}
         <RiskRewardMeter riskLevel={riskLevel} rewardLevel={rewardLevel} />
 
-        {/* Price */}
+        {/* Price (Simplified - Removed "Full License Required") */}
         <div className="my-4 border-b border-gray-700 pb-4">
-          <p className="text-2xl font-extrabold text-white">
-            Full License Required
-          </p>
-          <p className="text-gray-500 text-sm mt-1">
-            Billed Annually (Starting $600)
+          <p className="text-3xl font-extrabold text-white">
+            $600{" "}
+            <span className="text-gray-500 text-sm font-medium">
+              / Billed Annually
+            </span>
           </p>
         </div>
 
-        {/* Pros and Cons */}
-        <div className="flex space-x-4 mb-6 pt-2">
-          <div className="flex-1">
+        {/* Pros (Cons removed, Pros takes full width) */}
+        <div className="mb-6 pt-2">
+          <div>
             <p className="text-sm font-bold text-green-400 flex items-center mb-1">
-              <ThumbsUp className="w-4 h-4 mr-1" /> Goods (Pros)
+              <ThumbsUp className="w-4 h-4 mr-1" /> Pros
             </p>
             <ul className="space-y-1">
               {pros.slice(0, 2).map((p, i) => (
                 <li key={i} className="text-xs text-gray-300 flex items-start">
                   <span className="text-green-500 mr-2 flex-shrink-0">•</span>
                   {p}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="flex-1">
-            <p className="text-sm font-bold text-red-400 flex items-center mb-1">
-              <ThumbsDown className="w-4 h-4 mr-1" /> Bads (Cons)
-            </p>
-            <ul className="space-y-1">
-              {cons.slice(0, 2).map((c, i) => (
-                <li key={i} className="text-xs text-gray-300 flex items-start">
-                  <span className="text-red-500 mr-2 flex-shrink-0">•</span>
-                  {c}
                 </li>
               ))}
             </ul>
@@ -402,14 +389,14 @@ export default function Pricing() {
           </span>
         </motion.h2>
 
-        {/* General Pricing Heading */}
+        {/* General Pricing Heading - FONT SIZE INCREASED */}
         <motion.h3
           variants={sectionHeaderVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
-          className="text-4xl font-extrabold text-white text-center mb-2"
+          className="text-5xl lg:text-6xl font-extrabold text-white text-center mb-4 tracking-tight"
         >
           <span className="text-white">600 DOLLER YEARLY MEMBERSHIP</span>
         </motion.h3>
@@ -509,7 +496,7 @@ export default function Pricing() {
               <div className="text-5xl font-black text-violet-400 mb-4">3</div>
               <Zap className="w-10 h-10 text-violet-400 mx-auto mb-3" />
               <h4 className="text-xl font-bold text-white mb-3">
-                Activate & Trade
+                Start with 10-Day Free Trial
               </h4>
               <p className="text-gray-400 mb-4 text-sm">
                 Install the Expert Advisor file with your license key to start
@@ -520,11 +507,12 @@ export default function Pricing() {
                 className="inline-flex items-center justify-center w-full py-2 text-sm font-semibold rounded-lg text-white bg-gradient-to-r from-violet-500 to-fuchsia-600 shadow-md hover:from-violet-600 hover:to-fuchsia-700 transition-all"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() =>
+                onClick={(e) => {
+                  e.preventDefault();
                   document
-                    .getElementById("contact")
-                    .scrollIntoView({ behavior: "smooth" })
-                }
+                    .getElementById("license-tiers")
+                    .scrollIntoView({ behavior: "smooth" });
+                }}
               >
                 <Shield className="w-4 h-4 mr-2" />
                 Start Your Jorney
@@ -532,56 +520,6 @@ export default function Pricing() {
             </motion.div>
           </div>
         </div>
-
-        {/* Free Trial Information Section (Not a card) */}
-        <motion.div
-          variants={sectionHeaderVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          className="max-w-4xl mx-auto mb-16 p-8 rounded-2xl bg-gradient-to-br from-green-900/20 to-emerald-900/20 border-2 border-green-500/30"
-        >
-          <div className="flex items-start space-x-4">
-            <Info className="w-8 h-8 text-green-400 flex-shrink-0 mt-1" />
-            <div>
-              <h3 className="text-2xl font-bold text-green-400 mb-3">
-                🚀 Start Your Journey with a 10-Day Free Trial
-              </h3>
-              <p className="text-gray-300 text-lg mb-4">
-                Experience the full power of SHAMSGS AI with our comprehensive
-                10-day free trial. Test all features, view AI sentiment data,
-                and simulate trades on a demo account before committing to a
-                paid license.
-              </p>
-              <div className="grid md:grid-cols-2 gap-4 mb-6">
-                <div className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-300 text-sm">
-                    Full Feature Access for 10 Days
-                  </span>
-                </div>
-                <div className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-300 text-sm">
-                    View AI Sentiment & Data
-                  </span>
-                </div>
-                <div className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-300 text-sm">
-                    Test on Demo Account (Simulated)
-                  </span>
-                </div>
-                <div className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span className="text-gray-300 text-sm">
-                    Basic Email Support
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
 
         {/* Pricing Tiers - Reordered */}
         <div id="license-tiers">
