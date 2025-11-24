@@ -335,7 +335,7 @@ export default function AlshyamHeroSection() {
                       zIndex: -1, // Adjust if other elements need to be behind it
                     }}
                     animate={{
-                      rotate: [0, 360],
+                      rotate: [360, 0],
                       x: ["-10%", "10%", "-10%"], // Slight horizontal movement
                       y: ["-5%", "5%", "-5%"], // Slight vertical movement
                     }}
