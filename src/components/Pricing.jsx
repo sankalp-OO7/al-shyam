@@ -366,7 +366,7 @@ const PricingCard = ({
             e.preventDefault();
           }}
         >
-          <span className="relative z-10 text-base">Get Started</span>
+          <span className="relative z-10 text-base">Get Live Demo</span>
         </motion.a>
       </div>
     </motion.div>
@@ -527,7 +527,7 @@ export default function Pricing() {
                 }
               >
                 <Shield className="w-4 h-4 mr-2" />
-                Get Deployment Help
+                Start Your Jorney
               </motion.a>
             </motion.div>
           </div>
@@ -579,14 +579,6 @@ export default function Pricing() {
                   </span>
                 </div>
               </div>
-              <motion.a
-                href="#contact"
-                className="inline-flex items-center justify-center px-8 py-3 text-base font-bold rounded-lg text-gray-900 bg-gradient-to-r from-green-400 to-emerald-500 shadow-lg hover:from-green-500 hover:to-emerald-600 transition-all"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Start 10-Day Free Trial
-              </motion.a>
             </div>
           </div>
         </motion.div>
