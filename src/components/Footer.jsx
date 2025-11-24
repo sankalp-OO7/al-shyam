@@ -16,7 +16,7 @@ const navItems = [
 // --- Company & Contact Info (Consistent Data) ---
 const companyInfo = {
   shortName: "SHAMSGS",
-  fullName: "AL-Shams AI",
+  fullName: "Shams Global System",
   mission:
     "Empowering traders worldwide with automation tools that simplify trading and maximize performance in the dynamic world of Forex.",
   email: "shamsgs.work@gmail.com",
