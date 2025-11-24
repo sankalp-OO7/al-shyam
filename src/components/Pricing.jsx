@@ -9,15 +9,15 @@ import {
   Shield,
   DollarSign,
   CheckCircle,
-  Eye,
   TrendingUp,
   TrendingDown,
   Scale,
   Target,
   GitMerge,
   Award,
-  ThumbsUp, // Pro/Good Icon
-  ThumbsDown, // Con/Bad Icon
+  ThumbsUp,
+  ThumbsDown,
+  Info,
 } from "lucide-react";
 
 // --- Animation Variants ---
@@ -44,27 +44,27 @@ const stepVariants = {
   }),
 };
 
-// --- Data Structure with Risk/Reward Levels, Pros, and Cons ---
+// --- Data Structure for Paid Tiers (Reordered) ---
 const pricingTiers = [
   {
-    title: "Viewer (Free Trial)",
-    duration: "Data Only / 10 Days",
-    gradient: "from-gray-700 to-gray-800",
-    riskReward: "N/A",
-    isFree: true,
-    riskLevel: 1,
-    rewardLevel: 1,
+    title: "FAST Mode",
+    duration: "High Risk / High Reward",
+    gradient: "from-red-500 to-orange-500",
+    riskReward: "High Risk / High Reward",
+    isFree: false,
+    riskLevel: 5,
+    rewardLevel: 5,
     pros: [
-      "10-Day Full Demo Access",
-      "View AI Sentiment & Data",
-      "Test on Demo Account",
+      "Highest Potential Returns",
+      "Aggressive, High-Frequency Trading",
+      "Premium 24/7 Support",
     ],
-    cons: ["No Live Trading License", "Basic Email Support Only"],
+    cons: ["High Drawdown Risk", "High Volatility Tolerance"],
     features: [
-      "No Live Trading License",
-      "Basic Email Support",
-      "Full Feature Access for 10 Days",
-      "Test on Demo Account (Simulated)",
+      "1 Live Account License",
+      "Aggressive Trading Strategy",
+      "Weekly Optimization Check",
+      "High Volatility Tolerance",
     ],
   },
   {
@@ -110,24 +110,45 @@ const pricingTiers = [
     ],
   },
   {
-    title: "FAST Mode",
-    duration: "High Risk / High Reward",
-    gradient: "from-red-500 to-orange-500",
-    riskReward: "High Risk / High Reward",
+    title: "HEADING Mode",
+    duration: "Specialized Trading Market Work",
+    gradient: "from-yellow-500 to-orange-600",
+    riskReward: "Specialized",
     isFree: false,
-    riskLevel: 5,
-    rewardLevel: 5,
+    riskLevel: 4,
+    rewardLevel: 3,
     pros: [
-      "Highest Potential Returns",
-      "Aggressive, High-Frequency Trading",
-      "Premium 24/7 Support",
+      "AI for Specific Market Events",
+      "Focus on High-Impact News",
+      "Specialized Event Trading",
     ],
-    cons: ["High Drawdown Risk", "High Volatility Tolerance"],
+    cons: ["Less Frequent Trades", "Requires Careful Monitoring"],
     features: [
       "1 Live Account License",
-      "Aggressive Trading Strategy",
-      "Weekly Optimization Check",
-      "High Volatility Tolerance",
+      "AI designed for specific market events",
+      "Dedicated Account Manager",
+      "Exclusive Strategy Insights",
+    ],
+  },
+  {
+    title: "ADVANCE HEADGE Mode",
+    duration: "Trading & Fast Movements",
+    gradient: "from-violet-600 to-fuchsia-600",
+    riskReward: "Specialized",
+    isFree: false,
+    riskLevel: 5,
+    rewardLevel: 4,
+    pros: [
+      "Advanced Hedging Techniques",
+      "Full Risk Customization",
+      "Optimized for quick market shifts",
+    ],
+    cons: ["Complex Setup", "Maximum Risk Exposure"],
+    features: [
+      "1 Live Account License",
+      "Advanced Hedging Techniques",
+      "Full Risk Management Customization",
+      "Free AI Optimization Session (Yearly)",
     ],
   },
   {
@@ -151,53 +172,10 @@ const pricingTiers = [
       "Low Spread Broker Priority",
     ],
   },
-  {
-    title: "HEADING Mode",
-    duration: "Specialized Trading Market Work",
-    gradient: "from-yellow-500 to-orange-600",
-    riskReward: "Specialized",
-    isFree: false,
-    riskLevel: 4,
-    rewardLevel: 3,
-    pros: [
-      "AI for Specific Market Events",
-      "Focus on High-Impact News",
-      "2 Live Account Licenses",
-    ],
-    cons: ["Less Frequent Trades", "Requires Careful Monitoring"],
-    features: [
-      "2 Live Account Licenses",
-      "AI designed for specific market events",
-      "Dedicated Account Manager",
-      "Exclusive Strategy Insights",
-    ],
-  },
-  {
-    title: "ADVANCE HEADGE Mode",
-    duration: "Trading & Fast Movements",
-    gradient: "from-violet-600 to-fuchsia-600",
-    riskReward: "Specialized",
-    isFree: false,
-    riskLevel: 5,
-    rewardLevel: 4,
-    pros: [
-      "Advanced Hedging Techniques",
-      "Full Risk Customization",
-      "Optimized for quick market shifts",
-    ],
-    cons: ["Complex Setup", "Maximum Risk Exposure"],
-    features: [
-      "2 Live Account Licenses",
-      "Advanced Hedging Techniques",
-      "Full Risk Management Customization",
-      "Free AI Optimization Session (Yearly)",
-    ],
-  },
 ];
 
 // --- Sub-Component for Risk/Reward Visualization ---
 const RiskRewardMeter = ({ riskLevel, rewardLevel }) => {
-  // Risk/Reward is on a 1-5 scale. Meter has 5 segments.
   const getLevelColor = (level) => {
     if (level === 5) return "bg-red-500";
     if (level === 4) return "bg-orange-500";
@@ -254,7 +232,6 @@ const PricingCard = ({
   features,
   gradient,
   riskReward,
-  isFree,
   customDelay,
   riskLevel,
   rewardLevel,
@@ -272,8 +249,8 @@ const PricingCard = ({
       className={`relative p-5 sm:p-6 rounded-xl shadow-2xl transition-all duration-500 h-full flex flex-col justify-between
                   ${
                     isRecommended
-                      ? "bg-gray-800/90 border-4 border-cyan-500 shadow-cyan-900/70 transform scale-105 z-20" // Highlighted
-                      : "bg-gray-900/80 border border-gray-700/50 hover:border-violet-500/50 z-10" // Default
+                      ? "bg-gray-800/90 border-2 border-cyan-500 shadow-cyan-900/70 z-20"
+                      : "bg-gray-900/80 border border-gray-700/50 hover:border-violet-500/50 z-10"
                   }
                   hover:shadow-xl group overflow-hidden`}
     >
@@ -288,13 +265,8 @@ const PricingCard = ({
           HIGH REWARD
         </div>
       )}
-      {isFree && (
-        <div className="absolute top-0 right-0 px-4 py-1 bg-green-500 text-gray-900 font-bold rounded-bl-lg text-xs tracking-wider">
-          FREE 10 DAYS
-        </div>
-      )}
 
-      {/* Gradient Background Effect - Subtler use */}
+      {/* Gradient Background Effect */}
       <div
         className={`absolute inset-0 bg-gradient-to-tr ${gradient} opacity-5 group-hover:opacity-10 transition-opacity duration-300`}
       />
@@ -319,48 +291,35 @@ const PricingCard = ({
           {riskReward === "Scalping" && (
             <Target className="w-4 h-4 mr-1 text-purple-500" />
           )}
-          {riskReward === "N/A" && (
-            <Eye className="w-4 h-4 mr-1 text-gray-500" />
-          )}
           {duration}
         </p>
 
-        {/* --- Risk/Reward Visualizations --- */}
-        {!isFree && (
-          <RiskRewardMeter riskLevel={riskLevel} rewardLevel={rewardLevel} />
-        )}
+        {/* Risk/Reward Visualizations */}
+        <RiskRewardMeter riskLevel={riskLevel} rewardLevel={rewardLevel} />
 
-        {/* 🎯 Price Placeholder */}
+        {/* Price */}
         <div className="my-4 border-b border-gray-700 pb-4">
           <p className="text-2xl font-extrabold text-white">
-            {isFree ? "Free for 10 Days" : "Full License Required"}
+            Full License Required
           </p>
           <p className="text-gray-500 text-sm mt-1">
-            {isFree ? "Full Feature Access" : "Billed Annually (Starting $600)"}
+            Billed Annually (Starting $600)
           </p>
         </div>
 
-        {/* --- Pros and Cons (Goods and Bads) --- */}
+        {/* Pros and Cons */}
         <div className="flex space-x-4 mb-6 pt-2">
           <div className="flex-1">
             <p className="text-sm font-bold text-green-400 flex items-center mb-1">
               <ThumbsUp className="w-4 h-4 mr-1" /> Goods (Pros)
             </p>
             <ul className="space-y-1">
-              {pros.slice(0, 2).map(
-                (
-                  p,
-                  i // Show top 2 pros
-                ) => (
-                  <li
-                    key={i}
-                    className="text-xs text-gray-300 flex items-start"
-                  >
-                    <span className="text-green-500 mr-2 flex-shrink-0">•</span>
-                    {p}
-                  </li>
-                )
-              )}
+              {pros.slice(0, 2).map((p, i) => (
+                <li key={i} className="text-xs text-gray-300 flex items-start">
+                  <span className="text-green-500 mr-2 flex-shrink-0">•</span>
+                  {p}
+                </li>
+              ))}
             </ul>
           </div>
           <div className="flex-1">
@@ -368,60 +327,46 @@ const PricingCard = ({
               <ThumbsDown className="w-4 h-4 mr-1" /> Bads (Cons)
             </p>
             <ul className="space-y-1">
-              {cons.slice(0, 2).map(
-                (
-                  c,
-                  i // Show top 2 cons
-                ) => (
-                  <li
-                    key={i}
-                    className="text-xs text-gray-300 flex items-start"
-                  >
-                    <span className="text-red-500 mr-2 flex-shrink-0">•</span>
-                    {c}
-                  </li>
-                )
-              )}
+              {cons.slice(0, 2).map((c, i) => (
+                <li key={i} className="text-xs text-gray-300 flex items-start">
+                  <span className="text-red-500 mr-2 flex-shrink-0">•</span>
+                  {c}
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
-        {/* Features List (Less emphasis now) */}
+        {/* Features List */}
         <p className="text-sm font-bold text-white mt-4 mb-3">Key Features:</p>
         <ul className="space-y-3 text-gray-300 mb-8 flex-grow">
           {features.map((feature, index) => (
             <li key={index} className="flex items-start">
-              <CheckCircle
-                className={`w-4 h-4 mt-1 mr-3 flex-shrink-0 ${
-                  !isFree ? "text-cyan-400" : "text-gray-500"
-                }`}
-              />
+              <CheckCircle className="w-4 h-4 mt-1 mr-3 flex-shrink-0 text-cyan-400" />
               <span className="text-xs">{feature}</span>
             </li>
           ))}
         </ul>
 
+        {/* Fill space */}
+        <div className="flex-grow min-h-[1rem]"></div>
+
         {/* Action Button */}
         <motion.a
-          href={isFree ? "#contact" : "#"}
+          href="#contact"
           className={`w-full py-3 font-bold rounded-lg shadow-lg relative overflow-hidden transition-all duration-300 flex items-center justify-center text-lg
                       ${
-                        isFree
-                          ? "bg-gray-700 border border-gray-600 text-gray-400 hover:bg-gray-600"
-                          : isRecommended
+                        isRecommended
                           ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-cyan-500/50 hover:shadow-lg"
                           : "bg-gray-700/70 border border-blue-500/30 text-white hover:bg-gray-600"
                       }`}
-          whileHover={!isFree ? { scale: 1.02, y: -1 } : { scale: 1.01 }}
+          whileHover={{ scale: 1.02, y: -1 }}
           whileTap={{ scale: 0.98 }}
           onClick={(e) => {
             e.preventDefault();
-            // Placeholder for actual checkout/payment logic
           }}
         >
-          <span className="relative z-10 text-base">
-            {isFree ? "Start 10-Day Demo" : "Get Started"}
-          </span>
+          <span className="relative z-10 text-base">Get Started</span>
         </motion.a>
       </div>
     </motion.div>
@@ -430,15 +375,6 @@ const PricingCard = ({
 
 // --- Main Component ---
 export default function Pricing() {
-  // Custom class for centering the last item in a 3-column grid when total items is 7
-  const getGridClass = (index, total) => {
-    // 7 items: indices 0-2 (row 1), 3-5 (row 2), 6 (row 3, centered)
-    if (total === 7 && index === total - 1) {
-      return "lg:col-start-2";
-    }
-    return "";
-  };
-
   return (
     <section
       id="pricing"
@@ -453,7 +389,7 @@ export default function Pricing() {
       />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-        {/* --- Header --- */}
+        {/* Header */}
         <motion.h2
           variants={sectionHeaderVariants}
           initial="hidden"
@@ -466,7 +402,7 @@ export default function Pricing() {
           </span>
         </motion.h2>
 
-        {/* 🎯 GENERAL PRICING HEADING */}
+        {/* General Pricing Heading */}
         <motion.h3
           variants={sectionHeaderVariants}
           initial="hidden"
@@ -487,15 +423,11 @@ export default function Pricing() {
           className="text-center text-xl text-gray-400 max-w-4xl mx-auto mb-12 font-light"
         >
           Select the AI Mode that matches your risk tolerance and trading
-          frequency. All paid licenses start at $600 / Year.
+          frequency. All licenses start at $600 / Year.
         </motion.p>
 
-        {/* -------------------------------------------------------------------------------- */}
-        {/* --- STEP-BY-STEP SETUP GUIDE (NOW AT TOP) --- */}
-        {/* -------------------------------------------------------------------------------- */}
+        {/* Step-by-Step Setup Guide */}
         <div className="mb-20">
-          {" "}
-          {/* Added mb-20 for separation from tiers */}
           <h3 className="text-3xl font-bold mb-12 text-white text-center">
             Your 3-Step Automation Setup
           </h3>
@@ -601,25 +533,72 @@ export default function Pricing() {
           </div>
         </div>
 
-        {/* -------------------------------------------------------------------------------- */}
-        {/* --- PRICING TIERS --- */}
-        {/* -------------------------------------------------------------------------------- */}
+        {/* Free Trial Information Section (Not a card) */}
+        <motion.div
+          variants={sectionHeaderVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          className="max-w-4xl mx-auto mb-16 p-8 rounded-2xl bg-gradient-to-br from-green-900/20 to-emerald-900/20 border-2 border-green-500/30"
+        >
+          <div className="flex items-start space-x-4">
+            <Info className="w-8 h-8 text-green-400 flex-shrink-0 mt-1" />
+            <div>
+              <h3 className="text-2xl font-bold text-green-400 mb-3">
+                🚀 Start Your Journey with a 10-Day Free Trial
+              </h3>
+              <p className="text-gray-300 text-lg mb-4">
+                Experience the full power of SHAMSGS AI with our comprehensive
+                10-day free trial. Test all features, view AI sentiment data,
+                and simulate trades on a demo account before committing to a
+                paid license.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 mb-6">
+                <div className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                  <span className="text-gray-300 text-sm">
+                    Full Feature Access for 10 Days
+                  </span>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                  <span className="text-gray-300 text-sm">
+                    View AI Sentiment & Data
+                  </span>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                  <span className="text-gray-300 text-sm">
+                    Test on Demo Account (Simulated)
+                  </span>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                  <span className="text-gray-300 text-sm">
+                    Basic Email Support
+                  </span>
+                </div>
+              </div>
+              <motion.a
+                href="#contact"
+                className="inline-flex items-center justify-center px-8 py-3 text-base font-bold rounded-lg text-gray-900 bg-gradient-to-r from-green-400 to-emerald-500 shadow-lg hover:from-green-500 hover:to-emerald-600 transition-all"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Start 10-Day Free Trial
+              </motion.a>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Pricing Tiers - Reordered */}
         <div id="license-tiers">
           <h3 className="text-4xl font-bold mb-12 text-white text-center">
             SHAMSGS AI License Modes
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {pricingTiers.map((tier, index) => (
-              <div
-                key={tier.title}
-                className={`flex ${getGridClass(index, pricingTiers.length)}`}
-                // Apply visual offset to the recommended card
-                style={
-                  tier.riskReward === "Balanced"
-                    ? { marginTop: "-1rem", marginBottom: "-1rem" }
-                    : {}
-                }
-              >
+              <div key={tier.title} className="flex">
                 <PricingCard {...tier} customDelay={index * 0.1} />
               </div>
             ))}

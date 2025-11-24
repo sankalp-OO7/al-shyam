@@ -362,8 +362,8 @@ const InteractiveMap = ({ isInView }) => {
 
 // Quick Contact Form Component
 const QuickContactForm = ({ isInView }) => {
-  // 🎯 UPDATED WHATSAPP NUMBER
-  const whatsappNumber = "918262871626";
+  // 🎯 UPDATED WHATSAPP NUMBER TO +971 58 635 4242 (971586354242)
+  const whatsappNumber = "971586354242";
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -521,13 +521,14 @@ export default function ContactSection() {
     }
   };
 
-  // 🎯 UPDATED CONTACT METHODS
+  // 🎯 UPDATED CONTACT METHODS - WhatsApp number is now +971 58 635 4242
   const contactMethods = [
     {
       icon: MessageSquare,
       title: "WhatsApp & Call",
-      value: "+91 82628 71626",
-      action: () => window.open("https://wa.me/918262871626", "_blank"),
+
+      value: "+971 58 635 4242", // Updated value
+      action: () => window.open("https://wa.me/971586354242", "_blank"), // Updated action link
       gradient: "from-green-500 to-emerald-600",
       delay: 0.2,
     },
