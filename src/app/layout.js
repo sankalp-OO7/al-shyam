@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   // Enhanced Primary Meta Tags for Better SEO
-  title: "Al-Sham",
+  title: "Shamsgs",
   description:
     "Jindam Elevations - Premier ACP Panel Installation, Glass Glazing & Exterior Elevation contractors in Nanded, Maharashtra. 10+ years experience serving Marathwada region. Expert Aluminium Composite Panel work, Structural Glazing, Building Facade design. Best rates guaranteed. Call +91-9637894561 for free quote.",
 

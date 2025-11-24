@@ -2,6 +2,7 @@
 "use client";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronRight, TrendingUp, Activity, BarChart3 } from "lucide-react";
+import Chart from "./Chart.jsx";
 import { useMemo, useRef } from "react";
 
 // Smooth entrance animations
@@ -258,7 +259,7 @@ export default function AlshyamHeroSection() {
                     whileTap={{ scale: 0.98 }}
                   >
                     <span className="flex items-center justify-center gap-2 text-base sm:text-lg font-semibold text-white">
-                      Watch Demo
+                      Get Live Demo
                       <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </span>
                   </motion.button>
@@ -289,7 +290,7 @@ export default function AlshyamHeroSection() {
 
               {/* RIGHT SIDE - Mini Chart Preview with Parallax & Pulsing Border */}
               <motion.div
-                className="hidden md:block lg:col-span-5"
+                className="  md:block lg:col-span-5"
                 initial={{ opacity: 0, x: 60 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{
@@ -316,11 +317,12 @@ export default function AlshyamHeroSection() {
                   />
 
                   {/* Rotating Border Gradient */}
-                  {/* <motion.div
+                  <motion.div
                     className="absolute -inset-[2px] rounded-2xl opacity-60 blur-sm"
                     style={{
                       background:
                         "conic-gradient(from 0deg, #06b6d4, #3b82f6, #8b5cf6, #06b6d4)",
+                      borderRadius: "200px",
                     }}
                     animate={{
                       rotate: [0, 360],
@@ -330,7 +332,7 @@ export default function AlshyamHeroSection() {
                       repeat: Infinity,
                       ease: "linear",
                     }}
-                  /> */}
+                  />
 
                   {/* Main Card */}
                   <div className="relative h-64 lg:h-80 rounded-2xl bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-xl border border-white/20 p-4 lg:p-6 shadow-2xl overflow-hidden">
@@ -383,45 +385,7 @@ export default function AlshyamHeroSection() {
                     />
 
                     {/* Chart Header */}
-                    <div className="relative flex items-center justify-between mb-4 z-10">
-                      <div className="flex items-center gap-2">
-                        <motion.div
-                          animate={{ rotate: [0, 360] }}
-                          transition={{
-                            duration: 3,
-                            repeat: Infinity,
-                            ease: "linear",
-                          }}
-                        >
-                          <BarChart3 className="w-4 h-4 text-cyan-400" />
-                        </motion.div>
-                        <div>
-                          <div className="text-white font-bold text-sm lg:text-base">
-                            BTC/USD
-                          </div>
-                          <div className="text-gray-400 text-[10px]">
-                            Real-time
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <motion.div
-                          className="text-lg lg:text-xl font-black text-white"
-                          animate={{ scale: [1, 1.05, 1] }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                        >
-                          $67,432
-                        </motion.div>
-                        <motion.div
-                          className="text-green-400 text-xs font-semibold flex items-center justify-end gap-1"
-                          animate={{ opacity: [0.7, 1, 0.7] }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                        >
-                          <TrendingUp className="w-3 h-3" />
-                          +3.24%
-                        </motion.div>
-                      </div>
-                    </div>
+                    <Chart />
 
                     {/* Mini Candlesticks */}
                     <div className="absolute inset-x-4 lg:inset-x-6 bottom-16 top-20 flex items-end justify-between gap-[2px] z-10">
@@ -516,99 +480,6 @@ export default function AlshyamHeroSection() {
         </div>
 
         {/* BOTTOM - Heartbeat Candlestick Chart (Full Width) - NO PULSE ON DESKTOP */}
-        <motion.div
-          className="relative w-full bg-gradient-to-t from-black/90 via-black/50 to-transparent backdrop-blur-sm border-t border-white/5"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 1 }}
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
-            {/* Chart Label */}
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <BarChart3 className="w-4 h-4 text-cyan-400" />
-                <span className="text-cyan-400 font-mono text-xs sm:text-sm">
-                  LIVE MARKET PULSE
-                </span>
-              </div>
-              <div className="text-gray-400 font-mono text-[10px] sm:text-xs">
-                REAL-TIME DATA
-              </div>
-            </div>
-
-            {/* Heartbeat Candlestick Display */}
-            <div className="relative h-32 sm:h-40 lg:h-48 flex items-end justify-between gap-[1px] sm:gap-[2px]">
-              {chartElements.candlesticks.map((candle) => (
-                <motion.div
-                  key={candle.id}
-                  className="relative flex flex-col items-center justify-end flex-1"
-                  initial={{ scaleY: 0, opacity: 0 }}
-                  animate={{ scaleY: 1, opacity: 1 }}
-                  transition={{
-                    delay: candle.delay,
-                    duration: 0.5,
-                    ease: "easeOut",
-                  }}
-                >
-                  {/* Top Wick */}
-                  <div
-                    className={`w-[2px] ${
-                      candle.isGreen ? "bg-green-400/70" : "bg-red-400/70"
-                    }`}
-                    style={{ height: `${candle.wickTop.toFixed(2)}px` }}
-                  />
-
-                  {/* Candle Body - Heartbeat Animation (Mobile/Tablet Only) */}
-                  <motion.div
-                    className={`w-full ${
-                      candle.isGreen
-                        ? "bg-gradient-to-t from-green-500 to-green-400"
-                        : "bg-gradient-to-t from-red-500 to-red-400"
-                    } rounded-sm`}
-                    style={{
-                      height: `${candle.height.toFixed(2)}px`,
-                      boxShadow: candle.isGreen
-                        ? "0 0 10px rgba(34, 197, 94, 0.3)"
-                        : "0 0 10px rgba(239, 68, 68, 0.3)",
-                    }}
-                    animate={{
-                      // No animation on desktop, heartbeat on mobile/tablet
-                      scaleY: 1,
-                      opacity: 0.9,
-                    }}
-                    whileInView={{
-                      // Only animate when in viewport
-                      scaleY:
-                        typeof window !== "undefined" &&
-                        window.innerWidth < 1024
-                          ? [1, 1.15, 0.95, 1.08, 1]
-                          : 1,
-                      opacity:
-                        typeof window !== "undefined" &&
-                        window.innerWidth < 1024
-                          ? [0.9, 1, 0.85, 1, 0.9]
-                          : 0.9,
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      delay: candle.delay,
-                      ease: "easeInOut",
-                    }}
-                  />
-
-                  {/* Bottom Wick */}
-                  <div
-                    className={`w-[2px] ${
-                      candle.isGreen ? "bg-green-400/70" : "bg-red-400/70"
-                    }`}
-                    style={{ height: `${candle.wickBottom.toFixed(2)}px` }}
-                  />
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
 
         {/* Status Bar (Mobile: Bottom fixed, Desktop: Absolute) */}
         <motion.div

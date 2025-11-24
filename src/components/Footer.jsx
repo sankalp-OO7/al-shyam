@@ -121,7 +121,7 @@ export default function Footer() {
           className="text-white text-lg md:text-xl font-semibold tracking-wide"
           variants={copyrightVariants}
         >
-          © {currentYear} Alsham. All rights reserved.
+          © {currentYear} SHAMSGS. All rights reserved.
         </motion.span>
 
         {/* Subtle Separator Line - Changed to a vibrant blue for effect */}
