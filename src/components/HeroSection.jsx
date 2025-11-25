@@ -97,12 +97,6 @@ export default function AlshyamHeroSection() {
       {/* 🎯 MODIFICATION START: Responsive Background (Image for Mobile, Video for Desktop) */}
 
       {/* 1. Mobile-First Image Background (Visible by default, hidden on large screens) */}
-      <motion.img
-        className="absolute inset-0 w-full h-full object-cover lg:hidden"
-        src="/dubai-mobile.jpg" // The new portrait image
-        alt="Dubai skyline background"
-        style={{ y, scale }}
-      />
 
       {/* 2. Desktop Video Background (Hidden by default, visible on large screens) */}
       <motion.video
@@ -110,7 +104,7 @@ export default function AlshyamHeroSection() {
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover hidden lg:block" // Added hidden and lg:block
+        className="absolute inset-0 w-full h-full object-cover   lg:block" // Added hidden and lg:block
         src="/videos/dubai-skyline.mp4"
         style={{ y, scale }}
       >
