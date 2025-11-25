@@ -1,9 +1,10 @@
+// components/ChatBotWidget.js
 import { useState, useRef, useEffect } from "react";
 import {
   MessageSquare,
   X,
   Send,
-  Bot,
+  Bot, // Used for both the chat window and the FAB
   User,
   TrendingUp,
   Zap,
@@ -50,7 +51,7 @@ export default function ChatBotWidget() {
         "license",
       ],
       response:
-        "💰 **Shams AI License Pricing**\n\nAll AI modes are priced at **$600/year** (billed annually) with a **10-day free trial** to test before you commit!\n\n**What's Included:**\n✅ 1 Live Account License\n✅ 24/7 Elite Technical Support\n✅ All Software Updates\n✅ Risk Management Tools\n✅ Performance Analytics\n\n**6 Available Trading Modes:**\n\n🔥 **FAST Mode** - High Risk (5/5) / High Reward (5/5)\nAggressive high-frequency trading for maximum returns\n\n🛡️ **SLOW Mode** - Low Risk (2/5) / Steady Growth (2/5)\nConservative strategy with minimal drawdown\n\n⭐ **MODERATE Mode** - Balanced (3/5) Risk/Reward\nRecommended for most traders, optimized consistency\n\n📰 **HEADING Mode** - Event-Based (4/5 Risk)\nSpecialized for high-impact news and market events\n\n🔀 **ADVANCE HEDGE Mode** - Advanced (5/5 Risk)\nSophisticated hedging with full customization\n\n⚡ **SCALPING Mode** - Fast Trades (4/5 Risk)\nHigh-precision 15-minute ultra-fast strategy\n\n**Special Offers:**\n• 10-Day Free Trial (No Credit Card)\n• Money-Back Guarantee Available\n• All modes same price: $600/year\n\nWhich trading style matches your goals?",
+        "💰 **Shams AI License Pricing**\n\nAll AI modes are priced at **$600/year** (billed annually) with a **10-day free trial** to test before you commit!\n\n**What's Included:**\n✅ 1 Live Account License\n✅ 24/7 Elite Technical Support\n✅ All Software Updates\n✅ Risk Management Tools\n✅ Performance Analytics\n\n**6 Available Trading Modes:**\n\n🔥 **FAST Mode** - High Risk (5/5) / High Reward (5/5)\nAggressive high-frequency trading for maximum returns\n\n🛡️ **SLOW Mode** - Low Risk (2/5) / Steady Growth (2/5)\nConservative strategy with minimal drawdown\n\n⭐ **MODERATE Mode** - Balanced (3/5) Risk/Reward\nRecommended for most traders, optimized consistency\n\n📰 **HEADING Mode** - Event-Based (4/5 Risk)\nSpecialized for high-impact news and market events\n\n🔀 **ADVANCE HEDGE Mode** - Advanced (5/5 Risk)\nSophisticated hedging with full customization\n\n⚡ **SCALPING Mode** - Fast Trades (4/5 Risk)\nHigh-precision 15-minute ultra-fast strategy\n\n**All modes: $600/year • 10-day free trial**\n\nWhich trading style matches your goals?",
     },
     modes: {
       keywords: [
@@ -407,7 +408,7 @@ export default function ChatBotWidget() {
           >
             {/* Header */}
             <div className="relative p-4 bg-gradient-to-r from-cyan-600 via-blue-600 to-cyan-600 text-white shadow-lg overflow-hidden">
-              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-20"></div>
+              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybjBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-20"></div>
               <div className="relative flex justify-between items-center">
                 <div className="flex items-center gap-3">
                   <div className="relative">
@@ -519,7 +520,8 @@ export default function ChatBotWidget() {
           {isOpen ? (
             <X className="w-7 h-7 relative z-10" />
           ) : (
-            <MessageSquare className="w-7 h-7 relative z-10" />
+            // Swapped MessageSquare with Bot icon
+            <Bot className="w-7 h-7 relative z-10 animate-pulse-slow" />
           )}
         </motion.div>
 
@@ -536,6 +538,24 @@ export default function ChatBotWidget() {
       </motion.button>
 
       <style jsx>{`
+        /* Custom Keyframe for a slower pulse than the default Tailwind 'animate-ping' */
+        @keyframes pulse-slow {
+          0%,
+          100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.9;
+            transform: scale(1.05);
+          }
+        }
+
+        /* Apply the custom animation to the Bot icon when chat is closed */
+        .animate-pulse-slow {
+          animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
         .custom-scrollbar::-webkit-scrollbar {
           width: 6px;
         }

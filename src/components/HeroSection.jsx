@@ -256,7 +256,7 @@ export default function AlshyamHeroSection() {
                   <motion.button
                     className="group px-6 sm:px-8 py-3 sm:py-4  cursor-pointer
                  border-2 border-cyan-400/50 rounded-full 
-                 bg-cyan-500/10 backdrop-blur-md 
+                 bg-cyan-500/50 backdrop-blur-md text-cyan-400 font-semibold 
                  hover:bg-cyan-500/20 transition-all 
                  shadow-lg shadow-cyan-900/50"
                     // 🎯 MODIFICATION HERE: Inline function in onClick
