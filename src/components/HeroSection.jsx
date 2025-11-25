@@ -118,8 +118,8 @@ export default function AlshyamHeroSection() {
       {/* 🎯 MODIFICATION END */}
 
       {/* Gradient Overlays - More breathing room in center */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-black/80" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90" />
+      {/* <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-black/80" /> */}
+      {/* <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90" /> */}
 
       {/* Subtle Grid */}
       <div className="absolute inset-0 opacity-[0.02]">

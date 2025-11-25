@@ -20,7 +20,7 @@ const companyInfo = {
   mission:
     "Empowering traders worldwide with automation tools that simplify trading and maximize performance in the dynamic world of Forex.",
   email: "shamsgs.work@gmail.com",
-  phone: "+91 82628 71626",
+  phone: "+971 58 635 4242",
   address: "Dubai, United Arab Emirates (Headquarters)",
 };
 
