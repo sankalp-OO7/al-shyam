@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronRight, TrendingUp, Activity, BarChart3 } from "lucide-react";
 import Chart from "./Chart.jsx";
 import { useMemo, useRef } from "react";
+import ChatBot from "components/ChatBot.jsx";
 
 // Smooth entrance animations
 const fadeInUp = {
@@ -92,6 +93,7 @@ export default function AlshyamHeroSection() {
       ref={containerRef}
       className="relative w-full min-h-screen overflow-hidden bg-black"
     >
+      <ChatBot />
       {/* 🎯 MODIFICATION START: Responsive Background (Image for Mobile, Video for Desktop) */}
 
       {/* 1. Mobile-First Image Background (Visible by default, hidden on large screens) */}

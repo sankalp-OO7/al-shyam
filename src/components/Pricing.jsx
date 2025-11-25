@@ -1,3 +1,5 @@
+// components/Pricing.js
+
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
@@ -17,6 +19,10 @@ import {
   ThumbsUp,
   Info,
 } from "lucide-react";
+
+// --- Deep Link Constant ---
+const MT5_FAST_MODE_LINK =
+  "metatrader5://account?credentials=I71QMRMHmCrjQokaBGMz3uvFijOQbuiwkgHwTwiblIvVoCYMNsDB9NaJTFjtua9WJw==";
 
 // --- Animation Variants ---
 const sectionHeaderVariants = {
@@ -234,9 +240,23 @@ const PricingCard = ({
   riskLevel,
   rewardLevel,
   pros,
-  // 'cons' is no longer used in rendering but kept in props for completeness
+  // Added the MT5 link prop
+  mt5Link,
 }) => {
   const isRecommended = riskReward === "Balanced";
+  const isFastMode = title === "FAST Mode";
+
+  // Determine the primary button link based on the card title
+  const primaryLink = isFastMode ? mt5Link : "#contact";
+  const primaryButtonText = isFastMode
+    ? "Start Trading (Fast Login)"
+    : "Get Live Demo";
+
+  // Use a generic button style if not fast mode, or the aggressive red if it is
+  const primaryButtonStyle = isFastMode
+    ? "bg-gradient-to-r from-red-600 to-orange-600 text-white shadow-red-500/50 hover:shadow-lg hover:from-red-700 hover:to-orange-700"
+    : "bg-gray-700/70 border border-blue-500/30 text-white hover:bg-gray-600";
+
   return (
     <motion.div
       custom={customDelay}
@@ -244,7 +264,6 @@ const PricingCard = ({
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
-      // Added w-full, max-w-lg, and min-w-[300px] (inherited from user request) for uniform card width/size on all screen sizes.
       // min-h-[700px] maintains vertical uniformity.
       className={`relative p-5 sm:p-6 rounded-xl shadow-2xl transition-all duration-500 h-full w-full max-w-lg min-w-[300px] mx-auto flex flex-col justify-between min-h-[700px]
                   ${
@@ -260,7 +279,7 @@ const PricingCard = ({
           <Award className="w-3 h-3 mr-1" /> RECOMMENDED
         </div>
       )}
-      {riskReward === "High Risk / High Reward" && (
+      {isFastMode && (
         <div className="absolute top-0 right-0 px-4 py-1 bg-red-600 text-white font-bold rounded-bl-lg text-xs tracking-wider">
           HIGH REWARD
         </div>
@@ -276,9 +295,7 @@ const PricingCard = ({
 
         {/* Duration/Risk Tag */}
         <p className="text-gray-400 text-sm mb-6 flex items-center font-medium">
-          {riskReward === "High Risk / High Reward" && (
-            <TrendingUp className="w-4 h-4 mr-1 text-red-500" />
-          )}
+          {isFastMode && <TrendingUp className="w-4 h-4 mr-1 text-red-500" />}
           {riskReward === "Low Risk / Low Reward" && (
             <TrendingDown className="w-4 h-4 mr-1 text-green-500" />
           )}
@@ -339,22 +356,39 @@ const PricingCard = ({
         <div className="flex-grow min-h-[1rem]"></div>
 
         {/* Action Button */}
+        {/* FAST Mode gets a unique link and style, others remain generic */}
         <motion.a
-          href="#contact"
+          href={primaryLink}
+          // The MT5 link should open in the same tab to launch the app
+          target={isFastMode ? "_self" : "_self"}
           className={`w-full py-3 font-bold rounded-lg shadow-lg relative overflow-hidden transition-all duration-300 flex items-center justify-center text-lg
                       ${
                         isRecommended
                           ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-cyan-500/50 hover:shadow-lg"
-                          : "bg-gray-700/70 border border-blue-500/30 text-white hover:bg-gray-600"
+                          : primaryButtonStyle
                       }`}
           whileHover={{ scale: 1.02, y: -1 }}
           whileTap={{ scale: 0.98 }}
-          onClick={(e) => {
-            e.preventDefault();
-          }}
         >
-          <span className="relative z-10 text-base">Get Live Demo</span>
+          <span className="relative z-10 text-base">{primaryButtonText}</span>
         </motion.a>
+
+        {/* Secondary button for all other modes if needed, but keeping it simple for now */}
+        {!isFastMode && (
+          <motion.a
+            href="#contact"
+            className={`w-full py-3 mt-2 font-bold rounded-lg shadow-lg relative overflow-hidden transition-all duration-300 flex items-center justify-center text-lg
+                      ${
+                        isRecommended
+                          ? "bg-gray-700/70 border border-blue-500/30 text-white hover:bg-gray-600"
+                          : "bg-gray-700/70 border border-blue-500/30 text-white hover:bg-gray-600"
+                      }`}
+            whileHover={{ scale: 1.02, y: -1 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <span className="relative z-10 text-base">Contact for Support</span>
+          </motion.a>
+        )}
       </div>
     </motion.div>
   );
@@ -529,7 +563,14 @@ export default function Pricing() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {pricingTiers.map((tier, index) => (
               <div key={tier.title} className="flex">
-                <PricingCard {...tier} customDelay={index * 0.1} />
+                <PricingCard
+                  {...tier}
+                  customDelay={index * 0.1}
+                  // Pass the MT5 link only to the FAST Mode card
+                  mt5Link={
+                    tier.title === "FAST Mode" ? MT5_FAST_MODE_LINK : null
+                  }
+                />
               </div>
             ))}
           </div>
