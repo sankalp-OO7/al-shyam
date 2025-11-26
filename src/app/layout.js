@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+// Assuming you still want to use Geist fonts
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -13,28 +14,29 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+// --- UPDATED METADATA FOR SHAMS GLOBAL SYSTEM ---
 export const metadata = {
   // Enhanced Primary Meta Tags for Better SEO
-  title: "Shamsgs",
+  title: "Shams Global System | AI-Powered Automated Forex Trading Robots",
   description:
-    "Jindam Elevations - Premier ACP Panel Installation, Glass Glazing & Exterior Elevation contractors in Nanded, Maharashtra. 10+ years experience serving Marathwada region. Expert Aluminium Composite Panel work, Structural Glazing, Building Facade design. Best rates guaranteed. Call +91-9637894561 for free quote.",
+    "Shams Global System offers advanced, autonomous trading AI (Expert Advisors) for the Forex market. Execute trades with hyper-speed, emotion-free precision. Based in Dubai, UAE. Start your 10-Day Free Trial. License starts at $600/Year.",
 
-  // Comprehensive Keywords for Indian Local SEO
+  // Comprehensive Keywords for Global Trading SEO
   keywords:
-    "Jindam Elevations Nanded, Best ACP Panel Contractors Nanded, Glass Glazing Services Nanded Maharashtra, Exterior Elevation Design Nanded, Aluminium Composite Panel Work Nanded, ACP Cladding Contractors Maharashtra, Professional Building Facade Nanded, Shop Front Elevation Nanded, Structural Glazing Nanded, ACP Sheet Installation Nanded, Glass Work Contractors Nanded, Exterior Paneling Services Nanded, Commercial Building Elevation Nanded, Residential Elevation Design Nanded, ACP Panel Price Nanded, Glass Glazing Cost Nanded, Top Exterior Design Company Maharashtra, Modern Building Renovation Nanded, Contemporary Elevation Design Nanded, ACP Panel Fixing Services Nanded, Curtain Wall Glazing Nanded, Composite Panel Work Nanded, Building Exterior Contractors Nanded, Architecture Elevation Services Nanded, ACP Work Near Me Nanded, Glass Facade Design Nanded, Elevation Contractors Marathwada Region, ACP Panel Dealers Nanded, Glass Glazing Services Maharashtra, Exterior Wall Cladding Nanded, Building Modernization Services Nanded, ACP Panel Installation Cost Nanded, Commercial Glazing Contractors Nanded, Residential ACP Work Nanded, Exterior Renovation Specialists Nanded, Modern Glass Work Nanded, Premium ACP Paneling Nanded, Professional Elevation Contractors Maharashtra, Building Facade Experts Nanded, Quality Glass Glazing Nanded, Trusted ACP Panel Services Nanded, Marathwada ACP Contractors, Nanded Glass Work Specialists, Top Elevation Design Company Maharashtra, नांदेड मध्ये एसीपी पॅनेलिंग, काच काम नांदेड, बाह्य सजावट सेवा नांदेड, एसीपी पत्रे काम नांदेड, काच झाकण काम नांदेड, बिल्डिंग एलिव्हेशन नांदेड, दुकान समोरील डिझाइन नांदेड, व्यावसायिक बांधकाम नांदेड, आधुनिक इमारत डिझाइन नांदेड",
+    "Shams Global System, Automated Trading AI, Forex Trading Robot, Expert Advisor MT4 MT5, MQL4 MQL5 Development, Algorithmic Trading Dubai, Autonomous Forex Trading, Trading AI License, High Frequency Trading, Forex EA, Custom Trading Bots, ShamsGS, Earn while sleeping, MT5 Expert Advisor, Trading Automation, Forex Signal Provider, Best Trading AI, Trading Algorithm Optimization, Dubai Financial Services",
 
   // Author and Publisher Information
-  author: "Jindam Elevations",
-  publisher: "Jindam Elevations Nanded",
+  author: "Shams Global System",
+  publisher: "Shams Global System Dubai",
 
-  // Geo-targeting for Indian Market
-  "geo.region": "IN-MH",
-  "geo.placename": "Nanded, Maharashtra, India",
-  "geo.position": "19.1383;77.3210",
-  ICBM: "19.1383, 77.3210",
+  // Geo-targeting for UAE Market
+  "geo.region": "AE-DU",
+  "geo.placename": "Dubai, UAE",
+  "geo.position": "25.2048;55.2708",
+  ICBM: "25.2048, 55.2708",
 
   // Language and Content Specifications
-  "content-language": "en-IN, hi-IN, mr-IN",
+  "content-language": "en-US, ar-AE",
 
   // Enhanced Robots Configuration
   robots: {
@@ -59,22 +61,22 @@ export const metadata = {
     },
   },
 
-  // Enhanced Open Graph using existing banner.png
+  // Enhanced Open Graph using existing banner.png (assuming this is your main graphic)
   openGraph: {
     title:
-      "Jindam Elevations | Top ACP Panel & Glass Glazing Experts in Nanded, Maharashtra",
+      "Shams Global System | AI Forex Trading Bots & Expert Advisor Development",
     description:
-      "Premier ACP Panel Installation, Glass Glazing & Exterior Elevation services in Nanded, Maharashtra. 900+ projects completed across Marathwada region. Expert contractors for commercial & residential buildings. Best prices guaranteed in Maharashtra!",
-    url: "https://jindam-elevations.vercel.app/",
+      "Precision automation for Forex trading. Shams Global System provides MQL4/MQL5 Expert Advisors for hyper-speed, 24/7, emotion-free execution. Based in Dubai, UAE.",
+    url: "https://shamsgs.com/", // Assuming shamsgs.com will be the final domain
     type: "website",
-    locale: "en_IN",
-    siteName: "Jindam Elevations - ACP & Glazing Specialists",
+    locale: "en_US",
+    siteName: "Shams Global System - Trading AI",
     images: [
       {
-        url: "https://jindam-elevations.vercel.app/banner.png",
+        url: "/banner.png", // Use relative path if the image is in /public
         width: 1200,
         height: 630,
-        alt: "Jindam Elevations: Leading ACP Panel & Glass Glazing Contractors in Nanded, Maharashtra - Best Exterior Design Services",
+        alt: "Shams Global System: AI-Powered Trading Robot - Forex Expert Advisor",
         type: "image/png",
       },
     ],
@@ -83,16 +85,15 @@ export const metadata = {
   // Enhanced Twitter Card using existing banner.png
   twitter: {
     card: "summary_large_image",
-    site: "@JindamElevations",
-    creator: "@JindamElevations",
-    title:
-      "Jindam Elevations | Best ACP Panel & Glass Glazing in Nanded, Maharashtra",
+    site: "@ShamsGlobalSys", // Placeholder, use your actual handle
+    creator: "@ShamsGlobalSys",
+    title: "AI Forex Trading Robots | Shams Global System",
     description:
-      "Top-rated ACP Panel Installation & Glass Glazing services in Nanded. 10+ years experience, 900+ completed projects. Professional exterior elevation contractors in Maharashtra.",
+      "Maximize performance in Forex with our autonomous Expert Advisors. Custom MQL4/MQL5 development services available. Start your 10-Day Free Trial.",
     images: [
       {
-        url: "https://jindam-elevations.vercel.app/banner.png",
-        alt: "Jindam Elevations: Professional ACP & Glass Glazing Contractors in Nanded, Maharashtra",
+        url: "/banner.png",
+        alt: "Shams Global System: Trading Precision and Automation",
         width: 1200,
         height: 630,
       },
@@ -102,27 +103,25 @@ export const metadata = {
   // Using existing favicons
   icons: {
     icon: "/favicon.ico",
-    apple: "/banner.png",
+    apple: "/banner.png", // Or a dedicated Apple touch icon
   },
 
   // Additional Meta Tags for Enhanced SEO (no external assets required)
   other: {
     // Business Information
-    "business.hours":
-      "Monday-Saturday: 9:00 AM - 7:00 PM, Sunday: 10:00 AM - 5:00 PM",
-    "business.contact_data.street_address":
-      "Near Lokmanya Mangal Karyalay, Samrat Nagar, Annabhau Sathe Chowk",
-    "business.contact_data.locality": "Nanded",
-    "business.contact_data.region": "Maharashtra",
-    "business.contact_data.postal_code": "431602",
-    "business.contact_data.country_name": "India",
-    "business.contact_data.phone_number": "+91-9637894561",
+    "business.hours": "24/7 - Automated Trading Systems",
+    "business.contact_data.street_address": "The Metropolis Tower",
+    "business.contact_data.locality": "Dubai",
+    "business.contact_data.region": "Dubai",
+    "business.contact_data.postal_code": "N/A",
+    "business.contact_data.country_name": "UAE",
+    "business.contact_data.phone_number": "+971 58 635 4242",
 
     // Mobile and Performance
     "mobile-web-app-capable": "yes",
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
-    "apple-mobile-web-app-title": "Jindam Elevations",
+    "apple-mobile-web-app-title": "Shams Global System",
 
     // Content Classification
     rating: "general",
@@ -136,31 +135,25 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en-IN" dir="ltr">
+    <html lang="en" dir="ltr">
       <head>
-        {/* Canonical URL */}
-        <link rel="canonical" href="https://jindam-elevations.vercel.app/" />
+        {/* Canonical URL - IMPORTANT: This should be your final domain */}
+        <link rel="canonical" href="https://shamsgs.com/" />
 
-        {/* Alternate Language Versions */}
+        {/* Alternate Language Versions (If applicable, you mentioned Arabic content) */}
+        <link rel="alternate" hrefLang="en-US" href="https://shamsgs.com/" />
+        {/* You may want to add an Arabic alternate if you have an Arabic version */}
+        {/*
         <link
           rel="alternate"
-          hrefLang="en-IN"
-          href="https://jindam-elevations.vercel.app/"
+          hrefLang="ar-AE"
+          href="https://shamsgs.com/ar"
         />
-        <link
-          rel="alternate"
-          hrefLang="hi-IN"
-          href="https://jindam-elevations.vercel.app/"
-        />
-        <link
-          rel="alternate"
-          hrefLang="mr-IN"
-          href="https://jindam-elevations.vercel.app/"
-        />
+        */}
         <link
           rel="alternate"
           hrefLang="x-default"
-          href="https://jindam-elevations.vercel.app/"
+          href="https://shamsgs.com/"
         />
 
         {/* Performance Optimization */}
@@ -194,291 +187,155 @@ export default function RootLayout({ children }) {
           {children}
         </main>
 
-        {/* Comprehensive Schema.org Structured Data - No External Assets Required */}
+        {/* Comprehensive Schema.org Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify([
-              // Enhanced Local Business Schema
-              {
-                "@context": "https://schema.org",
-                "@type": "LocalBusiness",
-                "@id": "https://jindam-elevations.vercel.app/#localbusiness",
-                name: "Jindam Elevations",
-                alternateName: [
-                  "Jindam Elevations Nanded",
-                  "जिंदम एलिव्हेशन्स नांदेड",
-                ],
-                description:
-                  "Jindam Elevations is Maharashtra's premier exterior design company specializing in ACP Panel Installation, Glass Glazing, Structural Glazing, and Exterior Elevation services. Based in Nanded, we serve the entire Marathwada region with over 10 years of experience and 900+ completed projects across commercial and residential sectors.",
-                image: "https://jindam-elevations.vercel.app/banner.png",
-                logo: "https://jindam-elevations.vercel.app/banner.png",
-                url: "https://jindam-elevations.vercel.app/",
-                telephone: "+91-9637894561",
-                priceRange: "₹₹₹",
-                hasMap: "https://maps.app.goo.gl/aoGykiGfxyiz83hw7", // **IMPORTANT: Replace with your ACTUAL Google Maps URL.**
-                sameAs: [
-                  "https://www.facebook.com/your-jindam-elevations-page", // Replace with actual links
-                  "https://www.instagram.com/your-jindam-elevations-page",
-                  "https://www.linkedin.com/company/your-jindam-elevations-page",
-                ],
-                paymentAccepted: [
-                  "Cash",
-                  "Credit Card",
-                  "Bank Transfer",
-                  "UPI",
-                  "Cheque",
-                  "NEFT",
-                  "RTGS",
-                ],
-                currenciesAccepted: "INR",
-                address: {
-                  "@type": "PostalAddress",
-                  streetAddress:
-                    "Near Lokmanya Mangal Karyalay, Samrat Nagar, Annabhau Sathe Chowk",
-                  addressLocality: "Nanded",
-                  addressRegion: "Maharashtra",
-                  postalCode: "431602",
-                  addressCountry: "IN",
-                },
-                geo: {
-                  "@type": "GeoCoordinates",
-                  latitude: 19.1383,
-                  longitude: 77.321,
-                },
-                openingHoursSpecification: [
-                  {
-                    "@type": "OpeningHoursSpecification",
-                    dayOfWeek: [
-                      "Monday",
-                      "Tuesday",
-                      "Wednesday",
-                      "Thursday",
-                      "Friday",
-                      "Saturday",
-                    ],
-                    opens: "09:00",
-                    closes: "19:00",
-                  },
-                  {
-                    "@type": "OpeningHoursSpecification",
-                    dayOfWeek: "Sunday",
-                    opens: "10:00",
-                    closes: "17:00",
-                  },
-                ],
-                areaServed: [
-                  {
-                    "@type": "City",
-                    name: "Nanded",
-                    addressRegion: "Maharashtra",
-                    addressCountry: "India",
-                  },
-                  {
-                    "@type": "City",
-                    name: "Aurangabad",
-                    addressRegion: "Maharashtra",
-                    addressCountry: "India",
-                  },
-                  {
-                    "@type": "City",
-                    name: "Latur",
-                    addressRegion: "Maharashtra",
-                    addressCountry: "India",
-                  },
-                  {
-                    "@type": "City",
-                    name: "Parbhani",
-                    addressRegion: "Maharashtra",
-                    addressCountry: "India",
-                  },
-                  {
-                    "@type": "City",
-                    name: "Hingoli",
-                    addressRegion: "Maharashtra",
-                    addressCountry: "India",
-                  },
-                  {
-                    "@type": "AdministrativeArea",
-                    name: "Marathwada Region",
-                    addressRegion: "Maharashtra",
-                    addressCountry: "India",
-                  },
-                ],
-                serviceArea: {
-                  "@type": "GeoCircle",
-                  geoMidpoint: {
-                    "@type": "GeoCoordinates",
-                    latitude: 19.1383,
-                    longitude: 77.321,
-                  },
-                  geoRadius: "200000",
-                },
-                aggregateRating: {
-                  "@type": "AggregateRating",
-                  ratingValue: "4.8",
-                  reviewCount: "156",
-                  bestRating: "5",
-                  worstRating: "1",
-                },
-                hasOfferCatalog: {
-                  "@type": "OfferCatalog",
-                  name: "Exterior Design Services Catalog",
-                  itemListElement: [
-                    {
-                      "@type": "Offer",
-                      itemOffered: {
-                        "@type": "Service",
-                        name: "ACP Panel Installation",
-                        description:
-                          "Professional Aluminium Composite Panel installation for commercial and residential buildings",
-                        serviceType: "Construction Service",
-                      },
-                      priceCurrency: "INR",
-                      availability: "https://schema.org/InStock",
-                    },
-                    {
-                      "@type": "Offer",
-                      itemOffered: {
-                        "@type": "Service",
-                        name: "Glass Glazing Services",
-                        description:
-                          "Complete glass glazing solutions including structural glazing and curtain wall systems",
-                        serviceType: "Construction Service",
-                      },
-                      priceCurrency: "INR",
-                      availability: "https://schema.org/InStock",
-                    },
-                    {
-                      "@type": "Offer",
-                      itemOffered: {
-                        "@type": "Service",
-                        name: "Exterior Elevation Design",
-                        description:
-                          "Custom exterior elevation design and implementation for modern building facades",
-                        serviceType: "Design Service",
-                      },
-                      priceCurrency: "INR",
-                      availability: "https://schema.org/InStock",
-                    },
-                    {
-                      "@type": "Offer",
-                      itemOffered: {
-                        "@type": "Service",
-                        name: "Building Facade Work",
-                        description:
-                          "Complete building facade solutions with modern design and premium materials",
-                        serviceType: "Construction Service",
-                      },
-                      priceCurrency: "INR",
-                      availability: "https://schema.org/InStock",
-                    },
-                  ],
-                },
-                knowsAbout: [
-                  "ACP Panel Installation",
-                  "Glass Glazing",
-                  "Exterior Elevation Design",
-                  "Structural Glazing",
-                  "Building Facade",
-                  "Curtain Wall Systems",
-                  "Composite Panel Work",
-                  "Shop Front Design",
-                  "Commercial Building Exteriors",
-                  "Residential Elevation",
-                  "Modern Architecture",
-                  "Building Renovation",
-                ],
-              },
-              // Organization Schema
+              // Enhanced Organization Schema
               {
                 "@context": "https://schema.org",
                 "@type": "Organization",
-                "@id": "https://jindam-elevations.vercel.app/#organization",
-                name: "Jindam Elevations",
-                url: "https://jindam-elevations.vercel.app/",
-                logo: "https://jindam-elevations.vercel.app/banner.png",
-                slogan: "Elevating Your Vision with Precision and Style",
-                numberOfEmployees: "25+",
-                knowsAbout: [
-                  "ACP Panel Installation",
-                  "Glass Glazing",
-                  "Exterior Elevation Design",
-                  "Structural Glazing",
-                  "Building Facade",
-                  "Curtain Wall Systems",
-                  "Composite Panel Work",
+                "@id": "https://shamsgs.com/#organization",
+                name: "Shams Global System",
+                alternateName: ["ShamsGS", "AI Trading System"],
+                url: "https://shamsgs.com/",
+                logo: "/banner.png",
+                slogan: "AI-Powered Trading Precision",
+                telephone: "+971 58 635 4242",
+                email: "shamsgs.work@gmail.com",
+                areaServed: { "@type": "Country", name: "Global" },
+                sameAs: [
+                  // IMPORTANT: Replace with your actual social media links
+                  "https://www.facebook.com/your-shamsgs-page",
+                  "https://www.instagram.com/your-shamsgs-page",
+                  "https://www.linkedin.com/company/your-shamsgs-page",
                 ],
-                areaServed: {
-                  "@type": "State",
-                  name: "Maharashtra",
-                  addressCountry: "India",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "The Metropolis Tower",
+                  addressLocality: "Dubai",
+                  addressRegion: "Dubai",
+                  postalCode: "N/A",
+                  addressCountry: "AE",
                 },
+              },
+              // Professional Service Schema (Focused on Trading AI)
+              {
+                "@context": "https://schema.org",
+                "@type": "ProfessionalService",
+                "@id": "https://shamsgs.com/#professionalservice",
+                name: "AI-Powered Forex Trading Systems Development",
+                description:
+                  "Specializing in the development, optimization, and deployment of autonomous MQL4/MQL5 Expert Advisors and custom trading bots for the Forex market.",
+                provider: {
+                  "@type": "Organization",
+                  name: "Shams Global System",
+                },
+                serviceType: "Financial Technology Service",
+                areaServed: "Global",
+                availableChannel: [
+                  {
+                    "@type": "ServiceChannel",
+                    serviceUrl: "https://shamsgs.com/contact",
+                  },
+                  {
+                    "@type": "ServiceChannel",
+                    servicePhone: "+971 58 635 4242",
+                  },
+                ],
               },
               // WebSite Schema
               {
                 "@context": "https://schema.org",
                 "@type": "WebSite",
-                "@id": "https://jindam-elevations.vercel.app/#website",
-                url: "https://jindam-elevations.vercel.app/",
-                name: "Jindam Elevations Official Website",
+                "@id": "https://shamsgs.com/#website",
+                url: "https://shamsgs.com/",
+                name: "Shams Global System Official Website",
                 description:
-                  "Official website of Jindam Elevations - Leading ACP Panel and Glass Glazing contractors in Nanded, Maharashtra serving the entire Marathwada region",
+                  "Official website of Shams Global System - Leading developer of AI-Powered Forex Expert Advisors and trading automation tools.",
                 publisher: {
                   "@type": "Organization",
-                  name: "Jindam Elevations",
+                  name: "Shams Global System",
                 },
-                inLanguage: ["en-IN", "hi-IN", "mr-IN"],
+                inLanguage: ["en", "ar"],
                 potentialAction: {
                   "@type": "SearchAction",
                   target: {
                     "@type": "EntryPoint",
-                    urlTemplate:
-                      "https://jindam-elevations.vercel.app/?q={search_term_string}",
+                    urlTemplate: "https://shamsgs.com/?q={search_term_string}",
                   },
                   "query-input": "required name=search_term_string",
                 },
               },
-              // Professional Service Schema
+              // Offer Catalog Schema (For License Modes)
               {
                 "@context": "https://schema.org",
-                "@type": "ProfessionalService",
-                "@id":
-                  "https://jindam-elevations.vercel.app/#professionalservice",
-                name: "Jindam Elevations - Professional Exterior Design Services",
+                "@type": "OfferCatalog",
+                "@id": "https://shamsgs.com/#offers",
+                name: "SHAMSGS AI License Modes",
                 description:
-                  "Professional exterior design and construction services specializing in ACP Panel work, Glass Glazing, and Building Elevation projects",
-                provider: {
-                  "@type": "LocalBusiness",
-                  name: "Jindam Elevations",
-                },
-                serviceType: "Construction and Design Services",
-                areaServed: "Maharashtra, India",
-                availableLanguage: ["English", "Hindi", "Marathi"],
-              },
-              // ContactPoint Schema
-              {
-                "@context": "https://schema.org",
-                "@type": "ContactPoint",
-                "@id": "https://jindam-elevations.vercel.app/#contactpoint",
-                telephone: "+91-9637894561",
-                contactType: "customer service",
-                areaServed: "IN",
-                availableLanguage: ["English", "Hindi", "Marathi"],
-                hoursAvailable: {
-                  "@type": "OpeningHoursSpecification",
-                  dayOfWeek: [
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                    "Saturday",
-                    "Sunday",
-                  ],
-                  opens: "09:00",
-                  closes: "20:00",
-                },
+                  "AI-Powered trading solutions with varying risk profiles.",
+                itemListElement: [
+                  // FAST Mode
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Product",
+                      name: "FAST Mode AI License",
+                      description:
+                        "High Risk / High Reward, Aggressive, High-Frequency Trading AI for Forex.",
+                    },
+                    price: "600",
+                    priceCurrency: "USD",
+                    availability: "https://schema.org/InStock",
+                    url: "https://shamsgs.com/pricing#fast",
+                    category: "Trading AI",
+                    businessFunction: "https://schema.org/Sell",
+                    validThrough: new Date(
+                      new Date().setFullYear(new Date().getFullYear() + 1)
+                    ).toISOString(),
+                  },
+                  // SLOW Mode
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Product",
+                      name: "SLOW Mode AI License",
+                      description:
+                        "Low Risk / Long-Term Growth, Conservative & Stable Strategy AI for Forex.",
+                    },
+                    price: "600",
+                    priceCurrency: "USD",
+                    availability: "https://schema.org/InStock",
+                    url: "https://shamsgs.com/pricing#slow",
+                    category: "Trading AI",
+                    businessFunction: "https://schema.org/Sell",
+                    validThrough: new Date(
+                      new Date().setFullYear(new Date().getFullYear() + 1)
+                    ).toISOString(),
+                  },
+                  // MODERATE Mode
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Product",
+                      name: "MODERATE Mode AI License",
+                      description:
+                        "Medium Risk / Balanced, Recommended, Optimized Balance Strategy AI for Forex.",
+                    },
+                    price: "600",
+                    priceCurrency: "USD",
+                    availability: "https://schema.org/InStock",
+                    url: "https://shamsgs.com/pricing#moderate",
+                    category: "Trading AI",
+                    businessFunction: "https://schema.org/Sell",
+                    validThrough: new Date(
+                      new Date().setFullYear(new Date().getFullYear() + 1)
+                    ).toISOString(),
+                  },
+                  // ... (You can add the HEADING, ADVANCE HEADGE, and SCALPING modes here as additional Offer items)
+                ],
               },
             ]),
           }}
