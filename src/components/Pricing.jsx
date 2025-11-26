@@ -378,23 +378,6 @@ const PricingCard = ({
         >
           <span className="relative z-10 text-base">{primaryButtonText}</span>
         </motion.button>
-
-        {/* Secondary button */}
-        {!isFastMode && (
-          <motion.button
-            onClick={() => onOpenPopup(title, finalLink)}
-            className={`w-full py-3 mt-2 font-bold rounded-lg shadow-lg relative overflow-hidden transition-all duration-300 flex items-center justify-center text-lg
-                      ${
-                        isRecommended
-                          ? "bg-gray-700/70 border border-blue-500/30 text-white hover:bg-gray-600"
-                          : "bg-gray-700/70 border border-blue-500/30 text-white hover:bg-gray-600"
-                      }`}
-            whileHover={{ scale: 1.02, y: -1 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <span className="relative z-10 text-base">Contact for Support</span>
-          </motion.button>
-        )}
       </div>
     </motion.div>
   );
