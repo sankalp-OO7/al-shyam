@@ -1,6 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, CheckCircle, Info, Download, Repeat, Zap } from "lucide-react";
+
+import {
+  X,
+  CheckCircle,
+  Info,
+  Download,
+  Repeat,
+  Zap,
+  ChevronDown,
+  Search,
+} from "lucide-react";
+
+// Assuming commonCountryCodes is imported correctly from "../utils/countryCode"
+import { commonCountryCodes } from "../utils/countryCode";
 
 const modalVariants = {
   hidden: { opacity: 0, scale: 0.95 },
@@ -21,37 +34,92 @@ export default function ContactFormPopup({
   link,
   modeTitle,
 }) {
+  const defaultCountryCode = "+971";
   const [name, setName] = useState("");
+  const [countryCode, setCountryCode] = useState(defaultCountryCode);
+  const [isCustomCode, setIsCustomCode] = useState(false);
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [isAgeChecked, setIsAgeChecked] = useState(false);
-  // New state for MT5 download confirmation
   const [hasDownloadedMT5, setHasDownloadedMT5] = useState(false);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // --- New States for Searchable Dropdown ---
+  const [isCountrySelectOpen, setIsCountrySelectOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const countrySelectRef = useRef(null);
+
+  // Filtered country list based on search query
+  const filteredCountryCodes = commonCountryCodes.filter(
+    (c) =>
+      c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      c.code.includes(searchQuery)
+  );
+
+  // Custom hook/function to handle clicks outside the country select
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        countrySelectRef.current &&
+        !countrySelectRef.current.contains(event.target)
+      ) {
+        setIsCountrySelectOpen(false);
+        setSearchQuery(""); // Clear search when closing
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [countrySelectRef]);
 
   // Reset form when opened or closed
   useEffect(() => {
     if (isOpen) {
       setName("");
+      setCountryCode(defaultCountryCode);
+      setIsCustomCode(false);
       setMobile("");
       setEmail("");
       setIsAgeChecked(false);
-      setHasDownloadedMT5(false); // Reset new state
+      setHasDownloadedMT5(false);
       setErrors({});
       setIsSubmitting(false);
+      setIsCountrySelectOpen(false); // Ensure dropdown is closed
+      setSearchQuery("");
     }
   }, [isOpen]);
 
-  // Basic form validation
+  // Handle selection from the search list
+  const handleCountrySelect = (code) => {
+    if (code === "custom") {
+      setIsCustomCode(true);
+      setCountryCode("");
+    } else {
+      setIsCustomCode(false);
+      setCountryCode(code);
+    }
+    setIsCountrySelectOpen(false);
+    setSearchQuery("");
+  };
+
+  // Basic form validation (kept the same)
   const validate = () => {
     let newErrors = {};
     if (!name.trim()) newErrors.name = "Name is required.";
 
+    // Validation for Country Code
+    const codeRegex = /^\+\d{1,4}$/;
+    if (!countryCode.trim() || !codeRegex.test(countryCode.trim()))
+      newErrors.countryCode = isCustomCode
+        ? "Please enter a valid code (e.g., +971)."
+        : "Country Code is required.";
+
     // Simple mobile validation: 7-15 digits
     const mobileRegex = /^\d{7,15}$/;
     if (!mobile.trim() || !mobileRegex.test(mobile.trim()))
-      newErrors.mobile = "Valid mobile number is required.";
+      newErrors.mobile = "Valid mobile number (7-15 digits) is required.";
 
     // Simple email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -60,7 +128,7 @@ export default function ContactFormPopup({
 
     if (!isAgeChecked) newErrors.age = "You must be 18+ to proceed.";
 
-    // New validation for MT5 download
+    // Validation for MT5 download
     if (!hasDownloadedMT5)
       newErrors.mt5 = "Please confirm you have downloaded MetaTrader 5 (MT5).";
 
@@ -77,15 +145,18 @@ export default function ContactFormPopup({
 
     setIsSubmitting(true);
 
+    const fullMobileNumber = `${countryCode.trim()}${mobile.trim()}`;
+
     // --- STEP 1: Process and Send Data (API call mock) ---
     console.log("Submitting Data:", {
       buttonId,
       modeTitle,
       link,
       name,
-      mobile,
+      fullMobileNumber,
+      countryCode,
       email,
-      hasDownloadedMT5, // Log new data point
+      hasDownloadedMT5,
     });
 
     // Simulate API delay for better UX
@@ -93,22 +164,25 @@ export default function ContactFormPopup({
       setIsSubmitting(false);
 
       // --- STEP 2: Close popup and Redirect ---
-      onClose(); // Close the modal first
-
-      // If the link is the special MT5 fast link, use _self to launch the app/open the deep link
-      if (modeTitle === "FAST Mode") {
-        window.location.href = link;
-      } else {
-        // For all other legitimate links, open in the same tab, as requested
-        window.open(link, "_self");
-      }
-    }, 1000); // 1 second delay
+      onClose();
+      window.open(link, "_self");
+    }, 1000);
   };
 
   if (!isOpen) return null;
 
   // Icon for the selected mode
-  const ModeIcon = modeTitle === "FAST Mode" ? Download : Repeat;
+  const ModeIcon = modeTitle === "FAST Mode" ? Zap : Repeat;
+
+  // Get the display name for the selected country code
+  const selectedCountry = commonCountryCodes.find(
+    (c) => c.code === countryCode
+  );
+  const selectedCountryName = selectedCountry
+    ? selectedCountry.name
+    : isCustomCode
+    ? countryCode
+    : "Select Code";
 
   return (
     <AnimatePresence>
@@ -126,7 +200,7 @@ export default function ContactFormPopup({
             onClick={onClose}
           />
 
-          {/* Modal Content */}
+          {/* Modal Content (Responsive: max-w-lg works well for mobile/desktop) */}
           <motion.div
             className="relative bg-gray-900 border border-cyan-500/50 rounded-xl shadow-2xl w-full max-w-lg p-6 sm:p-8 space-y-6 z-50"
             variants={modalVariants}
@@ -157,19 +231,14 @@ export default function ContactFormPopup({
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Checkboxes */}
+              {/* Checkboxes Section */}
               <div className="space-y-3 text-sm text-gray-300">
                 <div className="flex items-center">
                   <CheckCircle className="w-5 h-5 mr-3 text-green-500 flex-shrink-0" />
                   <span className="font-semibold">Mode Selected:</span>{" "}
                   {modeTitle}
                 </div>
-                <div className="flex items-center">
-                  <Download className="w-5 h-5 mr-3 text-cyan-500 flex-shrink-0" />
-                  <span className="font-semibold">Requires MT5:</span> Yes
-                </div>
-
-                {/* MT5 Download Checkbox (New) */}
+                {/* MT5 Download Checkbox */}
                 <label className="flex items-center space-x-3 cursor-pointer pt-2">
                   <input
                     type="checkbox"
@@ -186,8 +255,7 @@ export default function ContactFormPopup({
                     {errors.mt5}
                   </p>
                 )}
-
-                {/* Age Checkbox (Moved after MT5 for visual grouping) */}
+                {/* Age Checkbox */}
                 <label className="flex items-center space-x-3 cursor-pointer pt-2">
                   <input
                     type="checkbox"
@@ -222,20 +290,120 @@ export default function ContactFormPopup({
                 )}
               </div>
 
-              {/* Mobile Input */}
-              <div>
-                <input
-                  type="tel"
-                  placeholder="Mobile Number (e.g., 919876543210)"
-                  value={mobile}
-                  onChange={(e) => setMobile(e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
-                />
-                {errors.mobile && (
-                  <p className="text-red-400 text-xs italic mt-1">
-                    {errors.mobile}
-                  </p>
-                )}
+              {/* Mobile Input with Country Code Split (Searchable) */}
+              <div className="flex space-x-3">
+                {/* Country Code Input/Dropdown */}
+                <div
+                  className="w-1/3 sm:w-1/4 flex-shrink-0 relative"
+                  ref={countrySelectRef}
+                >
+                  {isCustomCode ? (
+                    // Custom Code Input Field
+                    <input
+                      type="tel"
+                      placeholder="+XX"
+                      value={countryCode}
+                      onChange={(e) =>
+                        setCountryCode(e.target.value.replace(/[^+\d]/g, ""))
+                      }
+                      className="w-full px-3 py-3 rounded-lg bg-gray-800 border border-cyan-500 text-white placeholder-gray-500 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
+                    />
+                  ) : (
+                    // Dropdown/Search Trigger
+                    <>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setIsCountrySelectOpen(!isCountrySelectOpen)
+                        }
+                        className={`w-full px-3 py-3 rounded-lg bg-gray-800 border ${
+                          errors.countryCode
+                            ? "border-red-500"
+                            : "border-gray-700"
+                        } text-left text-white placeholder-gray-500 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 flex justify-between items-center`}
+                      >
+                        <span className="truncate">{selectedCountryName}</span>
+                        <ChevronDown
+                          className={`w-4 h-4 ml-1 text-gray-400 transition-transform ${
+                            isCountrySelectOpen ? "rotate-180" : "rotate-0"
+                          }`}
+                        />
+                      </button>
+
+                      {/* Searchable Dropdown List */}
+                      <AnimatePresence>
+                        {isCountrySelectOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            className="absolute z-10 mt-1 w-[200%] sm:w-[250%] max-h-60 overflow-y-auto rounded-lg shadow-xl bg-gray-800 border border-cyan-500/50"
+                          >
+                            <div className="p-2 sticky top-0 bg-gray-800 z-20 border-b border-gray-700">
+                              <div className="relative">
+                                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                <input
+                                  type="text"
+                                  placeholder="Search country or code..."
+                                  value={searchQuery}
+                                  onChange={(e) =>
+                                    setSearchQuery(e.target.value)
+                                  }
+                                  className="w-full pl-10 pr-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 text-sm"
+                                  autoFocus
+                                />
+                              </div>
+                            </div>
+
+                            {filteredCountryCodes.length > 0 ? (
+                              filteredCountryCodes.map((c) => (
+                                <div
+                                  key={`${c.code}-${c.name}`}
+                                  onClick={() => handleCountrySelect(c.code)}
+                                  className={`px-4 py-2 cursor-pointer text-sm transition-colors ${
+                                    c.code === countryCode
+                                      ? "bg-cyan-600 text-white font-semibold"
+                                      : "text-gray-200 hover:bg-gray-700"
+                                  }`}
+                                >
+                                  {c.name}{" "}
+                                  {c.code !== "custom" && `(${c.code})`}
+                                </div>
+                              ))
+                            ) : (
+                              <p className="px-4 py-4 text-gray-400 text-sm text-center">
+                                No countries found.
+                              </p>
+                            )}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </>
+                  )}
+                  {errors.countryCode && (
+                    <p className="text-red-400 text-xs italic absolute bottom-[-1.5rem] left-0 w-full">
+                      {errors.countryCode}
+                    </p>
+                  )}
+                </div>
+
+                {/* Mobile Number Input */}
+                <div className="flex-grow">
+                  <input
+                    type="tel"
+                    placeholder="Mobile Number (e.g., 586354242)"
+                    value={mobile}
+                    onChange={(e) =>
+                      setMobile(e.target.value.replace(/\D/g, ""))
+                    } // Restrict to digits
+                    className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
+                  />
+                  {errors.mobile && (
+                    <p className="text-red-400 text-xs italic mt-1">
+                      {errors.mobile}
+                    </p>
+                  )}
+                </div>
               </div>
 
               {/* Email Input */}
