@@ -1,7 +1,7 @@
 // components/Pricing.js
 
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Download,
@@ -19,10 +19,16 @@ import {
   ThumbsUp,
   Info,
 } from "lucide-react";
+import ContactFormPopup from "./ContactFormPopup";
 
 // --- Deep Link Constant ---
 const MT5_FAST_MODE_LINK =
   "metatrader5://account?credentials=I71QMRMHmCrjQokaBGMz3uvFijOQbuiwkgHwTwiblIvVoCYMNsDB9NaJTFjtua9WJw==";
+
+// --- Link Placeholder Constant (New) ---
+const PENDING_LINK_PLACEHOLDER = "#pricing";
+// const PENDING_LINK_PLACEHOLDER =
+//   "metatrader5://account?credentials=I71QMRMHmCrjQokaBGMz3uvFijOQbuiwkgHwTwiblIvVoCYMNsDB9NaJTFjtua9WJw==";
 
 // --- Animation Variants ---
 const sectionHeaderVariants = {
@@ -48,7 +54,7 @@ const stepVariants = {
   }),
 };
 
-// --- Data Structure for Paid Tiers (Reordered) ---
+// --- Data Structure for Paid Tiers (Updated finalLink) ---
 const pricingTiers = [
   {
     title: "FAST Mode",
@@ -70,6 +76,7 @@ const pricingTiers = [
       "Weekly Optimization Check",
       "High Volatility Tolerance",
     ],
+    finalLink: MT5_FAST_MODE_LINK,
   },
   {
     title: "SLOW Mode",
@@ -91,6 +98,7 @@ const pricingTiers = [
       "Standard 24/7 Support",
       "All updates included",
     ],
+    finalLink: PENDING_LINK_PLACEHOLDER, // Placeholder
   },
   {
     title: "MODERATE Mode",
@@ -112,6 +120,7 @@ const pricingTiers = [
       "Monthly Performance Check",
       "Access to Strategy Presets",
     ],
+    finalLink: PENDING_LINK_PLACEHOLDER, // Placeholder
   },
   {
     title: "HEADING Mode",
@@ -133,6 +142,7 @@ const pricingTiers = [
       "Dedicated Account Manager",
       "Exclusive Strategy Insights",
     ],
+    finalLink: PENDING_LINK_PLACEHOLDER, // Placeholder
   },
   {
     title: "ADVANCE HEADGE Mode",
@@ -154,6 +164,7 @@ const pricingTiers = [
       "Full Risk Management Customization",
       "Free AI Optimization Session (Yearly)",
     ],
+    finalLink: PENDING_LINK_PLACEHOLDER, // Placeholder
   },
   {
     title: "SCALPING Mode",
@@ -175,10 +186,11 @@ const pricingTiers = [
       "Dedicated Server Setup Guide",
       "Low Spread Broker Priority",
     ],
+    finalLink: PENDING_LINK_PLACEHOLDER, // Placeholder
   },
 ];
 
-// --- Sub-Component for Risk/Reward Visualization ---
+// --- Sub-Component for Risk/Reward Visualization (RESTORED) ---
 const RiskRewardMeter = ({ riskLevel, rewardLevel }) => {
   const getLevelColor = (level) => {
     if (level === 5) return "bg-red-500";
@@ -228,6 +240,7 @@ const RiskRewardMeter = ({ riskLevel, rewardLevel }) => {
     </div>
   );
 };
+// --- END RiskRewardMeter ---
 
 // --- Reusable Pricing Card Component ---
 const PricingCard = ({
@@ -240,19 +253,16 @@ const PricingCard = ({
   riskLevel,
   rewardLevel,
   pros,
-  // Added the MT5 link prop
-  mt5Link,
+  finalLink,
+  onOpenPopup,
 }) => {
   const isRecommended = riskReward === "Balanced";
   const isFastMode = title === "FAST Mode";
 
-  // Determine the primary button link based on the card title
-  const primaryLink = isFastMode ? mt5Link : "#contact";
   const primaryButtonText = isFastMode
     ? "Start Trading (Fast Login)"
     : "Get Live Demo";
 
-  // Use a generic button style if not fast mode, or the aggressive red if it is
   const primaryButtonStyle = isFastMode
     ? "bg-gradient-to-r from-red-600 to-orange-600 text-white shadow-red-500/50 hover:shadow-lg hover:from-red-700 hover:to-orange-700"
     : "bg-gray-700/70 border border-blue-500/30 text-white hover:bg-gray-600";
@@ -264,7 +274,6 @@ const PricingCard = ({
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
-      // min-h-[700px] maintains vertical uniformity.
       className={`relative p-5 sm:p-6 rounded-xl shadow-2xl transition-all duration-500 h-full w-full max-w-lg min-w-[300px] mx-auto flex flex-col justify-between min-h-[700px]
                   ${
                     isRecommended
@@ -356,11 +365,8 @@ const PricingCard = ({
         <div className="flex-grow min-h-[1rem]"></div>
 
         {/* Action Button */}
-        {/* FAST Mode gets a unique link and style, others remain generic */}
-        <motion.a
-          href={primaryLink}
-          // The MT5 link should open in the same tab to launch the app
-          target={isFastMode ? "_self" : "_self"}
+        <motion.button
+          onClick={() => onOpenPopup(title, finalLink)}
           className={`w-full py-3 font-bold rounded-lg shadow-lg relative overflow-hidden transition-all duration-300 flex items-center justify-center text-lg
                       ${
                         isRecommended
@@ -371,12 +377,12 @@ const PricingCard = ({
           whileTap={{ scale: 0.98 }}
         >
           <span className="relative z-10 text-base">{primaryButtonText}</span>
-        </motion.a>
+        </motion.button>
 
-        {/* Secondary button for all other modes if needed, but keeping it simple for now */}
+        {/* Secondary button */}
         {!isFastMode && (
-          <motion.a
-            href="#contact"
+          <motion.button
+            onClick={() => onOpenPopup(title, finalLink)}
             className={`w-full py-3 mt-2 font-bold rounded-lg shadow-lg relative overflow-hidden transition-all duration-300 flex items-center justify-center text-lg
                       ${
                         isRecommended
@@ -387,7 +393,7 @@ const PricingCard = ({
             whileTap={{ scale: 0.98 }}
           >
             <span className="relative z-10 text-base">Contact for Support</span>
-          </motion.a>
+          </motion.button>
         )}
       </div>
     </motion.div>
@@ -396,11 +402,53 @@ const PricingCard = ({
 
 // --- Main Component ---
 export default function Pricing() {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [popupData, setPopupData] = useState({
+    buttonId: "",
+    link: "",
+    modeTitle: "",
+  });
+
+  const handleOpenPopup = (title, link) => {
+    setPopupData({
+      buttonId: title,
+      link: link,
+      modeTitle: title,
+    });
+    setIsPopupOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+  };
+
+  const handle3StepClick = (title) => {
+    // For step 3, we treat it as a general "contact" action
+    if (title === "Deployment") {
+      setPopupData({
+        buttonId: "3-Step-Deployment",
+        // Use the generic placeholder here
+        link: PENDING_LINK_PLACEHOLDER,
+        modeTitle: "General Inquiry (Trial)",
+      });
+      setIsPopupOpen(true);
+    }
+  };
+
   return (
     <section
       id="pricing"
       className="relative py-24 lg:py-40 bg-gray-950 border-b border-blue-500/10 overflow-hidden"
     >
+      <ContactFormPopup
+        isOpen={isPopupOpen}
+        onClose={handleClosePopup}
+        buttonId={popupData.buttonId}
+        link={popupData.link}
+        modeTitle={popupData.modeTitle}
+        linkPlaceholder={PENDING_LINK_PLACEHOLDER} // Pass the placeholder string
+      />
+
       <div
         className="absolute inset-0 z-0 opacity-10"
         style={{
@@ -536,21 +584,15 @@ export default function Pricing() {
                 Install the Expert Advisor file with your license key to start
                 automated trading.
               </p>
-              <motion.a
-                href="#contact"
+              <motion.button
+                onClick={() => handle3StepClick("Deployment")}
                 className="inline-flex items-center justify-center w-full py-2 text-sm font-semibold rounded-lg text-white bg-gradient-to-r from-violet-500 to-fuchsia-600 shadow-md hover:from-violet-600 hover:to-fuchsia-700 transition-all"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  document
-                    .getElementById("license-tiers")
-                    .scrollIntoView({ behavior: "smooth" });
-                }}
               >
                 <Shield className="w-4 h-4 mr-2" />
-                Start Your Jorney
-              </motion.a>
+                Start Your Journey
+              </motion.button>
             </motion.div>
           </div>
         </div>
@@ -566,10 +608,8 @@ export default function Pricing() {
                 <PricingCard
                   {...tier}
                   customDelay={index * 0.1}
-                  // Pass the MT5 link only to the FAST Mode card
-                  mt5Link={
-                    tier.title === "FAST Mode" ? MT5_FAST_MODE_LINK : null
-                  }
+                  finalLink={tier.finalLink}
+                  onOpenPopup={handleOpenPopup}
                 />
               </div>
             ))}

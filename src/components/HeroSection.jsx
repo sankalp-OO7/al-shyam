@@ -1,10 +1,16 @@
 // components/AlshyamHeroSection.js
 "use client";
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  AnimatePresence,
+} from "framer-motion";
 import { ChevronRight, TrendingUp, Activity, BarChart3 } from "lucide-react";
 import Chart from "./Chart.jsx";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import ChatBot from "components/ChatBot.jsx";
+import EnrollmentToast from "./Enrollment.jsx";
 
 // Smooth entrance animations
 const fadeInUp = {
@@ -33,12 +39,51 @@ const fadeInLeft = {
   }),
 };
 
+// Taglines for the carousel
+const TAGLINES = [
+  "Earn money while sleeping !!",
+  "Recover your Losses with our technology.",
+  "Earn money every day, hours, and minutes.",
+  "Safe and secure AI platform with full account transparency.",
+];
+
+// Animation variants for the tagline carousel
+const taglineVariants = {
+  enter: {
+    opacity: 0,
+    y: 10,
+  },
+  center: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+  exit: {
+    opacity: 0,
+    y: -10,
+    transition: { duration: 0.3, ease: "easeIn" },
+  },
+};
+
 export default function AlshyamHeroSection() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
   });
+
+  // --- Tagline Carousel Logic ---
+  const [taglineIndex, setTaglineIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTaglineIndex((prevIndex) => (prevIndex + 1) % TAGLINES.length);
+    }, 4000); // Change tagline every 4 seconds (4000ms)
+
+    return () => clearInterval(interval);
+  }, []);
+  // -----------------------------
+
   const handleScrollToPricing = () => {
     // 1. Get the target element by its ID
     const pricingSection = document.getElementById("pricing");
@@ -93,6 +138,7 @@ export default function AlshyamHeroSection() {
       ref={containerRef}
       className="relative w-full min-h-screen overflow-hidden bg-black"
     >
+      <EnrollmentToast />
       <ChatBot />
       {/* 🎯 MODIFICATION START: Responsive Background (Image for Mobile, Video for Desktop) */}
 
@@ -104,7 +150,7 @@ export default function AlshyamHeroSection() {
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover   lg:block" // Added hidden and lg:block
+        className="absolute inset-0 w-full h-full object-cover lg:block" // Added hidden and lg:block
         src="/videos/dubai-skyline.mp4"
         style={{ y, scale }}
       >
@@ -240,9 +286,33 @@ export default function AlshyamHeroSection() {
                   from the heart of Dubai.
                 </motion.p>
 
-                {/* CTA Group */}
+                {/* 🎯 MODIFICATION: Tagline Carousel */}
                 <motion.div
                   custom={4}
+                  variants={fadeInLeft}
+                  className="py-2 sm:py-4 h-10 sm:h-12 overflow-hidden max-w-2xl"
+                >
+                  <div className="relative w-full h-full flex items-center">
+                    <AnimatePresence mode="wait">
+                      <motion.p
+                        key={taglineIndex} // Key is crucial for AnimatePresence
+                        variants={taglineVariants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        className="absolute text-sm sm:text-base lg:text-lg font-mono text-amber-300 font-bold tracking-wide flex items-center gap-3"
+                      >
+                        <BarChart3 className="w-5 h-5 text-cyan-400 flex-shrink-0" />
+                        {TAGLINES[taglineIndex]}
+                      </motion.p>
+                    </AnimatePresence>
+                  </div>
+                </motion.div>
+                {/* 🎯 END MODIFICATION */}
+
+                {/* CTA Group */}
+                <motion.div
+                  custom={5}
                   variants={fadeInLeft}
                   className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4"
                 >
@@ -271,7 +341,7 @@ export default function AlshyamHeroSection() {
 
                 {/* Stats - Responsive grid */}
                 <motion.div
-                  custom={5}
+                  custom={6}
                   variants={fadeInLeft}
                   className="grid grid-cols-3 gap-4 sm:gap-6 pt-4 sm:pt-6 max-w-xl"
                 >
