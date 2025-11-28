@@ -65,20 +65,24 @@ const taglineVariants = {
   },
 };
 
-// 🎯 CORRECTED Reusable Component/Wrapper for Gradient Background
-// FIX: Both the root element and the absolute positioned background element must be <span>
-// when the wrapper is used inside a <p> tag, resolving the hydration error.
+// 🎯 MODIFIED: Reverted TextBackgroundWrapper and added a subtle text glow effect.
 const TextBackgroundWrapper = ({ children, customClass = "" }) => (
-  // Root element (Line 71 in error frame)
+  // Root element is a span to resolve hydration issues within <p> tags
   <span className={`relative inline-block ${customClass}`}>
-    {/* Inner element (Line 72 in error frame) is now a <span> */}
+    {/* Content span applies the glowing text shadow */}
     <span
-      className="absolute inset-0 z-0 rounded-lg pointer-events-none -m-1 sm:-m-2 
-                 bg-black/50 backdrop-blur-[1px] 
-                 bg-gradient-to-t from-black/80 to-transparent opacity-90"
-    />
-    {/* Content span */}
-    <span className="relative z-10">{children}</span>
+      className="relative z-10"
+      style={{
+        // A subtle, light glow effect to make the text "light up"
+        // Adjust the color (e.g., rgba(255, 255, 255, 0.7) for white, or rgba(6, 182, 212, 0.7) for cyan)
+        // based on the dominant text colors and desired effect.
+        // Here, a soft white/cyan glow works well with most text colors on a dark background.
+        textShadow:
+          "0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(6, 182, 212, 0.4), 0 0 15px rgba(6, 182, 212, 0.2)",
+      }}
+    >
+      {children}
+    </span>
   </span>
 );
 // ------------------------------------------------------------------
@@ -262,10 +266,13 @@ export default function AlshyamHeroSection() {
                   variants={fadeInLeft}
                   className="space-y-2 lg:space-y-3"
                 >
-                  {/* 🎯 Individual Gradient Wrapper for Headline */}
+                  {/* 🎯 Individual Text Glow Wrapper for Headline */}
                   <TextBackgroundWrapper customClass="!block">
                     <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight leading-[1.05]">
                       <span className="block text-white">AI-Powered</span>
+                      {/* Gradient text is handled by Tailwind's bg-clip-text.
+                          It naturally has a strong contrast, so a subtle glow on top of it might be too much,
+                          but the wrapper will apply the global glow effect. */}
                       <span className="block bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-300 bg-clip-text text-transparent">
                         Trading Precision
                       </span>
@@ -279,12 +286,12 @@ export default function AlshyamHeroSection() {
                   variants={fadeInLeft}
                   className="space-y-2"
                 >
-                  {/* 🎯 Individual Gradient Wrapper for Subheadline */}
+                  {/* 🎯 Individual Text Glow Wrapper for Subheadline */}
                   <TextBackgroundWrapper>
                     <div className="flex items-center gap-3">
                       <div className="h-[2px] w-8 sm:w-12 bg-gradient-to-r from-amber-400 to-transparent" />
                       <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-amber-400 tracking-[0.15em] sm:tracking-[0.2em]">
-                        SHAMS GLOBAL SYSTEM
+                        SHAMS GLOBAL SYSTEMS
                       </h2>
                     </div>
                   </TextBackgroundWrapper>
@@ -301,7 +308,7 @@ export default function AlshyamHeroSection() {
                   variants={fadeInLeft}
                   className="text-base sm:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-2xl"
                 >
-                  {/* 🎯 Individual Gradient Wrapper for Paragraph Text - NOW SAFE */}
+                  {/* 🎯 Individual Text Glow Wrapper for Paragraph Text */}
                   <TextBackgroundWrapper customClass="!block">
                     Execute your global trading strategy with{" "}
                     <span className="text-cyan-400 font-semibold">
@@ -333,7 +340,7 @@ export default function AlshyamHeroSection() {
                         className="absolute text-sm sm:text-base lg:text-lg font-mono text-amber-300 font-bold tracking-wide flex items-center gap-3"
                       >
                         <BarChart3 className="w-5 h-5 text-cyan-400 flex-shrink-0" />
-                        {/* 🎯 Individual Gradient Wrapper for Tagline */}
+                        {/* 🎯 Individual Text Glow Wrapper for Tagline */}
                         <TextBackgroundWrapper customClass="rounded-full px-2 py-1 !-m-2 !-mx-3">
                           {TAGLINES[taglineIndex]}
                         </TextBackgroundWrapper>
@@ -343,7 +350,7 @@ export default function AlshyamHeroSection() {
                 </motion.div>
                 {/* 🎯 END MODIFICATION */}
 
-                {/* CTA Group (Buttons don't need the text background) */}
+                {/* CTA Group (Buttons don't need the text glow wrapper) */}
                 <motion.div
                   custom={5}
                   variants={fadeInLeft}
@@ -384,13 +391,13 @@ export default function AlshyamHeroSection() {
                     { label: "Uptime", value: "99.9%" },
                   ].map((stat, idx) => (
                     <div key={idx} className="space-y-1">
-                      {/* 🎯 Individual Gradient Wrapper for Stat Value */}
+                      {/* 🎯 Individual Text Glow Wrapper for Stat Value */}
                       <TextBackgroundWrapper>
                         <div className="text-xl sm:text-2xl lg:text-3xl font-black text-white">
                           {stat.value}
                         </div>
                       </TextBackgroundWrapper>
-                      {/* 🎯 Individual Gradient Wrapper for Stat Label */}
+                      {/* 🎯 Individual Text Glow Wrapper for Stat Label */}
                       <TextBackgroundWrapper>
                         <div className="text-[10px] sm:text-xs text-gray-400 uppercase tracking-wide">
                           {stat.label}

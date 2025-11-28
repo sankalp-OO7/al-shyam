@@ -18,7 +18,7 @@ export default function ChatBotWidget() {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "👋 Welcome to **Shams Global System**! I'm your AI Trading Analyst.\n\nI can help you with:\n• Trading strategies and AI modes\n• Platform setup (MT4/MT5)\n• Pricing and subscription details\n• Technical support\n\nHow can I assist you today?",
+      text: "👋 Welcome to **Shams Global Systems**! I'm your AI Trading Analyst.\n\nI can help you with:\n• Trading strategies and AI modes\n• Platform setup (MT4/MT5)\n• Pricing and subscription details\n• Technical support\n\nHow can I assist you today?",
       sender: "bot",
       timestamp: new Date(),
     },
@@ -98,7 +98,7 @@ export default function ChatBotWidget() {
     contact: {
       keywords: ["contact", "support", "help", "phone", "email", "whatsapp"],
       response:
-        "📞 **Contact Shams Global System**\n\n**WhatsApp/Call:** +971 58 635 4242\n**Email:** shamsgs.work@gmail.com\n**Location:** Dubai, UAE\n\nOur team is ready to assist you 24/7! Would you like me to connect you with a human expert?",
+        "📞 **Contact Shams Global Systems**\n\n**WhatsApp/Call:** +971 58 635 4242\n**Email:** shamsgs.work@gmail.com\n**Location:** Dubai, UAE\n\nOur team is ready to assist you 24/7! Would you like me to connect you with a human expert?",
     },
     demo: {
       keywords: ["demo", "trial", "test", "free"],

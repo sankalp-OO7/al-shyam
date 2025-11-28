@@ -280,7 +280,7 @@ export default function AlshyamLoadingOverlay({ isLoading }) {
                 <motion.div variants={wordVariants} className="overflow-hidden">
                   <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-none">
                     <span className="inline-block bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-400 bg-clip-text text-transparent drop-shadow-md">
-                      SHAMS GLOBAL SYSTEM
+                      SHAMS GLOBAL SYSTEMS
                     </span>
                   </h2>
                 </motion.div>

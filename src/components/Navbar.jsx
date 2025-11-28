@@ -176,7 +176,7 @@ function NavbarComponent() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  GLOBAL SYSTEM
+                  GLOBAL SYSTEMS
                 </motion.div>
 
                 {/* Animated underline on hover */}
@@ -287,7 +287,7 @@ function NavbarComponent() {
                     SHAMS
                   </div>
                   <div className="text-[10px] tracking-[0.3em] text-amber-400/90 font-semibold">
-                    GLOBAL SYSTEM
+                    GLOBAL SYSTEMS
                   </div>
                 </div>
                 <button

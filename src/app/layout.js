@@ -17,17 +17,17 @@ const geistMono = Geist_Mono({
 // --- UPDATED METADATA FOR SHAMS GLOBAL SYSTEM ---
 export const metadata = {
   // Enhanced Primary Meta Tags for Better SEO
-  title: "Shams Global System | AI-Powered Automated Forex Trading Robots",
+  title: "Shams Global Systems | AI-Powered Automated Forex Trading Robots",
   description:
-    "Shams Global System offers advanced, autonomous trading AI (Expert Advisors) for the Forex market. Execute trades with hyper-speed, emotion-free precision. Based in Dubai, UAE. Start your 10-Day Free Trial. License starts at $600/Year.",
+    "Shams Global Systems offers advanced, autonomous trading AI (Expert Advisors) for the Forex market. Execute trades with hyper-speed, emotion-free precision. Based in Dubai, UAE. Start your 10-Day Free Trial. License starts at $600/Year.",
 
   // Comprehensive Keywords for Global Trading SEO
   keywords:
-    "Shams Global System, Automated Trading AI, Forex Trading Robot, Expert Advisor MT4 MT5, MQL4 MQL5 Development, Algorithmic Trading Dubai, Autonomous Forex Trading, Trading AI License, High Frequency Trading, Forex EA, Custom Trading Bots, ShamsGS, Earn while sleeping, MT5 Expert Advisor, Trading Automation, Forex Signal Provider, Best Trading AI, Trading Algorithm Optimization, Dubai Financial Services",
+    "Shams Global Systems, Automated Trading AI, Forex Trading Robot, Expert Advisor MT4 MT5, MQL4 MQL5 Development, Algorithmic Trading Dubai, Autonomous Forex Trading, Trading AI License, High Frequency Trading, Forex EA, Custom Trading Bots, ShamsGS, Earn while sleeping, MT5 Expert Advisor, Trading Automation, Forex Signal Provider, Best Trading AI, Trading Algorithm Optimization, Dubai Financial Services",
 
   // Author and Publisher Information
-  author: "Shams Global System",
-  publisher: "Shams Global System Dubai",
+  author: "Shams Global Systems",
+  publisher: "Shams Global Systems Dubai",
 
   // Geo-targeting for UAE Market
   "geo.region": "AE-DU",
@@ -64,19 +64,19 @@ export const metadata = {
   // Enhanced Open Graph using existing banner.png (assuming this is your main graphic)
   openGraph: {
     title:
-      "Shams Global System | AI Forex Trading Bots & Expert Advisor Development",
+      "Shams Global Systems | AI Forex Trading Bots & Expert Advisor Development",
     description:
-      "Precision automation for Forex trading. Shams Global System provides MQL4/MQL5 Expert Advisors for hyper-speed, 24/7, emotion-free execution. Based in Dubai, UAE.",
+      "Precision automation for Forex trading. Shams Global Systems provides MQL4/MQL5 Expert Advisors for hyper-speed, 24/7, emotion-free execution. Based in Dubai, UAE.",
     url: "https://shamsgs.com/", // Assuming shamsgs.com will be the final domain
     type: "website",
     locale: "en_US",
-    siteName: "Shams Global System - Trading AI",
+    siteName: "Shams Global Systems - Trading AI",
     images: [
       {
         url: "/banner.png", // Use relative path if the image is in /public
         width: 1200,
         height: 630,
-        alt: "Shams Global System: AI-Powered Trading Robot - Forex Expert Advisor",
+        alt: "Shams Global Systems: AI-Powered Trading Robot - Forex Expert Advisor",
         type: "image/png",
       },
     ],
@@ -87,13 +87,13 @@ export const metadata = {
     card: "summary_large_image",
     site: "@ShamsGlobalSys", // Placeholder, use your actual handle
     creator: "@ShamsGlobalSys",
-    title: "AI Forex Trading Robots | Shams Global System",
+    title: "AI Forex Trading Robots | Shams Global Systems",
     description:
       "Maximize performance in Forex with our autonomous Expert Advisors. Custom MQL4/MQL5 development services available. Start your 10-Day Free Trial.",
     images: [
       {
         url: "/banner.png",
-        alt: "Shams Global System: Trading Precision and Automation",
+        alt: "Shams Global Systems: Trading Precision and Automation",
         width: 1200,
         height: 630,
       },
@@ -121,7 +121,7 @@ export const metadata = {
     "mobile-web-app-capable": "yes",
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
-    "apple-mobile-web-app-title": "Shams Global System",
+    "apple-mobile-web-app-title": "Shams Global Systems",
 
     // Content Classification
     rating: "general",
@@ -197,7 +197,7 @@ export default function RootLayout({ children }) {
                 "@context": "https://schema.org",
                 "@type": "Organization",
                 "@id": "https://shamsgs.com/#organization",
-                name: "Shams Global System",
+                name: "Shams Global Systems",
                 alternateName: ["ShamsGS", "AI Trading System"],
                 url: "https://shamsgs.com/",
                 logo: "/banner.png",
@@ -230,7 +230,7 @@ export default function RootLayout({ children }) {
                   "Specializing in the development, optimization, and deployment of autonomous MQL4/MQL5 Expert Advisors and custom trading bots for the Forex market.",
                 provider: {
                   "@type": "Organization",
-                  name: "Shams Global System",
+                  name: "Shams Global Systems",
                 },
                 serviceType: "Financial Technology Service",
                 areaServed: "Global",
@@ -251,12 +251,12 @@ export default function RootLayout({ children }) {
                 "@type": "WebSite",
                 "@id": "https://shamsgs.com/#website",
                 url: "https://shamsgs.com/",
-                name: "Shams Global System Official Website",
+                name: "Shams Global Systems Official Website",
                 description:
-                  "Official website of Shams Global System - Leading developer of AI-Powered Forex Expert Advisors and trading automation tools.",
+                  "Official website of Shams Global Systems - Leading developer of AI-Powered Forex Expert Advisors and trading automation tools.",
                 publisher: {
                   "@type": "Organization",
-                  name: "Shams Global System",
+                  name: "Shams Global Systems",
                 },
                 inLanguage: ["en", "ar"],
                 potentialAction: {

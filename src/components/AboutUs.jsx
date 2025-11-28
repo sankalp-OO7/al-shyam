@@ -98,7 +98,7 @@ export default function AboutUs() {
           className="text-5xl lg:text-7xl font-black text-center mb-16 pb-4 tracking-tighter"
         >
           <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-300 bg-clip-text text-transparent">
-            Shams Global System
+            Shams Global Systems
           </span>
         </motion.h2>
 

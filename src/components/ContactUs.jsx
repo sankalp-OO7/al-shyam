@@ -625,7 +625,7 @@ export default function ContactSection() {
           </motion.div>
 
           <AnimatedText
-            text="Connect with Shams Global System"
+            text="Connect with Shams Global Systems"
             className="text-4xl sm:text-5xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-violet-400 mb-4 leading-tight tracking-tighter"
             delay={0.5}
           />
