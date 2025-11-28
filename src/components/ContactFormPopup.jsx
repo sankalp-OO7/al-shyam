@@ -136,37 +136,48 @@ export default function ContactFormPopup({
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validate()) {
-      return;
-    }
+    if (!validate()) return;
 
     setIsSubmitting(true);
 
-    const fullMobileNumber = `${countryCode.trim()}${mobile.trim()}`;
+    const fullMobileNumber = `${countryCode}${mobile}`;
 
-    // --- STEP 1: Process and Send Data (API call mock) ---
-    console.log("Submitting Data:", {
+    const payload = {
       buttonId,
       modeTitle,
       link,
       name,
-      fullMobileNumber,
       countryCode,
+      mobile: fullMobileNumber,
       email,
+      isAgeChecked,
       hasDownloadedMT5,
-    });
+    };
 
-    // Simulate API delay for better UX
-    setTimeout(() => {
+    try {
+      // send to your Next.js API route (server-side)
+      const res = await fetch("/api/add-lead", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      console.log("Lead saved:", data);
+
       setIsSubmitting(false);
 
-      // --- STEP 2: Close popup and Redirect ---
       onClose();
       window.open(link, "_self");
-    }, 1000);
+    } catch (error) {
+      console.error("Submit Error:", error);
+      setIsSubmitting(false);
+    }
   };
 
   if (!isOpen) return null;

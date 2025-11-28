@@ -65,6 +65,24 @@ const taglineVariants = {
   },
 };
 
+// 🎯 CORRECTED Reusable Component/Wrapper for Gradient Background
+// FIX: Both the root element and the absolute positioned background element must be <span>
+// when the wrapper is used inside a <p> tag, resolving the hydration error.
+const TextBackgroundWrapper = ({ children, customClass = "" }) => (
+  // Root element (Line 71 in error frame)
+  <span className={`relative inline-block ${customClass}`}>
+    {/* Inner element (Line 72 in error frame) is now a <span> */}
+    <span
+      className="absolute inset-0 z-0 rounded-lg pointer-events-none -m-1 sm:-m-2 
+                 bg-black/50 backdrop-blur-[1px] 
+                 bg-gradient-to-t from-black/80 to-transparent opacity-90"
+    />
+    {/* Content span */}
+    <span className="relative z-10">{children}</span>
+  </span>
+);
+// ------------------------------------------------------------------
+
 export default function AlshyamHeroSection() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -217,7 +235,7 @@ export default function AlshyamHeroSection() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               {/* LEFT SIDE - Content (takes more space on desktop) */}
               <motion.div
-                className="lg:col-span-7 space-y-6 lg:space-y-8"
+                className="lg:col-span-7 space-y-6 lg:space-y-8 z-20"
                 initial="hidden"
                 animate="visible"
               >
@@ -244,12 +262,15 @@ export default function AlshyamHeroSection() {
                   variants={fadeInLeft}
                   className="space-y-2 lg:space-y-3"
                 >
-                  <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight leading-[1.05]">
-                    <span className="block text-white">AI-Powered</span>
-                    <span className="block bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-300 bg-clip-text text-transparent">
-                      Trading Precision
-                    </span>
-                  </h1>
+                  {/* 🎯 Individual Gradient Wrapper for Headline */}
+                  <TextBackgroundWrapper customClass="!block">
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight leading-[1.05]">
+                      <span className="block text-white">AI-Powered</span>
+                      <span className="block bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-300 bg-clip-text text-transparent">
+                        Trading Precision
+                      </span>
+                    </h1>
+                  </TextBackgroundWrapper>
                 </motion.div>
 
                 {/* Subheadline */}
@@ -258,15 +279,20 @@ export default function AlshyamHeroSection() {
                   variants={fadeInLeft}
                   className="space-y-2"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="h-[2px] w-8 sm:w-12 bg-gradient-to-r from-amber-400 to-transparent" />
-                    <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-amber-400 tracking-[0.15em] sm:tracking-[0.2em]">
-                      SHAMS GLOBAL SYSTEM
-                    </h2>
-                  </div>
-                  <p className="text-cyan-300/70 text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] font-mono ml-11 sm:ml-[60px]">
-                    DUBAI, UAE
-                  </p>
+                  {/* 🎯 Individual Gradient Wrapper for Subheadline */}
+                  <TextBackgroundWrapper>
+                    <div className="flex items-center gap-3">
+                      <div className="h-[2px] w-8 sm:w-12 bg-gradient-to-r from-amber-400 to-transparent" />
+                      <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-amber-400 tracking-[0.15em] sm:tracking-[0.2em]">
+                        SHAMS GLOBAL SYSTEM
+                      </h2>
+                    </div>
+                  </TextBackgroundWrapper>
+                  <TextBackgroundWrapper customClass="ml-11 sm:ml-[60px] !block">
+                    <p className="text-cyan-300/70 text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] font-mono">
+                      DUBAI, UAE
+                    </p>
+                  </TextBackgroundWrapper>
                 </motion.div>
 
                 {/* Description */}
@@ -275,15 +301,18 @@ export default function AlshyamHeroSection() {
                   variants={fadeInLeft}
                   className="text-base sm:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-2xl"
                 >
-                  Execute your global trading strategy with{" "}
-                  <span className="text-cyan-400 font-semibold">
-                    unprecedented algorithmic speed
-                  </span>{" "}
-                  and{" "}
-                  <span className="text-purple-400 font-semibold">
-                    localized financial expertise
-                  </span>{" "}
-                  from the heart of Dubai.
+                  {/* 🎯 Individual Gradient Wrapper for Paragraph Text - NOW SAFE */}
+                  <TextBackgroundWrapper customClass="!block">
+                    Execute your global trading strategy with{" "}
+                    <span className="text-cyan-400 font-semibold">
+                      unprecedented algorithmic speed
+                    </span>{" "}
+                    and{" "}
+                    <span className="text-purple-400 font-semibold">
+                      localized financial expertise
+                    </span>{" "}
+                    from the heart of Dubai.
+                  </TextBackgroundWrapper>
                 </motion.p>
 
                 {/* 🎯 MODIFICATION: Tagline Carousel */}
@@ -294,6 +323,7 @@ export default function AlshyamHeroSection() {
                 >
                   <div className="relative w-full h-full flex items-center">
                     <AnimatePresence mode="wait">
+                      {/* Tagline is a moving element, so we wrap the text inside */}
                       <motion.p
                         key={taglineIndex} // Key is crucial for AnimatePresence
                         variants={taglineVariants}
@@ -303,14 +333,17 @@ export default function AlshyamHeroSection() {
                         className="absolute text-sm sm:text-base lg:text-lg font-mono text-amber-300 font-bold tracking-wide flex items-center gap-3"
                       >
                         <BarChart3 className="w-5 h-5 text-cyan-400 flex-shrink-0" />
-                        {TAGLINES[taglineIndex]}
+                        {/* 🎯 Individual Gradient Wrapper for Tagline */}
+                        <TextBackgroundWrapper customClass="rounded-full px-2 py-1 !-m-2 !-mx-3">
+                          {TAGLINES[taglineIndex]}
+                        </TextBackgroundWrapper>
                       </motion.p>
                     </AnimatePresence>
                   </div>
                 </motion.div>
                 {/* 🎯 END MODIFICATION */}
 
-                {/* CTA Group */}
+                {/* CTA Group (Buttons don't need the text background) */}
                 <motion.div
                   custom={5}
                   variants={fadeInLeft}
@@ -351,12 +384,18 @@ export default function AlshyamHeroSection() {
                     { label: "Uptime", value: "99.9%" },
                   ].map((stat, idx) => (
                     <div key={idx} className="space-y-1">
-                      <div className="text-xl sm:text-2xl lg:text-3xl font-black text-white">
-                        {stat.value}
-                      </div>
-                      <div className="text-[10px] sm:text-xs text-gray-400 uppercase tracking-wide">
-                        {stat.label}
-                      </div>
+                      {/* 🎯 Individual Gradient Wrapper for Stat Value */}
+                      <TextBackgroundWrapper>
+                        <div className="text-xl sm:text-2xl lg:text-3xl font-black text-white">
+                          {stat.value}
+                        </div>
+                      </TextBackgroundWrapper>
+                      {/* 🎯 Individual Gradient Wrapper for Stat Label */}
+                      <TextBackgroundWrapper>
+                        <div className="text-[10px] sm:text-xs text-gray-400 uppercase tracking-wide">
+                          {stat.label}
+                        </div>
+                      </TextBackgroundWrapper>
                     </div>
                   ))}
                 </motion.div>
