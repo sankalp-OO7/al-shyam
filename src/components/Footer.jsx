@@ -2,7 +2,18 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Zap, Mail, Phone, MapPin, ChevronUp, Link } from "lucide-react";
+import {
+  Zap,
+  Mail,
+  Phone,
+  MapPin,
+  ChevronUp,
+  Link,
+  Twitter,
+  Youtube,
+  Facebook,
+  Instagram,
+} from "lucide-react";
 
 // --- Navigation Data (Copied from User's Navbar Structure) ---
 const navItems = [
@@ -11,6 +22,42 @@ const navItems = [
   { label: "Pricing", to: "#pricing" },
   { label: "Technology", to: "#technology" },
   { label: "Contact", to: "#contact-us" },
+];
+
+// --- Social Media Links with Brand Colors ---
+const socialLinks = [
+  {
+    name: "Twitter",
+    href: "https://x.com/shamsgs",
+    icon: Twitter,
+    color: "text-[#1DA1F2]",
+    hoverColor: "hover:text-[#1DA1F2]",
+    bgHover: "hover:bg-[#1DA1F2]/10",
+  },
+  {
+    name: "YouTube",
+    href: "https://www.youtube.com/@shamsgs",
+    icon: Youtube,
+    color: "text-[#FF0000]",
+    hoverColor: "hover:text-[#FF0000]",
+    bgHover: "hover:bg-[#FF0000]/10",
+  },
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/people/Shamsgs/61584701334310/",
+    icon: Facebook,
+    color: "text-[#1877F2]",
+    hoverColor: "hover:text-[#1877F2]",
+    bgHover: "hover:bg-[#1877F2]/10",
+  },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/shamsgs_",
+    icon: Instagram,
+    color: "text-[#E4405F]",
+    hoverColor: "hover:text-[#E4405F]",
+    bgHover: "hover:bg-[#E4405F]/10",
+  },
 ];
 
 // --- Company & Contact Info (Consistent Data) ---
@@ -124,26 +171,57 @@ export default function Footer() {
 
         {/* Main Grid Layout */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 border-b border-gray-700/50 pb-12 mb-8">
-          {/* Column 1: Logo and Mission */}
+          {/* Column 1: Logo, Mission, and Social Links */}
           <motion.div
             custom={1}
             variants={itemVariants}
-            className="col-span-2 lg:col-span-1 space-y-4"
+            className="col-span-2 lg:col-span-1 space-y-6"
           >
-            <motion.div
-              className="flex items-center space-x-3"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-            >
-              <Zap className="w-8 h-8 text-cyan-400" />
-              <h3 className="text-3xl font-black text-white bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 text-transparent">
-                {companyInfo.shortName}
-              </h3>
-            </motion.div>
-            <p className="text-gray-400 text-sm font-light leading-relaxed">
-              {companyInfo.mission}
-            </p>
+            <div className="space-y-4">
+              <motion.div
+                className="flex items-center space-x-3"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                <Zap className="w-8 h-8 text-cyan-400" />
+                <h3 className="text-3xl font-black text-white bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 text-transparent">
+                  {companyInfo.shortName}
+                </h3>
+              </motion.div>
+              <p className="text-gray-400 text-sm font-light leading-relaxed">
+                {companyInfo.mission}
+              </p>
+            </div>
+
+            {/* Social Media Links */}
+            <div className="space-y-3">
+              <h4 className="text-sm font-bold text-white tracking-wider">
+                FOLLOW US
+              </h4>
+              <div className="flex items-center gap-3">
+                {socialLinks.map((social, idx) => {
+                  const Icon = social.icon;
+                  return (
+                    <motion.a
+                      key={social.name}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={social.name}
+                      className={`p-2.5 rounded-lg bg-gray-800/50 text-gray-400 transition-all duration-200 ${social.hoverColor} ${social.bgHover} border border-transparent hover:border-current/20`}
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      whileTap={{ scale: 0.95 }}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.6 + idx * 0.05 }}
+                    >
+                      <Icon className="w-5 h-5" />
+                    </motion.a>
+                  );
+                })}
+              </div>
+            </div>
           </motion.div>
 
           {/* Column 2 & 3: Navigation Links */}
@@ -212,6 +290,7 @@ export default function Footer() {
                     ""
                   )}`}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="text-gray-400 hover:text-cyan-400 transition-colors text-sm"
                 >
                   {companyInfo.phone}
