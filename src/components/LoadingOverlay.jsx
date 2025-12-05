@@ -254,7 +254,7 @@ export default function AlshyamLoadingOverlay({ isLoading }) {
                         "0 0 15px rgba(255, 255, 255, 0.8), 0 0 5px rgba(255, 255, 255, 0.5)",
                     }}
                   >
-                    A
+                    S
                   </span>
                 </div>
               </motion.div>
@@ -271,7 +271,7 @@ export default function AlshyamLoadingOverlay({ isLoading }) {
                 <motion.div variants={wordVariants} className="overflow-hidden">
                   <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter leading-none">
                     <span className="inline-block bg-gradient-to-r from-white via-cyan-300 to-white bg-clip-text text-transparent">
-                      ALSHYAM
+                      SHAMSGS
                     </span>
                   </h1>
                 </motion.div>
