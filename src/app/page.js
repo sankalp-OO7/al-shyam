@@ -68,7 +68,7 @@ export default function Home() {
     <>
       {/* 1. Render the separate LoadingOverlay component */}
       <LoadingOverlay isLoading={isLoading} />
-      <ShamsgsFloatingWidget />
+      {/* <ShamsgsFloatingWidget /> */}
 
       {/* 2. Main Content Wrapper */}
       <motion.div
