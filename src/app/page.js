@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 
 // --- Component Imports ---
+import ShamsgsFloatingWidget from "@/components/SocialMedia";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
@@ -67,6 +68,7 @@ export default function Home() {
     <>
       {/* 1. Render the separate LoadingOverlay component */}
       <LoadingOverlay isLoading={isLoading} />
+      <ShamsgsFloatingWidget />
 
       {/* 2. Main Content Wrapper */}
       <motion.div

@@ -1,16 +1,55 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import dynamic from "next/dynamic";
-import { Menu, X, TrendingUp } from "lucide-react";
+import {
+  Menu,
+  X,
+  TrendingUp,
+  Twitter,
+  Youtube,
+  Facebook,
+  Instagram,
+} from "lucide-react";
 
 // --- Nav items updated with new structure ---
 const navItems = [
   { label: "About", to: "about-us" },
   { label: "Services", to: "services" },
-  { label: "Pricing", to: "pricing" }, // Updated from 'Projects'
-  { label: "Technology", to: "technology" }, // Updated from 'Gallery'
+  { label: "Pricing", to: "pricing" },
+  { label: "Technology", to: "technology" },
   { label: "Contact", to: "contact-us" },
+];
+
+// Social media links with brand colors
+const socialLinks = [
+  {
+    name: "Twitter",
+    href: "https://x.com/shamsgs",
+    icon: Twitter,
+    color: "hover:text-[#1DA1F2]",
+    bgColor: "hover:bg-[#1DA1F2]/10",
+  },
+  {
+    name: "YouTube",
+    href: "https://www.youtube.com/@shamsgs",
+    icon: Youtube,
+    color: "hover:text-[#FF0000]",
+    bgColor: "hover:bg-[#FF0000]/10",
+  },
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/people/Shamsgs/61584701334310/",
+    icon: Facebook,
+    color: "hover:text-[#1877F2]",
+    bgColor: "hover:bg-[#1877F2]/10",
+  },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/shamsgs_",
+    icon: Instagram,
+    color: "hover:text-[#E4405F]",
+    bgColor: "hover:bg-[#E4405F]/10",
+  },
 ];
 
 // --- Utility: Smooth scroll ---
@@ -60,7 +99,7 @@ function NavbarComponent() {
   useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY;
-      setScrolled(offset > 100); // Show navbar after 100px scroll
+      setScrolled(offset > 100);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -109,7 +148,6 @@ function NavbarComponent() {
       });
     };
 
-    // Use the updated navItems for observation
     observerRef.current = new IntersectionObserver(callback, options);
     const sections = ["hero", ...navItems.map((item) => item.to)]
       .map((id) => document.getElementById(id))
@@ -159,7 +197,6 @@ function NavbarComponent() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                {/* SHAMS - Big Bold */}
                 <motion.div
                   className="text-3xl lg:text-4xl font-black tracking-wider bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-300 bg-clip-text text-transparent"
                   initial={{ opacity: 0, x: -20 }}
@@ -169,7 +206,6 @@ function NavbarComponent() {
                   SHAMS
                 </motion.div>
 
-                {/* Global System - Smaller underneath */}
                 <motion.div
                   className="text-[10px] lg:text-xs font-semibold tracking-[0.3em] text-amber-400/90"
                   initial={{ opacity: 0, x: -20 }}
@@ -179,61 +215,90 @@ function NavbarComponent() {
                   GLOBAL SYSTEMS
                 </motion.div>
 
-                {/* Animated underline on hover */}
                 <motion.div className="h-[2px] w-0 group-hover:w-full bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full transition-all duration-300 mt-1" />
               </motion.button>
 
               {/* Desktop Navigation */}
               {isDesktop && (
-                <motion.ul
-                  className="flex gap-2 lg:gap-4"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, staggerChildren: 0.05 }}
-                >
-                  {navItems.map(({ label, to }, idx) => (
-                    <motion.li
-                      key={to}
-                      variants={navItemVariants}
-                      initial="initial"
-                      whileHover="hover"
-                      whileTap="tap"
-                      custom={idx}
-                    >
-                      <motion.button
-                        onClick={() => scrollToSection(to)}
-                        className={`
-                          px-5 py-2.5 rounded-lg font-semibold text-sm lg:text-base relative transition-all duration-200
-                          ${
-                            activeSection === to
-                              ? "text-cyan-400 bg-cyan-500/10 border border-cyan-400/30"
-                              : "text-gray-300 hover:text-white hover:bg-white/5"
-                          }
-                        `}
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3 + idx * 0.05 }}
+                <div className="flex items-center gap-6">
+                  <motion.ul
+                    className="flex gap-2 lg:gap-4"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3, staggerChildren: 0.05 }}
+                  >
+                    {navItems.map(({ label, to }, idx) => (
+                      <motion.li
+                        key={to}
+                        variants={navItemVariants}
+                        initial="initial"
+                        whileHover="hover"
+                        whileTap="tap"
+                        custom={idx}
                       >
-                        {label}
+                        <motion.button
+                          onClick={() => scrollToSection(to)}
+                          className={`
+                            px-5 py-2.5 rounded-lg font-semibold text-sm lg:text-base relative transition-all duration-200
+                            ${
+                              activeSection === to
+                                ? "text-cyan-400 bg-cyan-500/10 border border-cyan-400/30"
+                                : "text-gray-300 hover:text-white hover:bg-white/5"
+                            }
+                          `}
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.3 + idx * 0.05 }}
+                        >
+                          {label}
 
-                        {/* Active indicator */}
-                        {activeSection === to && (
-                          <motion.div
-                            layoutId="nav-indicator"
-                            className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-3/4 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full"
-                            initial={{ scaleX: 0 }}
-                            animate={{ scaleX: 1 }}
-                            transition={{
-                              type: "spring",
-                              stiffness: 300,
-                              damping: 30,
-                            }}
-                          />
-                        )}
-                      </motion.button>
-                    </motion.li>
-                  ))}
-                </motion.ul>
+                          {activeSection === to && (
+                            <motion.div
+                              layoutId="nav-indicator"
+                              className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-3/4 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full"
+                              initial={{ scaleX: 0 }}
+                              animate={{ scaleX: 1 }}
+                              transition={{
+                                type: "spring",
+                                stiffness: 300,
+                                damping: 30,
+                              }}
+                            />
+                          )}
+                        </motion.button>
+                      </motion.li>
+                    ))}
+                  </motion.ul>
+
+                  {/* Social Links - Desktop */}
+                  <motion.div
+                    className="flex items-center gap-2 pl-6 border-l border-cyan-500/20"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.5 }}
+                  >
+                    {socialLinks.map((social, idx) => {
+                      const Icon = social.icon;
+                      return (
+                        <motion.a
+                          key={social.name}
+                          href={social.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={social.name}
+                          className={`p-2 rounded-lg text-gray-400 transition-all duration-200 ${social.color} ${social.bgColor}`}
+                          whileHover={{ scale: 1.1, y: -2 }}
+                          whileTap={{ scale: 0.95 }}
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.5 + idx * 0.05 }}
+                        >
+                          <Icon className="w-5 h-5" />
+                        </motion.a>
+                      );
+                    })}
+                  </motion.div>
+                </div>
               )}
 
               {/* Hamburger Menu (Mobile) */}
@@ -333,6 +398,34 @@ function NavbarComponent() {
                 ))}
               </ul>
 
+              {/* Social Links - Mobile */}
+              <div className="px-6 pb-6">
+                <div className="text-xs font-semibold text-gray-400 mb-3 tracking-wider">
+                  CONNECT WITH US
+                </div>
+                <div className="grid grid-cols-4 gap-3">
+                  {socialLinks.map((social, idx) => {
+                    const Icon = social.icon;
+                    return (
+                      <motion.a
+                        key={social.name}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={social.name}
+                        className={`flex items-center justify-center p-4 rounded-xl bg-gray-800/50 text-gray-400 transition-all duration-200 ${social.color} ${social.bgColor}`}
+                        whileTap={{ scale: 0.95 }}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.5 + idx * 0.05 }}
+                      >
+                        <Icon className="w-6 h-6" />
+                      </motion.a>
+                    );
+                  })}
+                </div>
+              </div>
+
               {/* Drawer Footer */}
               <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-cyan-500/20 bg-black/50">
                 <div className="flex items-center gap-2 text-xs text-gray-400 font-mono">
@@ -352,10 +445,4 @@ function NavbarComponent() {
   );
 }
 
-// Export as dynamic component with SSR disabled
-const Navbar = dynamic(() => Promise.resolve(NavbarComponent), {
-  ssr: false,
-  loading: () => null,
-});
-
-export default Navbar;
+export default NavbarComponent;
