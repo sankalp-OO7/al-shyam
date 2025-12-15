@@ -98,7 +98,7 @@ export default function ChatBotWidget() {
     contact: {
       keywords: ["contact", "support", "help", "phone", "email", "whatsapp"],
       response:
-        "📞 **Contact Shams Global Systems**\n\n**WhatsApp/Call:** +971 58 635 4242\n**Email:** shamsgs.work@gmail.com\n**Location:** Dubai, UAE\n\nOur team is ready to assist you 24/7! Would you like me to connect you with a human expert?",
+        "📞 **Contact Shams Global Systems**\n\n**WhatsApp/Call:** +971 58 635 4242\n**Email:** support@shamsgs.com\n**Location:** Dubai, UAE\n\nOur team is ready to assist you 24/7! Would you like me to connect you with a human expert?",
     },
     demo: {
       keywords: ["demo", "trial", "test", "free"],

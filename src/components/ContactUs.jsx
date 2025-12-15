@@ -535,8 +535,8 @@ export default function ContactSection() {
     {
       icon: Mail,
       title: "Email",
-      value: "shamsgs.work@gmail.com",
-      action: () => window.open("mailto:shamsgs.work@gmail.com"),
+      value: "support@shamsgs.com",
+      action: () => window.open("mailto:support@shamsgs.com"),
       gradient: "from-blue-500 to-cyan-600",
       delay: 0.4,
     },

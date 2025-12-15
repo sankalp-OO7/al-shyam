@@ -135,7 +135,7 @@ export const metadata = {
         type: "image/png",
       },
     ],
-    emails: ["shamsgs.work@gmail.com"],
+    emails: ["support@shamsgs.com"],
     phoneNumbers: ["+971586354242"],
   },
 
@@ -173,7 +173,7 @@ export const metadata = {
     "business:contact_data:locality": "Dubai",
     "business:contact_data:region": "Dubai",
     "business:contact_data:country_name": "United Arab Emirates",
-    "business:contact_data:email": "shamsgs.work@gmail.com",
+    "business:contact_data:email": "support@shamsgs.com",
     "business:contact_data:phone_number": "+971586354242",
     "business:contact_data:website": "https://www.shamsgs.com/",
 
@@ -236,7 +236,7 @@ export default function RootLayout({ children }) {
       slogan: "AI-Powered Trading Precision - Earn While You Sleep",
       foundingDate: "2020", // Update with actual date
       telephone: "+971586354242",
-      email: "shamsgs.work@gmail.com",
+      email: "support@shamsgs.com",
       faxNumber: "+971586354242",
 
       // Social Media Profiles - CRITICAL for Brand Recognition
@@ -279,7 +279,7 @@ export default function RootLayout({ children }) {
           "@type": "ContactPoint",
           telephone: "+971586354242",
           contactType: "Customer Service",
-          email: "shamsgs.work@gmail.com",
+          email: "support@shamsgs.com",
           areaServed: "Global",
           availableLanguage: ["English", "Arabic"],
           contactOption: "TollFree",
@@ -302,7 +302,7 @@ export default function RootLayout({ children }) {
           "@type": "ContactPoint",
           telephone: "+971586354242",
           contactType: "Sales",
-          email: "shamsgs.work@gmail.com",
+          email: "support@shamsgs.com",
           areaServed: "Global",
           availableLanguage: ["English", "Arabic"],
         },
@@ -310,7 +310,7 @@ export default function RootLayout({ children }) {
           "@type": "ContactPoint",
           telephone: "+971586354242",
           contactType: "Technical Support",
-          email: "shamsgs.work@gmail.com",
+          email: "support@shamsgs.com",
           areaServed: "Global",
           availableLanguage: ["English"],
         },
@@ -346,7 +346,7 @@ export default function RootLayout({ children }) {
       image: "https://www.shamsgs.com/banner.png",
       url: "https://www.shamsgs.com/",
       telephone: "+971586354242",
-      email: "shamsgs.work@gmail.com",
+      email: "support@shamsgs.com",
       priceRange: "$$$",
       address: {
         "@type": "PostalAddress",

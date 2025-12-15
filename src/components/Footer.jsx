@@ -66,7 +66,7 @@ const companyInfo = {
   fullName: "Shams Global Systems",
   mission:
     "Empowering traders worldwide with automation tools that simplify trading and maximize performance in the dynamic world of Forex.",
-  email: "shamsgs.work@gmail.com",
+  email: "support@shamsgs.com",
   phone: "+971 58 635 4242",
   address: "Dubai, United Arab Emirates (Headquarters)",
 };
