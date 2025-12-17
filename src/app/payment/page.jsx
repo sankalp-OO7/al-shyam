@@ -1,6 +1,6 @@
- "use client";
+"use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -38,7 +38,7 @@ async function loadRazorpayScript() {
   });
 }
 
-export default function PaymentPage() {
+function PaymentContent() {
   const searchParams = useSearchParams();
   const [country, setCountry] = useState(null);
   const [geoLoading, setGeoLoading] = useState(true);
@@ -327,6 +327,20 @@ export default function PaymentPage() {
         </p>
       </motion.div>
     </main>
+  );
+}
+
+export default function PaymentPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="min-h-screen bg-black text-white flex items-center justify-center px-4 py-16">
+          <div className="text-cyan-400">Loading payment portal...</div>
+        </main>
+      }
+    >
+      <PaymentContent />
+    </Suspense>
   );
 }
 
