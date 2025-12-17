@@ -9,6 +9,7 @@ import {
 import { ChevronRight, TrendingUp, Activity, BarChart3 } from "lucide-react";
 import Chart from "./Chart.jsx";
 import { useMemo, useRef, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import ChatBot from "components/ChatBot.jsx";
 import EnrollmentToast from "./Enrollment.jsx";
 
@@ -88,6 +89,7 @@ const TextBackgroundWrapper = ({ children, customClass = "" }) => (
 // ------------------------------------------------------------------
 
 export default function AlshyamHeroSection() {
+  const router = useRouter();
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -117,6 +119,9 @@ export default function AlshyamHeroSection() {
         block: "start",
       });
     }
+  };
+  const handleGoToPayment = () => {
+    router.push("/payment");
   };
   // Parallax transforms
   const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
@@ -356,14 +361,29 @@ export default function AlshyamHeroSection() {
                   variants={fadeInLeft}
                   className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4"
                 >
-                  {/* Secondary CTA */}
+                  {/* Primary CTA - Payment */}
+                  <motion.button
+                    className="group px-6 sm:px-8 py-3 sm:py-4 cursor-pointer rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 text-white font-semibold shadow-lg shadow-cyan-900/50 hover:shadow-cyan-500/60 transition-all"
+                    onClick={handleGoToPayment}
+                    whileHover={{
+                      scale: 1.05,
+                      boxShadow: "0 10px 30px -5px rgba(56, 189, 248, 0.6)",
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <span className="flex items-center justify-center gap-3 text-base sm:text-lg font-bold tracking-wide">
+                      Make Payment
+                      <ChevronRight className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform" />
+                    </span>
+                  </motion.button>
+
+                  {/* Secondary CTA - Pricing Scroll */}
                   <motion.button
                     className="group px-6 sm:px-8 py-3 sm:py-4  cursor-pointer
                  border-2 border-cyan-400/50 rounded-full 
                  bg-cyan-500/50 backdrop-blur-md text-cyan-400 font-semibold 
                  hover:bg-cyan-500/20 transition-all 
                  shadow-lg shadow-cyan-900/50"
-                    // 🎯 MODIFICATION HERE: Inline function in onClick
                     onClick={handleScrollToPricing}
                     whileHover={{
                       scale: 1.05,

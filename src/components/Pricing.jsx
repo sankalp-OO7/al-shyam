@@ -472,11 +472,31 @@ export default function Pricing() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-          className="text-center text-xl text-gray-400 max-w-4xl mx-auto mb-12 font-light"
+          className="text-center text-xl text-gray-400 max-w-4xl mx-auto mb-6 font-light"
         >
           Select the AI Mode that matches your risk tolerance and trading
           frequency. All licenses start at $600 / Year.
         </motion.p>
+
+        <motion.div
+          variants={sectionHeaderVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
+          className="max-w-3xl mx-auto mb-12"
+        >
+          <div className="inline-flex items-start gap-3 px-4 py-3 rounded-2xl bg-yellow-500/10 border border-yellow-500/40 text-sm sm:text-base text-yellow-100 text-left">
+            <Info className="w-5 h-5 mt-0.5 flex-shrink-0 text-yellow-400" />
+            <p className="leading-relaxed">
+              <span className="font-semibold">Important account sizing info:</span>{" "}
+              a <span className="font-semibold">minimum 10,000 USD deposit</span> is
+              necessary to run the AI safely, and for{" "}
+              <span className="font-semibold">best performance</span> we recommend a{" "}
+              <span className="font-semibold">100,000 USD account</span>.
+            </p>
+          </div>
+        </motion.div>
 
         {/* Step-by-Step Setup Guide */}
         <div className="mb-20">
