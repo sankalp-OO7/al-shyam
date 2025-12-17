@@ -38,7 +38,10 @@
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1",
     "tailwindcss-animate": "^1.0.7",
-    "zoom": "^0.0.3"
+    "zoom": "^0.0.3",
+    "googleapis": "^144.0.0",
+    "razorpay": "^2.9.4",
+    "stripe": "^16.3.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

@@ -1,5 +1,7 @@
-"use client";
+ "use client";
 
+import { useCallback, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
@@ -22,7 +24,169 @@ const cardVariants = {
   }),
 };
 
+async function loadRazorpayScript() {
+  if (typeof window === "undefined") return false;
+  if (document.getElementById("razorpay-checkout-js")) return true;
+
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.id = "razorpay-checkout-js";
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+}
+
 export default function PaymentPage() {
+  const searchParams = useSearchParams();
+  const [country, setCountry] = useState(null);
+  const [geoLoading, setGeoLoading] = useState(true);
+  const [razorpayLoading, setRazorpayLoading] = useState(false);
+  const [stripeLoading, setStripeLoading] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [messageType, setMessageType] = useState(null); // "success" | "error"
+
+  useEffect(() => {
+    const detectCountry = async () => {
+      try {
+        const res = await fetch("/api/geo", { method: "GET" });
+        if (res.ok) {
+          const data = await res.json();
+          setCountry(data.country || "IN");
+        } else {
+          setCountry("IN");
+        }
+      } catch {
+        setCountry("IN");
+      } finally {
+        setGeoLoading(false);
+      }
+    };
+
+    detectCountry();
+  }, []);
+
+  useEffect(() => {
+    const status = searchParams.get("status");
+    if (status === "success") {
+      setMessage("Payment completed successfully.");
+      setMessageType("success");
+    } else if (status === "cancelled") {
+      setMessage("Payment was cancelled. You can try again.");
+      setMessageType("error");
+    }
+  }, [searchParams]);
+
+  const handleRazorpay = useCallback(async () => {
+    try {
+      setMessage(null);
+      setMessageType(null);
+      setRazorpayLoading(true);
+
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded) {
+        throw new Error("Razorpay SDK failed to load");
+      }
+
+      const orderRes = await fetch("/api/razorpay/create-order", {
+        method: "POST",
+      });
+
+      if (!orderRes.ok) {
+        throw new Error("Failed to create Razorpay order");
+      }
+
+      const { orderId, amount, currency, key } = await orderRes.json();
+
+      const options = {
+        key,
+        amount,
+        currency,
+        name: "Shams Global Systems",
+        description: "AI Trading Subscription (Annual)",
+        order_id: orderId,
+        handler: async function (response) {
+          try {
+            const verifyRes = await fetch("/api/razorpay/verify", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                country: country || "IN",
+              }),
+            });
+
+            if (!verifyRes.ok) {
+              throw new Error("Verification failed");
+            }
+
+            setMessage("Razorpay payment successful and verified.");
+            setMessageType("success");
+          } catch (err) {
+            console.error(err);
+            setMessage(
+              "Payment succeeded but verification failed. Please contact support."
+            );
+            setMessageType("error");
+          }
+        },
+        prefill: {
+          name: "",
+          email: "",
+        },
+        theme: {
+          color: "#06b6d4",
+        },
+      };
+
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
+    } catch (error) {
+      console.error(error);
+      setMessage("Unable to start Razorpay payment. Please try again.");
+      setMessageType("error");
+    } finally {
+      setRazorpayLoading(false);
+    }
+  }, [country]);
+
+  const handleStripe = useCallback(async () => {
+    try {
+      setMessage(null);
+      setMessageType(null);
+      setStripeLoading(true);
+
+      const res = await fetch("/api/stripe/create-intent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ country: country || "US" }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to create Stripe session");
+      }
+
+      const { url } = await res.json();
+      if (!url) {
+        throw new Error("No redirect URL from Stripe");
+      }
+
+      window.location.href = url;
+    } catch (error) {
+      console.error(error);
+      setMessage("Unable to start Stripe payment. Please try again.");
+      setMessageType("error");
+      setStripeLoading(false);
+    }
+  }, [country]);
+
   return (
     <main className="min-h-screen bg-black text-white flex items-center justify-center px-4 py-16">
       <motion.div
@@ -31,6 +195,18 @@ export default function PaymentPage() {
         initial="hidden"
         animate="visible"
       >
+        {message && (
+          <div
+            className={`mb-4 text-xs sm:text-sm px-4 py-2 rounded-full border ${
+              messageType === "success"
+                ? "border-emerald-500/60 bg-emerald-500/10 text-emerald-200"
+                : "border-red-500/60 bg-red-500/10 text-red-200"
+            }`}
+          >
+            {message}
+          </div>
+        )}
+
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-cyan-400/70 mb-1">
@@ -88,13 +264,15 @@ export default function PaymentPage() {
 
             <button
               type="button"
-              className="mt-4 w-full inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-2.5 sm:py-3 text-sm sm:text-base transition-colors shadow-lg shadow-cyan-900/40 cursor-not-allowed"
-              disabled
+              className={`mt-4 w-full inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-2.5 sm:py-3 text-sm sm:text-base transition-colors shadow-lg shadow-cyan-900/40 ${
+                geoLoading || country !== "IN" || razorpayLoading
+                  ? "opacity-60 cursor-not-allowed"
+                  : "cursor-pointer"
+              }`}
+              disabled={geoLoading || country !== "IN" || razorpayLoading}
+              onClick={handleRazorpay}
             >
-              Proceed with Razorpay
-              <span className="text-[10px] font-normal text-black/70">
-                (integration placeholder)
-              </span>
+              {razorpayLoading ? "Processing..." : "Proceed with Razorpay"}
             </button>
           </motion.div>
 
@@ -130,21 +308,22 @@ export default function PaymentPage() {
 
             <button
               type="button"
-              className="mt-4 w-full inline-flex items-center justify-center gap-2 rounded-full bg-purple-500 hover:bg-purple-400 text-black font-semibold py-2.5 sm:py-3 text-sm sm:text-base transition-colors shadow-lg shadow-purple-900/40 cursor-not-allowed"
-              disabled
+              className={`mt-4 w-full inline-flex items-center justify-center gap-2 rounded-full bg-purple-500 hover:bg-purple-400 text-black font-semibold py-2.5 sm:py-3 text-sm sm:text-base transition-colors shadow-lg shadow-purple-900/40 ${
+                geoLoading || country === "IN" || stripeLoading
+                  ? "opacity-60 cursor-not-allowed"
+                  : "cursor-pointer"
+              }`}
+              disabled={geoLoading || country === "IN" || stripeLoading}
+              onClick={handleStripe}
             >
-              Proceed with Stripe
-              <span className="text-[10px] font-normal text-black/70">
-                (integration placeholder)
-              </span>
+              {stripeLoading ? "Redirecting..." : "Proceed with Stripe"}
             </button>
           </motion.div>
         </div>
 
         <p className="pt-2 text-[11px] sm:text-xs text-gray-400/80">
-          Note: These buttons are currently placeholders. To accept real
-          payments, connect your live Razorpay / Stripe keys and server-side
-          webhook handlers.
+          Note: Payments are processed securely via Razorpay (INR) and Stripe
+          (USD). Your card details never touch our servers.
         </p>
       </motion.div>
     </main>
