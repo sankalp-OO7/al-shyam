@@ -300,10 +300,36 @@ export default function Footer() {
           </motion.div>
         </div>
 
-        {/* Bottom Section: Copyright */}
-        <div className="flex justify-center">
-          <motion.span
+        {/* Bottom Section: Copyright and Legal Links */}
+        <div className="flex flex-col items-center gap-4">
+          {/* Legal Links */}
+          <motion.div
             custom={5}
+            variants={itemVariants}
+            className="flex items-center gap-6 flex-wrap justify-center"
+          >
+            <motion.a
+              href="/terms"
+              className="text-gray-400 hover:text-cyan-400 transition-colors text-xs font-medium"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Terms and Conditions
+            </motion.a>
+            <span className="text-gray-600">|</span>
+            <motion.a
+              href="/privacy"
+              className="text-gray-400 hover:text-cyan-400 transition-colors text-xs font-medium"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Privacy Policy
+            </motion.a>
+          </motion.div>
+          
+          {/* Copyright */}
+          <motion.span
+            custom={6}
             variants={itemVariants}
             className="text-gray-500 text-xs font-light tracking-wider"
           >

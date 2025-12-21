@@ -22,8 +22,8 @@ const navItems = [
 
 // --- Legal pages (separate routes, not scroll anchors) ---
 const legalItems = [
-  { label: "Terms", href: "/terms" },
-  { label: "Privacy", href: "/privacy" },
+  { label: "Terms and Conditions", href: "/terms" },
+  { label: "Privacy Policy", href: "/privacy" },
 ];
 
 // Social media links with brand colors
