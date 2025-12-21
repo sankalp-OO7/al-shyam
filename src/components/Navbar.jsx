@@ -20,6 +20,12 @@ const navItems = [
   { label: "Contact", to: "contact-us" },
 ];
 
+// --- Legal pages (separate routes, not scroll anchors) ---
+const legalItems = [
+  { label: "Terms", href: "/terms" },
+  { label: "Privacy", href: "/privacy" },
+];
+
 // Social media links with brand colors
 const socialLinks = [
   {
@@ -270,12 +276,35 @@ function NavbarComponent() {
                     ))}
                   </motion.ul>
 
-                  {/* Social Links - Desktop */}
+                  {/* Legal Links - Desktop */}
                   <motion.div
                     className="flex items-center gap-2 pl-6 border-l border-cyan-500/20"
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5 }}
+                  >
+                    {legalItems.map((item, idx) => (
+                      <motion.a
+                        key={item.href}
+                        href={item.href}
+                        className="px-3 py-1.5 text-xs font-medium text-gray-400 hover:text-cyan-400 hover:bg-cyan-500/10 rounded-lg transition-all duration-200"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5 + idx * 0.05 }}
+                      >
+                        {item.label}
+                      </motion.a>
+                    ))}
+                  </motion.div>
+
+                  {/* Social Links - Desktop */}
+                  <motion.div
+                    className="flex items-center gap-2 pl-4 border-l border-cyan-500/20"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.6 }}
                   >
                     {socialLinks.map((social, idx) => {
                       const Icon = social.icon;
@@ -291,7 +320,7 @@ function NavbarComponent() {
                           whileTap={{ scale: 0.95 }}
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.5 + idx * 0.05 }}
+                          transition={{ delay: 0.6 + idx * 0.05 }}
                         >
                           <Icon className="w-5 h-5" />
                         </motion.a>
@@ -398,6 +427,29 @@ function NavbarComponent() {
                 ))}
               </ul>
 
+              {/* Legal Links - Mobile */}
+              <div className="px-6 pb-4">
+                <div className="text-xs font-semibold text-gray-400 mb-3 tracking-wider">
+                  LEGAL
+                </div>
+                <div className="flex flex-col gap-2">
+                  {legalItems.map((item, idx) => (
+                    <motion.a
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setIsDrawerOpen(false)}
+                      className="px-4 py-3 rounded-lg bg-gray-800/50 text-gray-300 hover:text-cyan-400 hover:bg-cyan-500/10 transition-all duration-200 text-sm font-medium"
+                      whileTap={{ scale: 0.98 }}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.5 + idx * 0.1 }}
+                    >
+                      {item.label}
+                    </motion.a>
+                  ))}
+                </div>
+              </div>
+
               {/* Social Links - Mobile */}
               <div className="px-6 pb-6">
                 <div className="text-xs font-semibold text-gray-400 mb-3 tracking-wider">
@@ -417,7 +469,7 @@ function NavbarComponent() {
                         whileTap={{ scale: 0.95 }}
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.5 + idx * 0.05 }}
+                        transition={{ delay: 0.7 + idx * 0.05 }}
                       >
                         <Icon className="w-6 h-6" />
                       </motion.a>
