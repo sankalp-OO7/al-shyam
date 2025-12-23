@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { Mail, Phone, MessageSquare, MapPin } from "lucide-react";
 
-// --- Utility Components and Hooks (Keeping them consistent) ---
+// --- Utility Components ---
 
 const AnimatedText = ({ text, className, delay = 0 }) => {
   const letters = text.split("");
@@ -140,7 +140,8 @@ const FloatingParticles = () => {
   );
 };
 
-// Contact Method Component
+// --- Contact Method Component ---
+
 const ContactMethod = ({
   icon: Icon,
   title,
@@ -223,28 +224,21 @@ const ContactMethod = ({
             →
           </div>
         </motion.div>
-
-        <motion.div
-          className={`absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl ${gradient} opacity-5 rounded-bl-full`}
-          initial={{ scale: 0 }}
-          animate={isInView ? { scale: 1 } : {}}
-          transition={{ duration: 0.8, delay: delay + 0.1 }}
-        />
       </motion.div>
     </Card3D>
   );
 };
 
-// Interactive Map Component
+// --- Interactive Map Component (UPDATED) ---
+
 const InteractiveMap = ({ isInView }) => {
   const [mapLoaded, setMapLoaded] = useState(false);
 
-  // 🎯 UPDATED LOCATION AND LINKS
-  const dubaiLocation = {
-    address: "Dubai, United Arab Emirates",
+  const officeLocation = {
+    address: "Ajman Free Zone C1 Building, UAE",
     mapLink:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.5424339514766!2d55.2769027!3d25.184923500000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f683196d058f9%3A0x80415946c2a5349b!2sThe%20Metropolis%20Tower%20-%20Business%20Bay%20-%20Dubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2sin!4v1763960991432!5m2!1sen!2sin", // Embed map link
-    gmapsUrl: "https://maps.app.goo.gl/YsPJFX8nFDF1dy2N9", // Directions link
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3603.566051387527!2d55.4529158!3d25.4193325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5784a7cc43d5%3A0x24ea21fe677c0e00!2sC1%20Building%20-%20Al%20Bustan%20-%20%D9%84%D9%8A%D9%88%D8%A7%D8%B1%D8%A9%201%20-%20Ajman%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2sin!4v1766490566540!5m2!1sen!2sin",
+    gmapsUrl: "https://maps.app.goo.gl/CtFvP5DSDQVRE8UR8?g_st=aw",
   };
 
   return (
@@ -254,12 +248,7 @@ const InteractiveMap = ({ isInView }) => {
         initial={{ opacity: 0, scale: 0.8, rotateY: 45 }}
         animate={isInView ? { opacity: 1, scale: 1, rotateY: 0 } : {}}
         transition={{ duration: 1, delay: 0.5, type: "spring", stiffness: 100 }}
-        whileHover={{
-          boxShadow: "0 25px 50px -12px rgba(59, 130, 246, 0.3)",
-          scale: 1.02,
-        }}
       >
-        {/* Map header */}
         <motion.div
           className="p-4 bg-gradient-to-r from-blue-700/80 to-cyan-700/80 text-white"
           initial={{ opacity: 0, y: -20 }}
@@ -268,22 +257,13 @@ const InteractiveMap = ({ isInView }) => {
         >
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-lg sm:text-xl font-bold">
-                The Metropolis Tower
-              </h3>
-              <p className="text-sm opacity-90">{dubaiLocation.address}</p>
+              <h3 className="text-lg sm:text-xl font-bold">Ajman Free Zone</h3>
+              <p className="text-sm opacity-90">{officeLocation.address}</p>
             </div>
-            <motion.div
-              className="text-2xl"
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <MapPin className="w-6 h-6 text-white" />
-            </motion.div>
+            <MapPin className="w-6 h-6 text-white" />
           </div>
         </motion.div>
 
-        {/* Map container */}
         <motion.div
           className="relative h-80 sm:h-96"
           initial={{ opacity: 0 }}
@@ -292,20 +272,12 @@ const InteractiveMap = ({ isInView }) => {
         >
           {!mapLoaded && (
             <div className="absolute inset-0 flex items-center justify-center bg-gray-800">
-              <motion.div
-                className="flex flex-col items-center space-y-4"
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                <div className="w-12 h-12 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
-                <p className="text-gray-400">Loading map...</p>
-              </motion.div>
+              <div className="w-12 h-12 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
             </div>
           )}
 
           <iframe
-            // 🎯 UPDATED MAP EMBED SRC
-            src={dubaiLocation.mapLink}
+            src={officeLocation.mapLink}
             width="100%"
             height="100%"
             style={{ border: 0 }}
@@ -317,7 +289,6 @@ const InteractiveMap = ({ isInView }) => {
           />
         </motion.div>
 
-        {/* Location details */}
         <motion.div
           className="p-4 bg-gradient-to-r from-gray-900/90 to-black/90"
           initial={{ opacity: 0, y: 20 }}
@@ -327,31 +298,19 @@ const InteractiveMap = ({ isInView }) => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-semibold text-white">
-                Office Location in {dubaiLocation.address}
+                Office Location
               </p>
               <p className="text-xs text-gray-400">
-                Click to open in Google Maps
+                Ajman Free Zone C1 Building
               </p>
             </div>
             <motion.button
               className="px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-sm font-semibold rounded-lg shadow-lg"
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.2)",
-              }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => window.open(dubaiLocation.gmapsUrl, "_blank")} // 🎯 UPDATED DIRECTIONS LINK
+              onClick={() => window.open(officeLocation.gmapsUrl, "_blank")}
             >
-              <span className="flex items-center">
-                Get Directions
-                <motion.span
-                  className="ml-1"
-                  animate={{ x: [0, 3, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  →
-                </motion.span>
-              </span>
+              Get Directions →
             </motion.button>
           </div>
         </motion.div>
@@ -360,9 +319,9 @@ const InteractiveMap = ({ isInView }) => {
   );
 };
 
-// Quick Contact Form Component
+// --- Quick Contact Form ---
+
 const QuickContactForm = ({ isInView }) => {
-  // 🎯 UPDATED WHATSAPP NUMBER TO +971 58 635 4242 (971586354242)
   const whatsappNumber = "971586354242";
   const [formData, setFormData] = useState({
     name: "",
@@ -380,12 +339,8 @@ const QuickContactForm = ({ isInView }) => {
     window.open(whatsappUrl, "_blank");
   };
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   return (
     <Card3D>
@@ -394,95 +349,47 @@ const QuickContactForm = ({ isInView }) => {
         initial={{ opacity: 0, x: 50 }}
         animate={isInView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.8, delay: 0.3 }}
-        whileHover={{
-          boxShadow: "0 25px 50px -12px rgba(59, 130, 246, 0.3)",
-        }}
       >
-        <motion.div
-          className="text-center mb-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-        >
+        <div className="text-center mb-6">
           <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
             Inquire Now
           </h3>
-          <p className="text-gray-400">
+          <p className="text-gray-400 text-sm">
             Send us a message and we'll connect via WhatsApp!
           </p>
-        </motion.div>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {[
-            {
-              name: "name",
-              type: "text",
-              placeholder: "Your Name",
-              delay: 0.8,
-            },
-            {
-              name: "email",
-              type: "email",
-              placeholder: "Your Email",
-              delay: 1.0,
-            },
-            {
-              name: "phone",
-              type: "tel",
-              placeholder: "Your Phone Number",
-              delay: 1.2,
-            },
-          ].map((field) => (
-            <motion.div
-              key={field.name}
-              initial={{ opacity: 0, x: -20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: field.delay }}
-            >
-              <input
-                type={field.type}
-                name={field.name}
-                placeholder={field.placeholder}
-                value={formData[field.name]}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 text-white placeholder-gray-500 transition-all duration-300"
-              />
-            </motion.div>
-          ))}
-
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 1.4 }}
-          >
-            <textarea
-              name="message"
-              placeholder="Your Message (Optional)"
-              value={formData.message}
+          {["name", "email", "phone"].map((field) => (
+            <input
+              key={field}
+              type={field === "email" ? "email" : "text"}
+              name={field}
+              placeholder={`Your ${
+                field.charAt(0).toUpperCase() + field.slice(1)
+              }`}
+              value={formData[field]}
               onChange={handleChange}
-              rows="4"
-              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 text-white placeholder-gray-500 transition-all duration-300 resize-none"
+              required
+              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl focus:ring-2 focus:ring-cyan-500 text-white placeholder-gray-500 transition-all"
             />
-          </motion.div>
-
+          ))}
+          <textarea
+            name="message"
+            placeholder="Your Message (Optional)"
+            value={formData.message}
+            onChange={handleChange}
+            rows="4"
+            className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl focus:ring-2 focus:ring-cyan-500 text-white placeholder-gray-500 resize-none"
+          />
           <motion.button
             type="submit"
-            className="w-full py-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-bold rounded-xl shadow-lg group relative overflow-hidden"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 1.6 }}
-            whileHover={{
-              scale: 1.02,
-              boxShadow: "0 20px 40px -12px rgba(34, 197, 94, 0.4)",
-            }}
+            className="w-full py-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-bold rounded-xl shadow-lg flex items-center justify-center space-x-2"
+            whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <motion.div className="absolute inset-0 bg-gradient-to-r from-emerald-700 to-green-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <span className="relative z-10 flex items-center justify-center">
-              <MessageSquare className="w-5 h-5 mr-2" />
-              <span>Send Inquiry via WhatsApp</span>
-            </span>
+            <MessageSquare className="w-5 h-5" />
+            <span>Send Inquiry via WhatsApp</span>
           </motion.button>
         </form>
       </motion.div>
@@ -490,21 +397,16 @@ const QuickContactForm = ({ isInView }) => {
   );
 };
 
+// --- Main Contact Section ---
+
 export default function ContactSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
-  const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, -30]);
-  const y2 = useTransform(scrollY, [0, 500], [0, -60]);
-
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
@@ -521,14 +423,12 @@ export default function ContactSection() {
     }
   };
 
-  // 🎯 UPDATED CONTACT METHODS - WhatsApp number is now +971 58 635 4242
   const contactMethods = [
     {
       icon: MessageSquare,
       title: "WhatsApp & Call",
-
-      value: "+971 58 635 4242", // Updated value
-      action: () => window.open("https://wa.me/971586354242", "_blank"), // Updated action link
+      value: "+971 58 635 4242",
+      action: () => window.open("https://wa.me/971586354242", "_blank"),
       gradient: "from-green-500 to-emerald-600",
       delay: 0.2,
     },
@@ -543,9 +443,12 @@ export default function ContactSection() {
     {
       icon: MapPin,
       title: "Headquarters",
-      value: "Dubai, UAE",
+      value: "Ajman, UAE",
       action: () =>
-        window.open("https://maps.app.goo.gl/YsPJFX8nFDF1dy2N9", "_blank"), // Directions link
+        window.open(
+          "https://maps.app.goo.gl/CtFvP5DSDQVRE8UR8?g_st=aw",
+          "_blank"
+        ),
       gradient: "from-violet-500 to-fuchsia-600",
       delay: 0.6,
     },
@@ -562,102 +465,36 @@ export default function ContactSection() {
           ? `#0D1117`
           : `radial-gradient(circle at ${mousePosition.x * 100}% ${
               mousePosition.y * 100
-            }%, 
-          rgba(59, 130, 246, 0.05) 0%, 
-          rgba(6, 182, 212, 0.03) 25%, 
-          transparent 50%),
-          #0D1117`,
+            }%, rgba(59, 130, 246, 0.05) 0%, rgba(6, 182, 212, 0.03) 25%, transparent 50%), #0D1117`,
       }}
     >
-      <div
-        className="absolute inset-0 z-0 opacity-15"
-        style={{
-          background:
-            "radial-gradient(circle at top right, #370665 0%, #0D1117 70%)",
-        }}
-      />
-
       <FloatingParticles />
-
-      {!isMobile && (
-        <>
-          <motion.div
-            className="absolute top-20 right-20 w-28 h-28 border-2 border-cyan-400/40 rounded-2xl rotate-12"
-            animate={{ rotate: [12, 102, 12], scale: [1, 1.1, 1] }}
-            transition={{
-              rotate: { duration: 25, repeat: Infinity, ease: "linear" },
-              scale: { duration: 7, repeat: Infinity, ease: "easeInOut" },
-            }}
-            style={{ y: y1 }}
-          />
-
-          <motion.div
-            className="absolute bottom-32 left-32 w-24 h-24 bg-gradient-to-r from-blue-400/30 to-cyan-400/30 rounded-full backdrop-blur-sm"
-            animate={{ y: [-10, 10, -10], x: [-5, 5, -5], scale: [1, 1.2, 1] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-            style={{ y: y2 }}
-          />
-
-          <motion.div
-            className="absolute top-1/3 left-1/4 w-16 h-16 bg-gradient-to-r from-violet-400/40 to-fuchsia-400/40 rounded-xl rotate-45"
-            animate={{ rotate: [45, 225, 45], scale: [1, 1.3, 1] }}
-            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </>
-      )}
-
       <div className="max-w-7xl mx-auto relative z-10 px-4 sm:px-6">
-        <motion.div
-          className="text-center mb-12 sm:mb-16 lg:mb-20"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.8 }}
-        >
+        <div className="text-center mb-12 sm:mb-20">
           <motion.div
             className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-900/50 to-cyan-900/50 border border-cyan-400/60 rounded-full text-sm font-medium text-cyan-400 mb-6"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
           >
             <span className="w-2 h-2 bg-cyan-500 rounded-full mr-2 animate-pulse"></span>
             Global Outreach
           </motion.div>
-
           <AnimatedText
             text="Connect with Shams Global Systems"
-            className="text-4xl sm:text-5xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-violet-400 mb-4 leading-tight tracking-tighter"
+            className="text-4xl sm:text-5xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-violet-400 mb-4 tracking-tighter"
             delay={0.5}
           />
-
-          <motion.p
-            className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.2 }}
-          >
+          <p className="text-lg text-gray-400 max-w-3xl mx-auto">
             Our team is ready to assist you with inquiries, technical support,
             and partnership opportunities.
-          </motion.p>
+          </p>
+        </div>
 
-          <motion.div
-            className="h-1 w-32 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full mx-auto mt-6"
-            initial={{ width: 0 }}
-            whileInView={{ width: "8rem" }}
-            transition={{ duration: 1, delay: 1.5 }}
-          />
-        </motion.div>
-
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          {contactMethods.map((method, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
+          {contactMethods.map((method) => (
             <ContactMethod key={method.title} {...method} isInView={isInView} />
           ))}
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
           <InteractiveMap isInView={isInView} />
