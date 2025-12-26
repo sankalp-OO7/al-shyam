@@ -325,6 +325,15 @@ export default function Footer() {
             >
               Privacy Policy
             </motion.a>
+            <span className="text-gray-600">|</span>
+            <motion.a
+              href="/refund"
+              className="text-gray-400 hover:text-cyan-400 transition-colors text-xs font-medium"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Refund Policy
+            </motion.a>
           </motion.div>
 
           {/* Copyright */}

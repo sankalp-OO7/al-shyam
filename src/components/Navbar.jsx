@@ -24,6 +24,7 @@ const navItems = [
 const legalItems = [
   { label: "Terms and Conditions", href: "/terms" },
   { label: "Privacy Policy", href: "/privacy" },
+  { label: "Refund Policy", href: "/refund" },
 ];
 
 // Social media links with brand colors
