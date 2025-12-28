@@ -42,10 +42,10 @@ const fadeInLeft = {
 
 // Taglines for the carousel
 const TAGLINES = [
-  "Earn money while sleeping !!",
-  "Recover your Losses with our technology.",
-  "Earn money every day, hours, and minutes.",
-  "Safe and secure AI platform with full account transparency.",
+  "24/7 Algorithmic Market Execution & Automation.",
+  "Optimize Your Strategy with Precision Data Technology.",
+  "Continuous Market Analysis for High-Efficiency Trading.",
+  "Enterprise-Grade AI Security with Real-Time Performance Analytics.",
 ];
 
 // Animation variants for the tagline carousel
