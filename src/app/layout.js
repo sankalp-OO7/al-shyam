@@ -233,7 +233,7 @@ export default function RootLayout({ children }) {
       image: "https://www.shamsgs.com/banner.png",
       description:
         "Leading provider of AI-powered Forex trading robots and Expert Advisors for MT4/MT5. Specializing in automated algorithmic trading solutions.",
-      slogan: "AI-Powered Trading Precision - Earn While You Sleep",
+      slogan: "Automate your trading strategy with 24/7 precision.  ",
       foundingDate: "2020", // Update with actual date
       telephone: "+971586354242",
       email: "support@shamsgs.com",
@@ -602,6 +602,7 @@ export default function RootLayout({ children }) {
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
         />
+        <script async src="https://js.stripe.com/v3/buy-button.js"></script>
       </head>
 
       <body
