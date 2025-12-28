@@ -115,16 +115,16 @@ export default function TermsPage() {
             </h2>
             <div className="space-y-4 text-gray-300 leading-relaxed">
               <p>
-                <strong className="text-white">Subscription Fees:</strong> Our AI Trading Subscription is priced at 
-                <span className="text-cyan-400 font-bold"> $600 USD per year</span> (or equivalent in INR via Razorpay). 
-                This is an annual subscription fee that grants you access to our licensed trading solutions.
+                <strong className="text-white">Subscription Fees:</strong> Our AI Trading Subscription is available 
+                at an annual subscription fee that grants you access to our licensed trading solutions. 
+                Pricing is subject to change and will be displayed at the time of purchase.
               </p>
               
               <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-5 space-y-3">
                 <h3 className="text-lg font-semibold text-cyan-300">Consultation Charges</h3>
                 <p>
-                  In addition to subscription fees, we offer consultation services at a rate of{" "}
-                  <span className="text-cyan-400 font-bold">$600 USD</span> per consultation session. 
+                  In addition to subscription fees, we offer consultation services. 
+                  Consultation pricing is subject to change and will be displayed at the time of booking. 
                   Consultation services include:
                 </p>
                 <ul className="list-disc list-inside space-y-1 ml-4">

@@ -326,7 +326,7 @@ const PricingCard = ({
         {/* Price (Simplified - Removed "Full License Required") */}
         <div className="my-4 border-b border-gray-700 pb-4">
           <p className="text-3xl font-extrabold text-white">
-            $600{" "}
+            2000 AUD{" "}
             <span className="text-gray-500 text-sm font-medium">
               / Billed Annually
             </span>
@@ -463,7 +463,7 @@ export default function Pricing() {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
           className="text-5xl lg:text-6xl font-extrabold text-white text-center mb-4 tracking-tight"
         >
-          <span className="text-white">600 DOLLER YEARLY MEMBERSHIP</span>
+          <span className="text-white">2000 AUD YEARLY MEMBERSHIP</span>
         </motion.h3>
 
         <motion.p
@@ -475,7 +475,7 @@ export default function Pricing() {
           className="text-center text-xl text-gray-400 max-w-4xl mx-auto mb-6 font-light"
         >
           Select the AI Mode that matches your risk tolerance and trading
-          frequency. All licenses start at $600 / Year.
+          frequency. All licenses start at 2000 AUD / Year.
         </motion.p>
 
         <motion.div

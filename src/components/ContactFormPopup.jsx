@@ -262,6 +262,7 @@ export default function ContactFormPopup({
   const [email, setEmail] = useState("");
   const [isAgeChecked, setIsAgeChecked] = useState(false);
   const [hasDownloadedMT5, setHasDownloadedMT5] = useState(false);
+  const [isAwareOfMinAccount, setIsAwareOfMinAccount] = useState(false);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -305,6 +306,7 @@ export default function ContactFormPopup({
       setEmail("");
       setIsAgeChecked(false);
       setHasDownloadedMT5(false);
+      setIsAwareOfMinAccount(false);
       setErrors({});
       setIsSubmitting(false);
       setShowSuccess(false);
@@ -354,6 +356,10 @@ export default function ContactFormPopup({
     if (!hasDownloadedMT5)
       newErrors.mt5 = "Please confirm you have downloaded MetaTrader 5 (MT5).";
 
+    // Validation for minimum account awareness
+    if (!isAwareOfMinAccount)
+      newErrors.minAccount = "Please confirm you are aware of the $10,000 USD minimum account requirement.";
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -377,6 +383,7 @@ export default function ContactFormPopup({
       email,
       isAgeChecked,
       hasDownloadedMT5,
+      isAwareOfMinAccount,
     };
 
     try {
@@ -493,6 +500,23 @@ export default function ContactFormPopup({
                   {errors.mt5 && (
                     <p className="text-red-400 text-xs italic mt-1">
                       {errors.mt5}
+                    </p>
+                  )}
+                  {/* Minimum Account Awareness Checkbox */}
+                  <label className="flex items-center space-x-3 cursor-pointer pt-2">
+                    <input
+                      type="checkbox"
+                      checked={isAwareOfMinAccount}
+                      onChange={(e) => setIsAwareOfMinAccount(e.target.checked)}
+                      className="form-checkbox h-5 w-5 text-cyan-500 bg-gray-700 border-gray-600 rounded focus:ring-cyan-500"
+                    />
+                    <span className="text-base font-semibold">
+                      I am aware of the $10,000 USD minimum account requirement.
+                    </span>
+                  </label>
+                  {errors.minAccount && (
+                    <p className="text-red-400 text-xs italic mt-1">
+                      {errors.minAccount}
                     </p>
                   )}
                   {/* Age Checkbox */}

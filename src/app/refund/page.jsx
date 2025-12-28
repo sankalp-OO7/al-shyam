@@ -115,7 +115,7 @@ export default function RefundPage() {
             </h2>
             <div className="space-y-4 text-gray-300 leading-relaxed">
               <p>
-                <strong className="text-white">Annual AI Trading Subscription ($600 USD/year):</strong>
+                <strong className="text-white">Annual AI Trading Subscription:</strong>
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>
@@ -130,6 +130,10 @@ export default function RefundPage() {
                   <strong className="text-white">Service Access:</strong> Upon cancellation, you will retain access 
                   to the service until the end of your current billing period.
                 </li>
+                <li>
+                  <strong className="text-white">Pricing:</strong> Subscription pricing is subject to change and 
+                  current pricing will be displayed at the time of purchase.
+                </li>
               </ul>
             </div>
           </section>
@@ -141,7 +145,7 @@ export default function RefundPage() {
             </h2>
             <div className="space-y-4 text-gray-300 leading-relaxed">
               <p>
-                <strong className="text-white">Consultation Sessions ($600 USD per session):</strong>
+                <strong className="text-white">Consultation Sessions:</strong>
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>
@@ -156,6 +160,10 @@ export default function RefundPage() {
                 <li>
                   <strong className="text-white">Completed Consultations:</strong> Once a consultation session has been 
                   completed, no refunds will be provided.
+                </li>
+                <li>
+                  <strong className="text-white">Pricing:</strong> Consultation pricing is subject to change and 
+                  current pricing will be displayed at the time of booking.
                 </li>
               </ul>
             </div>

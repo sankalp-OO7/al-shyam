@@ -2,7 +2,7 @@ import Stripe from "stripe";
 import { NextResponse } from "next/server";
 import { appendPaymentRow } from "@/utils/googleSheets";
 
-// Creates a Stripe Checkout Session (redirect flow) for $600 USD.
+// Creates a Stripe Checkout Session (redirect flow) for 2000 AUD.
 export async function POST(request) {
   try {
     const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
@@ -22,7 +22,7 @@ export async function POST(request) {
     const { country } = await request.json().catch(() => ({ country: "US" }));
 
     // Fixed, trusted price server-side.
-    const amount = 600;
+    const amount = 2000;
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
@@ -30,7 +30,7 @@ export async function POST(request) {
       line_items: [
         {
           price_data: {
-            currency: "usd",
+            currency: "aud",
             product_data: {
               name: "AI Trading Subscription",
             },
