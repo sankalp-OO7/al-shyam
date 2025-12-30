@@ -21,6 +21,11 @@ export const metadata = {
       "ShamsGS - Shams Global Systems | #1 AI Forex Trading Robot & Expert Advisor MT4/MT5",
     template: "%s | ShamsGS - AI Forex Trading Robots Dubai",
   },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
   description:
     "ShamsGS (Shams Global Systems) - Leading AI-powered automated Forex trading robots & Expert Advisors for MT4/MT5. Based in Dubai, UAE. 24/7 algorithmic trading with hyper-speed execution. 10-Day Free Trial. Trusted by traders worldwide. License from 2000 AUD/year. MQL4/MQL5 development experts.",
 
@@ -155,14 +160,14 @@ export const metadata = {
   },
 
   // Icons & Manifests
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.png", type: "image/png", sizes: "32x32" },
-    ],
-    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
-    shortcut: "/favicon.ico",
-  },
+  // icons: {
+  //   icon: [
+  //     { url: "/favicon.ico", sizes: "any" },
+  //     { url: "/icon.png", type: "image/png", sizes: "32x32" },
+  //   ],
+  //   apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  //   shortcut: "/favicon.ico",
+  // },
   manifest: "/manifest.json",
 
   // Additional Meta Tags
