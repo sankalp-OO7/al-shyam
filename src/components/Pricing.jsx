@@ -326,7 +326,7 @@ const PricingCard = ({
         {/* Price (Simplified - Removed "Full License Required") */}
         <div className="my-4 border-b border-gray-700 pb-4">
           <p className="text-3xl font-extrabold text-white">
-            2000 AUD{" "}
+            2000 AED{" "}
             <span className="text-gray-500 text-sm font-medium">
               / Billed Annually
             </span>
@@ -463,7 +463,7 @@ export default function Pricing() {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
           className="text-5xl lg:text-6xl font-extrabold text-white text-center mb-4 tracking-tight"
         >
-          <span className="text-white">2000 AUD YEARLY MEMBERSHIP</span>
+          <span className="text-white">2000 AED YEARLY MEMBERSHIP</span>
         </motion.h3>
 
         <motion.p
@@ -475,7 +475,7 @@ export default function Pricing() {
           className="text-center text-xl text-gray-400 max-w-4xl mx-auto mb-6 font-light"
         >
           Select the AI Mode that matches your risk tolerance and trading
-          frequency. All licenses start at 2000 AUD / Year.
+          frequency. All licenses start at 2000 AED / Year.
         </motion.p>
 
         <motion.div
@@ -489,10 +489,14 @@ export default function Pricing() {
           <div className="inline-flex items-start gap-3 px-4 py-3 rounded-2xl bg-yellow-500/10 border border-yellow-500/40 text-sm sm:text-base text-yellow-100 text-left">
             <Info className="w-5 h-5 mt-0.5 flex-shrink-0 text-yellow-400" />
             <p className="leading-relaxed">
-              <span className="font-semibold">Important account sizing info:</span>{" "}
-              a <span className="font-semibold">minimum 10,000 USD deposit</span> is
-              necessary to run the AI safely, and for{" "}
-              <span className="font-semibold">best performance</span> we recommend a{" "}
+              <span className="font-semibold">
+                Important account sizing info:
+              </span>{" "}
+              a{" "}
+              <span className="font-semibold">minimum 10,000 USD deposit</span>{" "}
+              is necessary to run the AI safely, and for{" "}
+              <span className="font-semibold">best performance</span> we
+              recommend a{" "}
               <span className="font-semibold">100,000 USD account</span>.
             </p>
           </div>

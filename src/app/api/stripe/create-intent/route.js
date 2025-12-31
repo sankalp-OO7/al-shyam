@@ -2,7 +2,7 @@ import Stripe from "stripe";
 import { NextResponse } from "next/server";
 import { appendPaymentRow } from "@/utils/googleSheets";
 
-// Creates a Stripe Checkout Session (redirect flow) for 2000 AUD.
+// Creates a Stripe Checkout Session (redirect flow) for 2000 AED.
 export async function POST(request) {
   try {
     const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
@@ -18,7 +18,8 @@ export async function POST(request) {
       apiVersion: "2024-06-20",
     });
 
-    const origin = request.headers.get("origin") || process.env.NEXT_PUBLIC_SITE_URL;
+    const origin =
+      request.headers.get("origin") || process.env.NEXT_PUBLIC_SITE_URL;
     const { country } = await request.json().catch(() => ({ country: "US" }));
 
     // Fixed, trusted price server-side.
@@ -58,6 +59,3 @@ export async function POST(request) {
     );
   }
 }
-
-
-

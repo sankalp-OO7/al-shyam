@@ -27,7 +27,7 @@ export const metadata = {
     apple: "/favicon.ico",
   },
   description:
-    "ShamsGS (Shams Global Systems) - Leading AI-powered automated Forex trading robots & Expert Advisors for MT4/MT5. Based in Dubai, UAE. 24/7 algorithmic trading with hyper-speed execution. 10-Day Free Trial. Trusted by traders worldwide. License from 2000 AUD/year. MQL4/MQL5 development experts.",
+    "ShamsGS (Shams Global Systems) - Leading AI-powered automated Forex trading robots & Expert Advisors for MT4/MT5. Based in Dubai, UAE. 24/7 algorithmic trading with hyper-speed execution. 10-Day Free Trial. Trusted by traders worldwide. License from 2000 AED/year. MQL4/MQL5 development experts.",
 
   // Comprehensive Keywords - Target Multiple Search Queries
   keywords: [
@@ -539,7 +539,7 @@ export default function RootLayout({ children }) {
           name: "How much does a ShamsGS trading license cost?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "ShamsGS AI trading licenses start at 2000 AUD per year. We offer a 10-day free trial so you can test our trading robots before committing. All license modes (FAST, SLOW, MODERATE) are available at the same competitive price.",
+            text: "ShamsGS AI trading licenses start at 2000 AED per year. We offer a 10-day free trial so you can test our trading robots before committing. All license modes (FAST, SLOW, MODERATE) are available at the same competitive price.",
           },
         },
         {
