@@ -26,3 +26,25 @@ body {
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
 }
+
+/* Hide Google Translate injected banner/toolbar so it doesn't overlap navbar */
+iframe.goog-te-banner-frame,
+.goog-te-banner-frame,
+.goog-te-balloon-frame,
+.goog-te-spinner-pos,
+.goog-te-banner-frame.skiptranslate,
+.skiptranslate,
+.goog-te-gadget-icon,
+.goog-logo-link,
+.goog-te-gadget-simple {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Prevent body shift caused by Google Translate banner */
+body {
+  top: 0 !important;
+}

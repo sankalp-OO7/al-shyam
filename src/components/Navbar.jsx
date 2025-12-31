@@ -10,6 +10,7 @@ import {
   Facebook,
   Instagram,
 } from "lucide-react";
+import LanguageSelector from "./LanguageSelector";
 
 // --- Nav items updated with new structure ---
 const navItems = [
@@ -195,17 +196,17 @@ function NavbarComponent() {
             exit="hidden"
             className="fixed top-0 z-50 w-full bg-black/80 backdrop-blur-xl border-b border-cyan-500/20 shadow-2xl"
           >
-            <div className="mx-auto flex items-center justify-between px-6 lg:px-12 py-4 max-w-7xl relative z-10">
+            <div className="mx-auto flex items-center justify-between px-2 lg:px-12 py-4 max-w-7xl relative z-10">
               {/* LOGO - Stacked Design */}
               <motion.button
                 onClick={() => scrollToSection("hero")}
-                className="flex flex-col items-start group"
+                className="flex flex-col items-start group notranslate"
                 aria-label="Scroll to Home section"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <motion.div
-                  className="text-3xl lg:text-4xl font-black tracking-wider bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-300 bg-clip-text text-transparent"
+                  className="text-3xl lg:text-4xl font-black tracking-wider bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-300 bg-clip-text text-transparent notranslate"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 }}
@@ -214,7 +215,7 @@ function NavbarComponent() {
                 </motion.div>
 
                 <motion.div
-                  className="text-[10px] lg:text-xs font-semibold tracking-[0.3em] text-amber-400/90"
+                  className="text-[10px] lg:text-xs font-semibold tracking-[0.3em] text-amber-400/90 notranslate"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 }}
@@ -277,27 +278,16 @@ function NavbarComponent() {
                     ))}
                   </motion.ul>
 
-                  {/* Legal Links - Desktop */}
+                  {/* Legal links removed from navbar (policies hidden) */}
+
+                  {/* Language Selector */}
                   <motion.div
-                    className="flex items-center gap-2 pl-6 border-l border-cyan-500/20"
+                    className="flex items-center pl-4 border-l border-cyan-500/20"
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.5 }}
+                    transition={{ delay: 0.55 }}
                   >
-                    {legalItems.map((item, idx) => (
-                      <motion.a
-                        key={item.href}
-                        href={item.href}
-                        className="px-3 py-1.5 text-xs font-medium text-gray-400 hover:text-cyan-400 hover:bg-cyan-500/10 rounded-lg transition-all duration-200"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5 + idx * 0.05 }}
-                      >
-                        {item.label}
-                      </motion.a>
-                    ))}
+                    <LanguageSelector />
                   </motion.div>
 
                   {/* Social Links - Desktop */}
@@ -384,6 +374,9 @@ function NavbarComponent() {
                   <div className="text-[10px] tracking-[0.3em] text-amber-400/90 font-semibold">
                     GLOBAL SYSTEMS
                   </div>
+                  <div className="mt-3">
+                    <LanguageSelector />
+                  </div>
                 </div>
                 <button
                   onClick={() => setIsDrawerOpen(false)}
@@ -428,28 +421,7 @@ function NavbarComponent() {
                 ))}
               </ul>
 
-              {/* Legal Links - Mobile */}
-              <div className="px-6 pb-4">
-                <div className="text-xs font-semibold text-gray-400 mb-3 tracking-wider">
-                  LEGAL
-                </div>
-                <div className="flex flex-col gap-2">
-                  {legalItems.map((item, idx) => (
-                    <motion.a
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setIsDrawerOpen(false)}
-                      className="px-4 py-3 rounded-lg bg-gray-800/50 text-gray-300 hover:text-cyan-400 hover:bg-cyan-500/10 transition-all duration-200 text-sm font-medium"
-                      whileTap={{ scale: 0.98 }}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.5 + idx * 0.1 }}
-                    >
-                      {item.label}
-                    </motion.a>
-                  ))}
-                </div>
-              </div>
+              {/* Legal links removed from mobile drawer (policies hidden) */}
 
               {/* Social Links - Mobile */}
               <div className="px-6 pb-6">

@@ -2,7 +2,14 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowLeft, RefreshCw, DollarSign, Clock, AlertCircle, CheckCircle } from "lucide-react";
+import {
+  ArrowLeft,
+  RefreshCw,
+  DollarSign,
+  Clock,
+  AlertCircle,
+  CheckCircle,
+} from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -24,7 +31,7 @@ const sectionVariants = {
 
 export default function RefundPage() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-black text-white notranslate">
       {/* Header */}
       <motion.div
         className="relative border-b border-cyan-500/20 bg-gradient-to-br from-slate-900/80 via-black/90 to-slate-950/90"
@@ -48,7 +55,8 @@ export default function RefundPage() {
             </h1>
           </div>
           <p className="text-gray-400 text-sm sm:text-base">
-            Last Updated: {new Date().toLocaleDateString("en-US", {
+            Last Updated:{" "}
+            {new Date().toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",
               day: "numeric",
@@ -74,14 +82,17 @@ export default function RefundPage() {
             </h2>
             <div className="prose prose-invert max-w-none space-y-4 text-gray-300 leading-relaxed">
               <p>
-                At <strong className="text-white">Shams Global Systems</strong> ("Company", "we", "us", or "our"), 
-                we are committed to providing high-quality AI-powered trading solutions and Expert Advisors. This 
-                Refund Policy outlines the terms and conditions under which refunds may be issued for our products 
-                and services.
+                At <strong className="text-white">Shams Global Systems</strong>{" "}
+                ("Company", "we", "us", or "our"), we are committed to providing
+                high-quality AI-powered trading solutions and Expert Advisors.
+                This Refund Policy outlines the terms and conditions under which
+                refunds may be issued for our products and services.
               </p>
               <p>
-                Please read this policy carefully before making a purchase. By purchasing our products or services, 
-                you acknowledge that you have read, understood, and agree to be bound by this Refund Policy.
+                Please read this policy carefully before making a purchase. By
+                purchasing our products or services, you acknowledge that you
+                have read, understood, and agree to be bound by this Refund
+                Policy.
               </p>
             </div>
           </section>
@@ -99,10 +110,14 @@ export default function RefundPage() {
                   Important Notice
                 </p>
                 <p>
-                  Due to the digital nature of our products and services, <strong className="text-white">all sales 
-                  are generally final</strong>. Once a subscription or service has been activated, refunds are typically 
-                  not available. We encourage you to review our service details, pricing, and terms carefully before 
-                  making a purchase.
+                  Due to the digital nature of our products and services,{" "}
+                  <strong className="text-white">
+                    all sales are generally final
+                  </strong>
+                  . Once a subscription or service has been activated, refunds
+                  are typically not available. We encourage you to review our
+                  service details, pricing, and terms carefully before making a
+                  purchase.
                 </p>
               </div>
             </div>
@@ -115,24 +130,31 @@ export default function RefundPage() {
             </h2>
             <div className="space-y-4 text-gray-300 leading-relaxed">
               <p>
-                <strong className="text-white">Annual AI Trading Subscription:</strong>
+                <strong className="text-white">
+                  Annual AI Trading Subscription:
+                </strong>
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>
-                  <strong className="text-white">No Refunds:</strong> Annual subscription fees are non-refundable 
-                  once payment has been processed and the subscription has been activated.
+                  <strong className="text-white">No Refunds:</strong> Annual
+                  subscription fees are non-refundable once payment has been
+                  processed and the subscription has been activated.
                 </li>
                 <li>
-                  <strong className="text-white">Cancellation:</strong> You may cancel your subscription at any time, 
-                  but cancellation does not entitle you to a refund for the unused portion of your subscription period.
+                  <strong className="text-white">Cancellation:</strong> You may
+                  cancel your subscription at any time, but cancellation does
+                  not entitle you to a refund for the unused portion of your
+                  subscription period.
                 </li>
                 <li>
-                  <strong className="text-white">Service Access:</strong> Upon cancellation, you will retain access 
-                  to the service until the end of your current billing period.
+                  <strong className="text-white">Service Access:</strong> Upon
+                  cancellation, you will retain access to the service until the
+                  end of your current billing period.
                 </li>
                 <li>
-                  <strong className="text-white">Pricing:</strong> Subscription pricing is subject to change and 
-                  current pricing will be displayed at the time of purchase.
+                  <strong className="text-white">Pricing:</strong> Subscription
+                  pricing is subject to change and current pricing will be
+                  displayed at the time of purchase.
                 </li>
               </ul>
             </div>
@@ -149,21 +171,28 @@ export default function RefundPage() {
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>
-                  <strong className="text-white">Cancellation Policy:</strong> If you cancel a scheduled consultation 
-                  at least <span className="text-cyan-400 font-bold">48 hours</span> before the scheduled time, you 
-                  may be eligible for a full refund or rescheduling.
+                  <strong className="text-white">Cancellation Policy:</strong>{" "}
+                  If you cancel a scheduled consultation at least{" "}
+                  <span className="text-cyan-400 font-bold">48 hours</span>{" "}
+                  before the scheduled time, you may be eligible for a full
+                  refund or rescheduling.
                 </li>
                 <li>
-                  <strong className="text-white">No-Show Policy:</strong> If you fail to attend a scheduled consultation 
-                  without prior notice, no refund will be issued.
+                  <strong className="text-white">No-Show Policy:</strong> If you
+                  fail to attend a scheduled consultation without prior notice,
+                  no refund will be issued.
                 </li>
                 <li>
-                  <strong className="text-white">Completed Consultations:</strong> Once a consultation session has been 
-                  completed, no refunds will be provided.
+                  <strong className="text-white">
+                    Completed Consultations:
+                  </strong>{" "}
+                  Once a consultation session has been completed, no refunds
+                  will be provided.
                 </li>
                 <li>
-                  <strong className="text-white">Pricing:</strong> Consultation pricing is subject to change and 
-                  current pricing will be displayed at the time of booking.
+                  <strong className="text-white">Pricing:</strong> Consultation
+                  pricing is subject to change and current pricing will be
+                  displayed at the time of booking.
                 </li>
               </ul>
             </div>
@@ -177,34 +206,46 @@ export default function RefundPage() {
             </h2>
             <div className="space-y-4 text-gray-300 leading-relaxed">
               <p>
-                We understand that exceptional circumstances may arise. Refunds may be considered in the following 
-                situations:
+                We understand that exceptional circumstances may arise. Refunds
+                may be considered in the following situations:
               </p>
-              
+
               <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-5 space-y-3">
-                <h3 className="text-lg font-semibold text-cyan-300">5.1 Technical Issues</h3>
+                <h3 className="text-lg font-semibold text-cyan-300">
+                  5.1 Technical Issues
+                </h3>
                 <p>
-                  If you experience significant technical issues that prevent you from using our services, and our 
-                  technical support team is unable to resolve the issue within <span className="text-cyan-400 font-bold">
-                  14 days</span> of your initial report, you may be eligible for a partial or full refund. This 
-                  must be requested within <span className="text-cyan-400 font-bold">30 days</span> of purchase.
+                  If you experience significant technical issues that prevent
+                  you from using our services, and our technical support team is
+                  unable to resolve the issue within{" "}
+                  <span className="text-cyan-400 font-bold">14 days</span> of
+                  your initial report, you may be eligible for a partial or full
+                  refund. This must be requested within{" "}
+                  <span className="text-cyan-400 font-bold">30 days</span> of
+                  purchase.
                 </p>
               </div>
 
               <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-5 space-y-3">
-                <h3 className="text-lg font-semibold text-cyan-300">5.2 Duplicate Charges</h3>
+                <h3 className="text-lg font-semibold text-cyan-300">
+                  5.2 Duplicate Charges
+                </h3>
                 <p>
-                  If you are charged multiple times for the same product or service due to a technical error on our 
-                  part, we will immediately refund the duplicate charges upon verification.
+                  If you are charged multiple times for the same product or
+                  service due to a technical error on our part, we will
+                  immediately refund the duplicate charges upon verification.
                 </p>
               </div>
 
               <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-5 space-y-3">
-                <h3 className="text-lg font-semibold text-cyan-300">5.3 Service Unavailability</h3>
+                <h3 className="text-lg font-semibold text-cyan-300">
+                  5.3 Service Unavailability
+                </h3>
                 <p>
-                  If our services become permanently unavailable due to circumstances beyond your control, and you have 
-                  not received the full value of your subscription, we may provide a prorated refund based on the 
-                  unused portion of your subscription.
+                  If our services become permanently unavailable due to
+                  circumstances beyond your control, and you have not received
+                  the full value of your subscription, we may provide a prorated
+                  refund based on the unused portion of your subscription.
                 </p>
               </div>
             </div>
@@ -218,19 +259,25 @@ export default function RefundPage() {
             </h2>
             <div className="space-y-4 text-gray-300 leading-relaxed">
               <p>
-                If you believe you are eligible for a refund under the exceptions outlined above, please follow 
-                these steps:
+                If you believe you are eligible for a refund under the
+                exceptions outlined above, please follow these steps:
               </p>
               <ol className="list-decimal list-inside space-y-3 ml-4">
                 <li>
-                  <strong className="text-white">Contact Support:</strong> Email us at{" "}
-                  <a href="mailto:support@shamsgs.com" className="text-cyan-400 hover:text-cyan-300 underline">
+                  <strong className="text-white">Contact Support:</strong> Email
+                  us at{" "}
+                  <a
+                    href="mailto:support@shamsgs.com"
+                    className="text-cyan-400 hover:text-cyan-300 underline"
+                  >
                     support@shamsgs.com
                   </a>{" "}
-                  with the subject line "Refund Request" within the applicable time frame.
+                  with the subject line "Refund Request" within the applicable
+                  time frame.
                 </li>
                 <li>
-                  <strong className="text-white">Provide Details:</strong> Include the following information in your request:
+                  <strong className="text-white">Provide Details:</strong>{" "}
+                  Include the following information in your request:
                   <ul className="list-disc list-inside space-y-1 ml-6 mt-2">
                     <li>Your order number or transaction ID</li>
                     <li>Date of purchase</li>
@@ -240,13 +287,20 @@ export default function RefundPage() {
                   </ul>
                 </li>
                 <li>
-                  <strong className="text-white">Review Period:</strong> We will review your request within{" "}
-                  <span className="text-cyan-400 font-bold">5-7 business days</span> and respond with our decision.
+                  <strong className="text-white">Review Period:</strong> We will
+                  review your request within{" "}
+                  <span className="text-cyan-400 font-bold">
+                    5-7 business days
+                  </span>{" "}
+                  and respond with our decision.
                 </li>
                 <li>
-                  <strong className="text-white">Processing Time:</strong> If approved, refunds will be processed 
-                  within <span className="text-cyan-400 font-bold">10-14 business days</span> to your original payment 
-                  method.
+                  <strong className="text-white">Processing Time:</strong> If
+                  approved, refunds will be processed within{" "}
+                  <span className="text-cyan-400 font-bold">
+                    10-14 business days
+                  </span>{" "}
+                  to your original payment method.
                 </li>
               </ol>
             </div>
@@ -259,25 +313,31 @@ export default function RefundPage() {
             </h2>
             <div className="space-y-4 text-gray-300 leading-relaxed">
               <p>
-                Refunds will be issued to the original payment method used for the purchase:
+                Refunds will be issued to the original payment method used for
+                the purchase:
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>
-                  <strong className="text-white">Credit/Debit Cards:</strong> Refunds will be credited back to the 
-                  card used for the original transaction.
+                  <strong className="text-white">Credit/Debit Cards:</strong>{" "}
+                  Refunds will be credited back to the card used for the
+                  original transaction.
                 </li>
                 <li>
-                  <strong className="text-white">Razorpay (INR):</strong> Refunds will be processed through Razorpay 
-                  to your original payment method.
+                  <strong className="text-white">Razorpay (INR):</strong>{" "}
+                  Refunds will be processed through Razorpay to your original
+                  payment method.
                 </li>
                 <li>
-                  <strong className="text-white">Stripe (USD):</strong> Refunds will be processed through Stripe to 
-                  your original payment method.
+                  <strong className="text-white">Stripe (USD):</strong> Refunds
+                  will be processed through Stripe to your original payment
+                  method.
                 </li>
               </ul>
               <p className="text-yellow-200 bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 mt-4">
-                <strong>Note:</strong> The time it takes for the refund to appear in your account depends on your 
-                bank or payment provider. This typically ranges from 5-14 business days after we process the refund.
+                <strong>Note:</strong> The time it takes for the refund to
+                appear in your account depends on your bank or payment provider.
+                This typically ranges from 5-14 business days after we process
+                the refund.
               </p>
             </div>
           </section>
@@ -289,7 +349,11 @@ export default function RefundPage() {
             </h2>
             <div className="space-y-4 text-gray-300 leading-relaxed bg-red-500/10 border border-red-500/30 rounded-lg p-5">
               <p>
-                The following items and services are <strong className="text-red-300">strictly non-refundable</strong>:
+                The following items and services are{" "}
+                <strong className="text-red-300">
+                  strictly non-refundable
+                </strong>
+                :
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>Activated annual subscriptions</li>
@@ -297,7 +361,9 @@ export default function RefundPage() {
                 <li>Downloaded Expert Advisors or software</li>
                 <li>License keys that have been activated</li>
                 <li>Services used or accessed after purchase</li>
-                <li>Refund requests made after 30 days from the date of purchase</li>
+                <li>
+                  Refund requests made after 30 days from the date of purchase
+                </li>
               </ul>
             </div>
           </section>
@@ -309,17 +375,21 @@ export default function RefundPage() {
             </h2>
             <div className="space-y-4 text-gray-300 leading-relaxed">
               <p>
-                If you initiate a chargeback or dispute with your payment provider without first contacting us, we 
-                reserve the right to:
+                If you initiate a chargeback or dispute with your payment
+                provider without first contacting us, we reserve the right to:
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>Immediately suspend or terminate your account</li>
                 <li>Revoke access to all services and products</li>
-                <li>Pursue legal action to recover any costs associated with the chargeback</li>
+                <li>
+                  Pursue legal action to recover any costs associated with the
+                  chargeback
+                </li>
               </ul>
               <p>
-                We strongly encourage you to contact our support team first to resolve any issues before initiating 
-                a chargeback. We are committed to working with you to find a satisfactory solution.
+                We strongly encourage you to contact our support team first to
+                resolve any issues before initiating a chargeback. We are
+                committed to working with you to find a satisfactory solution.
               </p>
             </div>
           </section>
@@ -331,12 +401,14 @@ export default function RefundPage() {
             </h2>
             <div className="space-y-4 text-gray-300 leading-relaxed">
               <p>
-                We reserve the right to modify this Refund Policy at any time. Changes will be effective immediately 
-                upon posting on this page. We will update the "Last Updated" date to reflect any changes.
+                We reserve the right to modify this Refund Policy at any time.
+                Changes will be effective immediately upon posting on this page.
+                We will update the "Last Updated" date to reflect any changes.
               </p>
               <p>
-                Your continued use of our services after any changes to this Refund Policy constitutes acceptance 
-                of those changes. We encourage you to review this policy periodically.
+                Your continued use of our services after any changes to this
+                Refund Policy constitutes acceptance of those changes. We
+                encourage you to review this policy periodically.
               </p>
             </div>
           </section>
@@ -348,16 +420,26 @@ export default function RefundPage() {
             </h2>
             <div className="space-y-4 text-gray-300 leading-relaxed bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-5">
               <p>
-                If you have any questions about this Refund Policy or wish to request a refund, please contact us:
+                If you have any questions about this Refund Policy or wish to
+                request a refund, please contact us:
               </p>
               <ul className="space-y-2">
-                <li><strong className="text-white">Email:</strong> support@shamsgs.com</li>
-                <li><strong className="text-white">Phone:</strong> +971 58 635 4242</li>
-                <li><strong className="text-white">Address:</strong> Ajman Free Zone C1 Building, United Arab Emirates</li>
+                <li>
+                  <strong className="text-white">Email:</strong>{" "}
+                  support@shamsgs.com
+                </li>
+                <li>
+                  <strong className="text-white">Phone:</strong> +971 58 635
+                  4242
+                </li>
+                <li>
+                  <strong className="text-white">Address:</strong> Ajman Free
+                  Zone C1 Building, United Arab Emirates
+                </li>
               </ul>
               <p className="mt-4">
-                Our support team is available to assist you and will respond to your inquiries within 24-48 hours 
-                during business days.
+                Our support team is available to assist you and will respond to
+                your inquiries within 24-48 hours during business days.
               </p>
             </div>
           </section>
@@ -366,8 +448,10 @@ export default function RefundPage() {
           <section className="border-t border-gray-700 pt-8">
             <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/30 rounded-lg p-6">
               <p className="text-center text-gray-300 leading-relaxed">
-                By purchasing our products or services, you acknowledge that you have read, understood, and agree 
-                to be bound by this Refund Policy. We recommend reviewing this policy before making any purchase.
+                By purchasing our products or services, you acknowledge that you
+                have read, understood, and agree to be bound by this Refund
+                Policy. We recommend reviewing this policy before making any
+                purchase.
               </p>
             </div>
           </section>
@@ -387,4 +471,3 @@ export default function RefundPage() {
     </main>
   );
 }
-

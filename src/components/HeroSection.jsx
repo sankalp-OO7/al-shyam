@@ -293,7 +293,7 @@ export default function AlshyamHeroSection() {
                 >
                   {/* 🎯 Individual Text Glow Wrapper for Subheadline */}
                   <TextBackgroundWrapper>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 notranslate">
                       <div className="h-[2px] w-8 sm:w-12 bg-gradient-to-r from-amber-400 to-transparent" />
                       <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-amber-400 tracking-[0.15em] sm:tracking-[0.2em]">
                         SHAMS GLOBAL SYSTEMS

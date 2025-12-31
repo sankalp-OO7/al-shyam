@@ -49,18 +49,43 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Always hide scrollbar when loading
-    document.body.style.overflow = "hidden";
+    const TWO_HOURS_MS = 2 * 60 * 60 * 1000;
+    let timer = null;
 
-    // Timer to finish loading
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-      document.body.style.overflow = "unset"; // Re-enable scroll after animation
-    }, LOADING_DURATION_MS);
+    try {
+      const last = localStorage.getItem("shams_last_intro");
+      const now = Date.now();
+      const shouldShow = !last || now - parseInt(last, 10) >= TWO_HOURS_MS;
+
+      if (shouldShow) {
+        // show animation and record timestamp so it won't show again for 2 hours
+        document.body.style.overflow = "hidden";
+        setIsLoading(true);
+        timer = setTimeout(() => {
+          setIsLoading(false);
+          document.body.style.overflow = "unset";
+          try {
+            localStorage.setItem("shams_last_intro", String(Date.now()));
+          } catch (e) {}
+        }, LOADING_DURATION_MS);
+      } else {
+        // skip animation for this device within 2 hours
+        setIsLoading(false);
+        document.body.style.overflow = "unset";
+      }
+    } catch (e) {
+      // fallback: show animation if localStorage isn't available
+      document.body.style.overflow = "hidden";
+      setIsLoading(true);
+      timer = setTimeout(() => {
+        setIsLoading(false);
+        document.body.style.overflow = "unset";
+      }, LOADING_DURATION_MS);
+    }
 
     return () => {
-      clearTimeout(timer);
-      document.body.style.overflow = "unset"; // Clean up on unmount
+      if (timer) clearTimeout(timer);
+      document.body.style.overflow = "unset";
     };
   }, []); // Runs once on mount
 
