@@ -321,23 +321,34 @@ function NavbarComponent() {
                 </div>
               )}
 
-              {/* Hamburger Menu (Mobile) */}
+              {/* Mobile actions: Language selector + Hamburger */}
               {!isDesktop && (
-                <motion.button
-                  onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-                  className="p-2 text-cyan-400 hover:bg-cyan-500/10 rounded-lg transition-colors"
-                  whileTap={{ scale: 0.9 }}
-                  aria-label={isDrawerOpen ? "Close menu" : "Open menu"}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 }}
-                >
-                  {isDrawerOpen ? (
-                    <X className="w-6 h-6" />
-                  ) : (
-                    <Menu className="w-6 h-6" />
-                  )}
-                </motion.button>
+                <div className="flex items-center gap-2">
+                  <motion.div
+                    className="flex items-center pl-4 border-l border-cyan-500/20"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.28 }}
+                  >
+                    <LanguageSelector />
+                  </motion.div>
+
+                  <motion.button
+                    onClick={() => setIsDrawerOpen(!isDrawerOpen)}
+                    className="p-2 text-cyan-400 hover:bg-cyan-500/10 rounded-lg transition-colors"
+                    whileTap={{ scale: 0.9 }}
+                    aria-label={isDrawerOpen ? "Close menu" : "Open menu"}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.34 }}
+                  >
+                    {isDrawerOpen ? (
+                      <X className="w-6 h-6" />
+                    ) : (
+                      <Menu className="w-6 h-6" />
+                    )}
+                  </motion.button>
+                </div>
               )}
             </div>
           </motion.nav>
@@ -363,7 +374,7 @@ function NavbarComponent() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed right-0 top-0 bottom-0 z-[70] w-80 bg-gradient-to-br from-gray-900 via-black to-gray-900 border-l border-cyan-500/20 shadow-2xl overflow-y-auto"
+              className="fixed right-4 top-0 bottom-0 z-[70] w-80 bg-gradient-to-br from-gray-900 via-black to-gray-900 border-l border-cyan-500/20 shadow-2xl overflow-y-auto"
             >
               {/* Drawer Header */}
               <div className="flex items-center justify-between p-6 border-b border-cyan-500/20">
@@ -374,9 +385,9 @@ function NavbarComponent() {
                   <div className="text-[10px] tracking-[0.3em] text-amber-400/90 font-semibold">
                     GLOBAL SYSTEMS
                   </div>
-                  <div className="mt-3">
+                  {/* <div className="mt-3">
                     <LanguageSelector />
-                  </div>
+                  </div> */}
                 </div>
                 <button
                   onClick={() => setIsDrawerOpen(false)}
