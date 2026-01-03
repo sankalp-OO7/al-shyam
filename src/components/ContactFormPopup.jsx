@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
+//a
 import {
   X,
   CheckCircle,
@@ -32,28 +32,28 @@ const backdropVariants = {
 
 const successVariants = {
   hidden: { opacity: 0, scale: 0.8, y: 20 },
-  visible: { 
-    opacity: 1, 
-    scale: 1, 
+  visible: {
+    opacity: 1,
+    scale: 1,
     y: 0,
-    transition: { 
+    transition: {
       duration: 0.5,
-      ease: [0.34, 1.56, 0.64, 1]
-    } 
+      ease: [0.34, 1.56, 0.64, 1],
+    },
   },
   exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
 };
 
 const checkmarkVariants = {
   hidden: { scale: 0, rotate: -180 },
-  visible: { 
-    scale: 1, 
+  visible: {
+    scale: 1,
     rotate: 0,
-    transition: { 
+    transition: {
       delay: 0.2,
       duration: 0.6,
-      ease: [0.34, 1.56, 0.64, 1]
-    }
+      ease: [0.34, 1.56, 0.64, 1],
+    },
   },
 };
 
@@ -67,9 +67,9 @@ const confettiVariants = {
     transition: {
       duration: 1.5,
       delay: 0.4 + i * 0.1,
-      ease: "easeOut"
-    }
-  })
+      ease: "easeOut",
+    },
+  }),
 };
 
 // Success Popup Component
@@ -79,10 +79,10 @@ function SuccessPopup({ isOpen, onClose, modeTitle, redirectUrl }) {
   useEffect(() => {
     if (isOpen) {
       setCountdown(5);
-      
+
       // Countdown timer
       const countdownInterval = setInterval(() => {
-        setCountdown(prev => {
+        setCountdown((prev) => {
           if (prev <= 1) {
             clearInterval(countdownInterval);
             return 0;
@@ -98,7 +98,7 @@ function SuccessPopup({ isOpen, onClose, modeTitle, redirectUrl }) {
         }
         onClose();
       }, 5000);
-      
+
       return () => {
         clearInterval(countdownInterval);
         clearTimeout(redirectTimer);
@@ -124,9 +124,7 @@ function SuccessPopup({ isOpen, onClose, modeTitle, redirectUrl }) {
           variants={backdropVariants}
         >
           {/* Backdrop with stronger blur */}
-          <motion.div
-            className="absolute inset-0 bg-black/90 backdrop-blur-md"
-          />
+          <motion.div className="absolute inset-0 bg-black/90 backdrop-blur-md" />
 
           {/* Success Modal */}
           <motion.div
@@ -135,7 +133,7 @@ function SuccessPopup({ isOpen, onClose, modeTitle, redirectUrl }) {
           >
             {/* Animated background glow */}
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-purple-500/10 animate-pulse" />
-            
+
             {/* Confetti particles */}
             <div className="absolute inset-0 pointer-events-none">
               {[...Array(5)].map((_, i) => (
@@ -147,10 +145,16 @@ function SuccessPopup({ isOpen, onClose, modeTitle, redirectUrl }) {
                   animate="visible"
                   className="absolute top-1/3 left-1/2"
                 >
-                  <Sparkles 
-                    className="w-6 h-6" 
+                  <Sparkles
+                    className="w-6 h-6"
                     style={{
-                      color: ['#06b6d4', '#3b82f6', '#8b5cf6', '#ec4899', '#f59e0b'][i]
+                      color: [
+                        "#06b6d4",
+                        "#3b82f6",
+                        "#8b5cf6",
+                        "#ec4899",
+                        "#f59e0b",
+                      ][i],
                     }}
                   />
                 </motion.div>
@@ -358,7 +362,8 @@ export default function ContactFormPopup({
 
     // Validation for minimum account awareness
     if (!isAwareOfMinAccount)
-      newErrors.minAccount = "Please confirm you are aware of the $10,000 USD minimum account requirement.";
+      newErrors.minAccount =
+        "Please confirm you are aware of the $10,000 USD minimum account requirement.";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -397,10 +402,11 @@ export default function ContactFormPopup({
       });
 
       const data = await res.json();
+      console.log(payload);
       console.log("Lead saved:", data);
 
       setIsSubmitting(false);
-      
+
       // Show success popup instead of immediate redirect
       setShowSuccess(true);
     } catch (error) {
@@ -586,7 +592,9 @@ export default function ContactFormPopup({
                               : "border-gray-700"
                           } text-left text-white placeholder-gray-500 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 flex justify-between items-center`}
                         >
-                          <span className="truncate">{selectedCountryName}</span>
+                          <span className="truncate">
+                            {selectedCountryName}
+                          </span>
                           <ChevronDown
                             className={`w-4 h-4 ml-1 text-gray-400 transition-transform ${
                               isCountrySelectOpen ? "rotate-180" : "rotate-0"
@@ -737,7 +745,7 @@ export default function ContactFormPopup({
       </AnimatePresence>
 
       {/* Success Popup */}
-      <SuccessPopup 
+      <SuccessPopup
         isOpen={showSuccess}
         onClose={handleSuccessClose}
         modeTitle={modeTitle}

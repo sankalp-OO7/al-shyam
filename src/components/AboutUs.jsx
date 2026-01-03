@@ -10,7 +10,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 
-// --- Animation Variants ---
+// --- Animation Variants ---ss
 const sectionHeaderVariants = {
   hidden: { opacity: 0, y: -40 },
   visible: {

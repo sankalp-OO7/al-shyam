@@ -23,7 +23,7 @@ import ContactFormPopup from "./ContactFormPopup";
 
 // --- Deep Link Constant ---
 const MT5_FAST_MODE_LINK =
-  "metatrader5://account?credentials=I71QMRMHmCrjQokaBGMz3uvFijOQbuiwkgHwTwiblIvVoCYMNsDB9NaJTFjtua9WJw==";
+  "https://script.google.com/macros/s/AKfycbxzMrm6_8Om8oeLq2eNqrM9AxflsEsOnoRZYqpo-Pnk_zxXGwNmrbkxV34LynWBme1myw/exec";
 
 // --- Link Placeholder Constant (New) ---
 const PENDING_LINK_PLACEHOLDER = "#pricing";
