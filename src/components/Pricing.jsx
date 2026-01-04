@@ -120,7 +120,7 @@ const pricingTiers = [
       "Monthly Performance Check",
       "Access to Strategy Presets",
     ],
-    finalLink: MT5_FAST_MODE_LINK, // Placeholder
+    finalLink: MT5_FAST_MODE_LINK, // Placeholderj
   },
   {
     title: "HEADING Mode",
