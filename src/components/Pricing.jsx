@@ -23,7 +23,7 @@ import ContactFormPopup from "./ContactFormPopup";
 
 // --- Deep Link Constant ---
 const MT5_FAST_MODE_LINK =
-  "https://script.google.com/macros/s/AKfycbxzMrm6_8Om8oeLq2eNqrM9AxflsEsOnoRZYqpo-Pnk_zxXGwNmrbkxV34LynWBme1myw/exec";
+  "metatrader5://account?credentials=I71QMRMHmCrjQokaBGMz3uvFijOQbuiwkgHwTwiblIvVoCYMNsDB9NaJTFjtua9WJw==";
 
 // --- Link Placeholder Constant (New) ---
 const PENDING_LINK_PLACEHOLDER = "#pricing";
@@ -98,7 +98,7 @@ const pricingTiers = [
       "Standard 24/7 Support",
       "All updates included",
     ],
-    finalLink: PENDING_LINK_PLACEHOLDER, // Placeholder
+    finalLink: MT5_FAST_MODE_LINK, // Placeholder
   },
   {
     title: "MODERATE Mode",
@@ -120,7 +120,7 @@ const pricingTiers = [
       "Monthly Performance Check",
       "Access to Strategy Presets",
     ],
-    finalLink: PENDING_LINK_PLACEHOLDER, // Placeholder
+    finalLink: MT5_FAST_MODE_LINK, // Placeholder
   },
   {
     title: "HEADING Mode",
@@ -142,7 +142,7 @@ const pricingTiers = [
       "Dedicated Account Manager",
       "Exclusive Strategy Insights",
     ],
-    finalLink: PENDING_LINK_PLACEHOLDER, // Placeholder
+    finalLink: MT5_FAST_MODE_LINK, // Placeholder
   },
   {
     title: "ADVANCE HEADGE Mode",
@@ -164,7 +164,7 @@ const pricingTiers = [
       "Full Risk Management Customization",
       "Free AI Optimization Session (Yearly)",
     ],
-    finalLink: PENDING_LINK_PLACEHOLDER, // Placeholder
+    finalLink: MT5_FAST_MODE_LINK, // Placeholder
   },
   {
     title: "SCALPING Mode",
@@ -186,7 +186,7 @@ const pricingTiers = [
       "Dedicated Server Setup Guide",
       "Low Spread Broker Priority",
     ],
-    finalLink: PENDING_LINK_PLACEHOLDER, // Placeholder
+    finalLink: MT5_FAST_MODE_LINK, // Placeholder
   },
 ];
 
