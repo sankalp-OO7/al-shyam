@@ -376,7 +376,7 @@ export default function ContactFormPopup({
 
     setIsSubmitting(true);
 
-    const fullMobileNumber = `${countryCode}${mobile}`;
+    const fullMobileNumber = `${mobile}`;
 
     const payload = {
       buttonId,
