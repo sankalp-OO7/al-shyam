@@ -199,6 +199,54 @@ export default function TermsPage() {
             </div>
           </section>
 
+          {/* Account Access and Authorization */}
+          <section>
+            <h2 className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-4">
+              4.1 Account Access and Authorization
+            </h2>
+            <div className="space-y-4 text-gray-300 leading-relaxed">
+              <p>
+                When you purchase consultation services or subscribe to any
+                Shams Global Systems service that requires account integration
+                (for example, trading account setup or AI-driven account
+                management), you acknowledge and agree that:
+              </p>
+              <ul className="list-disc list-inside space-y-2 ml-4">
+                <li>
+                  You will open an account with the broker or provider
+                  recommended or instructed by Shamsgs, either before or
+                  immediately after subscribing, as part of the service
+                  activation process.
+                </li>
+                <li>
+                  You expressly authorize Shamsgs Consulting to access,
+                  integrate with, and manage that account on your behalf for the
+                  purpose of implementing and operating AI-driven trading or
+                  related services. This may require providing credentials or
+                  other access methods necessary for integration.
+                </li>
+                <li>
+                  Providing such access or credentials is required to deliver
+                  the integrated service. By providing access you consent to
+                  Shamsgs Consulting performing actions on the account necessary
+                  to deliver the contracted services.
+                </li>
+                <li>
+                  Shamsgs will handle any credentials or account access in
+                  accordance with our Privacy Policy and will take commercially
+                  reasonable measures to protect that information. You remain
+                  responsible for understanding the security and risks involved
+                  in sharing access with a third-party service provider.
+                </li>
+                <li>
+                  If you have questions about required access or credential
+                  handling, contact support@shamsgs.com before providing account
+                  access.
+                </li>
+              </ul>
+            </div>
+          </section>
+
           {/* User Obligations */}
           <section>
             <h2 className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-4">

@@ -267,6 +267,7 @@ export default function ContactFormPopup({
   const [isAgeChecked, setIsAgeChecked] = useState(false);
   const [hasDownloadedMT5, setHasDownloadedMT5] = useState(false);
   const [isAwareOfMinAccount, setIsAwareOfMinAccount] = useState(false);
+  const [accountConsent, setAccountConsent] = useState(false);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -311,6 +312,7 @@ export default function ContactFormPopup({
       setIsAgeChecked(false);
       setHasDownloadedMT5(false);
       setIsAwareOfMinAccount(false);
+      setAccountConsent(false);
       setErrors({});
       setIsSubmitting(false);
       setShowSuccess(false);
@@ -365,6 +367,11 @@ export default function ContactFormPopup({
       newErrors.minAccount =
         "Please confirm you are aware of the $10,000 USD minimum account requirement.";
 
+    // Consent for account access & management
+    if (!accountConsent)
+      newErrors.accountConsent =
+        "Please consent to allow Shamsgs Consulting to access/manage your account as described.";
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -389,6 +396,7 @@ export default function ContactFormPopup({
       isAgeChecked,
       hasDownloadedMT5,
       isAwareOfMinAccount,
+      accountConsent,
     };
 
     try {
@@ -441,11 +449,12 @@ export default function ContactFormPopup({
       <AnimatePresence>
         {isOpen && !showSuccess && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-4 overflow-y-auto"
             initial="hidden"
             animate="visible"
             exit="exit"
             variants={backdropVariants}
+            style={{ WebkitOverflowScrolling: "touch" }}
           >
             {/* Backdrop */}
             <motion.div
@@ -455,8 +464,9 @@ export default function ContactFormPopup({
 
             {/* Modal Content (Responsive: max-w-lg works well for mobile/desktop) */}
             <motion.div
-              className="relative bg-gray-900 border border-cyan-500/50 rounded-xl shadow-2xl w-full max-w-lg p-6 sm:p-8 space-y-6 z-50"
+              className="relative bg-gray-900 border border-cyan-500/50 rounded-xl shadow-2xl w-full max-w-lg p-6 sm:p-8 space-y-6 z-50 max-h-[90vh] overflow-y-auto"
               variants={modalVariants}
+              style={{ WebkitOverflowScrolling: "touch" }}
             >
               {/* Close Button */}
               <button
@@ -523,6 +533,31 @@ export default function ContactFormPopup({
                   {errors.minAccount && (
                     <p className="text-red-400 text-xs italic mt-1">
                       {errors.minAccount}
+                    </p>
+                  )}
+                  {/* Account Access & Management Consent Checkbox */}
+                  <label className="flex items-start space-x-3 cursor-pointer pt-2">
+                    <input
+                      type="checkbox"
+                      checked={accountConsent}
+                      onChange={(e) => setAccountConsent(e.target.checked)}
+                      className="form-checkbox mt-1 h-5 w-5 text-cyan-500 bg-gray-700 border-gray-600 rounded focus:ring-cyan-500"
+                    />
+                    <div className="text-base">
+                      <span className="font-semibold">
+                        Account Access Consent:
+                      </span>{" "}
+                      I authorize Shamsgs Consulting to access and manage an
+                      account I open with the broker/provider recommended by
+                      Shamsgs, and I consent to provide any necessary
+                      credentials or access methods required to integrate and
+                      operate the AI services. I understand this consent is
+                      required to deliver the contracted services.
+                    </div>
+                  </label>
+                  {errors.accountConsent && (
+                    <p className="text-red-400 text-xs italic mt-1">
+                      {errors.accountConsent}
                     </p>
                   )}
                   {/* Age Checkbox */}
