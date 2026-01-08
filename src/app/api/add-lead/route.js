@@ -4,7 +4,7 @@ export async function POST(req) {
 
     // Your Google Script Web App URL
     const googleScriptUrl =
-      "https://script.google.com/macros/s/AKfycbzwnr0QlPrZyUFNQ0jkCzehiJPUaMEMnOAdhFxqKKXxtPIFGpQ6Pj913FKhkv2Brp7bbA/exec";
+      "https://script.google.com/macros/s/AKfycbwTr_dE0-09m54UoE0Hoqxmt8fgrWwVn8MhMOsdaM2eM27WlsG1MD302sc9FhHEhRkFxg/exec";
     // Forward the data to the Google Script
     const response = await fetch(googleScriptUrl, {
       method: "POST",

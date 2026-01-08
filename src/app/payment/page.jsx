@@ -74,16 +74,16 @@ function PaymentContent() {
           </Link>
         </div>
 
-        <div className="flex justify-center items-center w-full">
+        {/* <div className="flex justify-center items-center w-full">
           <stripe-buy-button
             buy-button-id="buy_btn_1SjKLI0SWFjKFrvtf8Hr8lP3"
             publishable-key="pk_test_51Sh0DO0SWFjKFrvtT9ec12v3uqsMzxM2cnKbaat4T9NShnMbLS76rmp8F0dVpgcqgoW1HbgMYzbsJouPPQVQfyd200u3KNtCDy"
           ></stripe-buy-button>
-        </div>
+        </div> */}
 
         <div className="flex gap-4 justify-center items-center w-full">
           <a
-            href="https://buy.stripe.com/test_7sY00bcAuclWeRu0rg8IU00?return_url=https://shamsgs.com/payment/success"
+            href="https://buy.stripe.com/5kQ28sgEt4L9cCM1Wm1B600"
             target="_blank"
             rel="noopener noreferrer"
             className="px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-500 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-purple-600 transition-all shadow-lg"
