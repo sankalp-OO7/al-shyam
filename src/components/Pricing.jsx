@@ -261,7 +261,7 @@ const PricingCard = ({
 
   const primaryButtonText = isFastMode
     ? "Start Trading (Fast Login)"
-    : "Get Live Demo";
+    : "Watch Live Account";
 
   const primaryButtonStyle = isFastMode
     ? "bg-gradient-to-r from-red-600 to-orange-600 text-white shadow-red-500/50 hover:shadow-lg hover:from-red-700 hover:to-orange-700"

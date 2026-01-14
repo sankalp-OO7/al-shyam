@@ -32,12 +32,14 @@ export default function ProjectCard({ project }) {
         <p className="text-gray-700 dark:text-gray-200 text-sm line-clamp-2">
           {excerpt}
         </p>
-        <div className="mt-4 flex flex-col sm:flex-row gap-3"> {/* MODIFIED THIS LINE */}
+        <div className="mt-4 flex flex-col sm:flex-row gap-3">
+          {" "}
+          {/* MODIFIED THIS LINE */}
           <Link
             href={`/projects/${slug}/request-demo`}
             className="px-4 py-2 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition text-center" // Added text-center
           >
-            Request Demo
+            Watch Live Account{" "}
           </Link>
           <Link
             href={`/projects/${slug}/details`}
