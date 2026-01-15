@@ -393,7 +393,7 @@ export default function AlshyamHeroSection() {
                     whileTap={{ scale: 0.98 }}
                   >
                     <span className="flex items-center justify-center gap-3 text-base sm:text-lg font-bold text-white tracking-wide">
-                      Get Live Demo & Pricing
+                      Watch Live Account & Pricing
                       <TrendingUp className="w-5 h-5 text-cyan-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                     </span>
                   </motion.button>

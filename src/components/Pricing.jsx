@@ -260,7 +260,7 @@ const PricingCard = ({
   const isFastMode = title === "FAST Mode";
 
   const primaryButtonText = isFastMode
-    ? "Start Trading (Fast Login)"
+    ? "Watch Live Account (Fast Login)"
     : "Watch Live Account";
 
   const primaryButtonStyle = isFastMode
