@@ -166,7 +166,7 @@ export default function AlshyamHeroSection() {
       className="relative w-full min-h-screen overflow-hidden bg-black"
     >
       <EnrollmentToast />
-      <ChatBot />
+      {/* <ChatBot /> */}
       {/* 🎯 MODIFICATION START: Responsive Background (Image for Mobile, Video for Desktop) */}
 
       {/* 1. Mobile-First Image Background (Visible by default, hidden on large screens) */}

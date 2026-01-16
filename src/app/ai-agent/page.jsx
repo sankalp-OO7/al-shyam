@@ -1,162 +1,132 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowLeft, Bot, Sparkles, MessageCircle } from "lucide-react";
-import { useEffect } from "react";
+import { ArrowLeft, Bot, Mic, Shield, Zap } from "lucide-react";
 
+/* Animations */
 const containerVariants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.6, ease: "easeOut" },
   },
-};
-
-const sectionVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.12 * i, duration: 0.6 },
-  }),
 };
 
 export default function ElevenLabsAgentPage() {
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://unpkg.com/@elevenlabs/convai-widget-embed";
-    script.async = true;
-    script.type = "text/javascript";
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
+    // Load ElevenLabs script ONCE
+    if (!document.getElementById("elevenlabs-script")) {
+      const script = document.createElement("script");
+      script.id = "elevenlabs-script";
+      script.src = "https://unpkg.com/@elevenlabs/convai-widget-embed";
+      script.async = true;
+      document.body.appendChild(script);
+    }
   }, []);
 
   return (
-    <main className="min-h-screen bg-black text-white notranslate">
+    <main className="min-h-screen bg-black text-white ">
       {/* Header */}
-      <motion.div
-        className="relative border-b border-cyan-500/20 bg-gradient-to-br from-slate-900/80 via-black/90 to-slate-950/90"
+      <motion.section
         variants={containerVariants}
         initial="hidden"
         animate="visible"
+        className="border-b border-cyan-500/20 bg-gradient-to-br from-slate-900 via-black to-slate-950 "
       >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+        <div className="max-w-5xl mx-auto px-4 py-16">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-cyan-300 hover:text-cyan-200 mb-6 transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-cyan-400 hover:text-cyan-300 mb-6"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Home
           </Link>
 
           <div className="flex items-center gap-4 mb-4">
-            <Bot className="w-10 h-10 text-cyan-400" />
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight">
-              AI Sales Assistant
+            <div className="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/30">
+              <Bot className="w-9 h-9 text-cyan-400" />
+            </div>
+            <h1 className="text-4xl font-black tracking-tight">
+              SHAMSGS <span className="text-cyan-400">AI</span>
             </h1>
           </div>
-          <p className="text-gray-400 max-w-2xl">
-            Experience real-time voice and text conversations powered by
-            ElevenLabs Conversational AI. Our intelligent agent is ready to
-            answer questions, guide customers, and boost conversions 24/7.
+
+          <p className="max-w-2xl text-gray-400 text-lg">
+            Official AI voice & chat assistant representing{" "}
+            <span className="text-cyan-400">shamsgs.com</span>. Get instant
+            guidance on services, pricing, and solutions.
           </p>
         </div>
-      </motion.div>
+      </motion.section>
 
       {/* Content */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <motion.div
-          variants={sectionVariants}
-          initial="hidden"
-          animate="visible"
-          custom={0}
-          className="space-y-14"
-        >
-          {/* Features */}
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-2xl p-6 shadow-lg">
-              <Sparkles className="w-8 h-8 text-cyan-400 mb-3" />
-              <h3 className="text-xl font-bold mb-2">Human-like Voice</h3>
-              <p className="text-gray-300">
-                Natural, expressive speech powered by ElevenLabs
-                state-of-the-art voice models.
+      <div className="max-w-5xl mx-auto px-4 py-16 space-y-16">
+        {/* Capabilities */}
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Capability
+            icon={Mic}
+            title="Sales & Onboarding"
+            text="Explains SHAMSGS services, plans, and next steps."
+          />
+          <Capability
+            icon={Shield}
+            title="Secure Conversations"
+            text="Encrypted voice and text communication."
+          />
+          <Capability
+            icon={Zap}
+            title="Instant Response"
+            text="Real-time answers with ultra-low latency."
+          />
+        </section>
+
+        {/* AI Agent */}
+        <section className="flex justify-center">
+          <div className="relative w-full max-w-xl bg-slate-900 border border-cyan-500/30 rounded-3xl p-8 shadow-2xl">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl font-bold">Talk to SHAMSGS AI</h2>
+              <p className="text-xs text-cyan-400 mt-1 uppercase tracking-widest">
+                Status: Online
               </p>
             </div>
 
-            <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-2xl p-6 shadow-lg">
-              <MessageCircle className="w-8 h-8 text-cyan-400 mb-3" />
-              <h3 className="text-xl font-bold mb-2">
-                Real-time Conversations
-              </h3>
-              <p className="text-gray-300">
-                Instantly engage visitors with low-latency, interactive AI
-                conversations.
-              </p>
+            <div className="flex justify-center min-h-[380px]">
+              <elevenlabs-convai
+                agent-id="agent_8501kem2h5h4ed3vttatwx9b5fxh"
+                action-text="Start Conversation"
+              ></elevenlabs-convai>
             </div>
-
-            <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-2xl p-6 shadow-lg">
-              <Bot className="w-8 h-8 text-cyan-400 mb-3" />
-              <h3 className="text-xl font-bold mb-2">24/7 Sales Agent</h3>
-              <p className="text-gray-300">
-                Always-on assistant that qualifies leads, answers FAQs, and
-                supports customers automatically.
-              </p>
-            </div>
-          </section>
-
-          {/* Agent Embed */}
-          <section className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 blur-3xl rounded-3xl" />
-            <div className="relative bg-slate-900/80 border border-cyan-500/30 rounded-3xl p-8 sm:p-12 shadow-2xl">
-              <h2 className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-4">
-                Talk to Our AI Agent
-              </h2>
-              <p className="text-gray-300 mb-8 max-w-2xl">
-                Click below to start a live conversation with our ElevenLabs AI
-                Sales Assistant. You can speak or type your questions and get
-                instant responses.
-              </p>
-
-              <div className="flex justify-center">
-                <elevenlabs-convai agent-id="agent_8501kem2h5h4ed3vttatwx9b5fxh"></elevenlabs-convai>
-              </div>
-            </div>
-          </section>
-
-          {/* CTA */}
-          <section className="text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-              Ready to Integrate This Agent?
-            </h2>
-            <p className="text-gray-400 max-w-xl mx-auto mb-6">
-              This AI agent can be embedded on landing pages, dashboards, and
-              support portals to dramatically improve customer engagement.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-black font-semibold px-6 py-3 rounded-xl transition-colors"
-            >
-              Contact Our Team
-            </Link>
-          </section>
-        </motion.div>
+          </div>
+        </section>
       </div>
 
-      {/* Footer */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-cyan-300 hover:text-cyan-200 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Return to Home
-        </Link>
-      </div>
+      {/* Global styling for ElevenLabs */}
+      <style jsx global>{`
+        elevenlabs-convai::part(launcher) {
+          display: none !important;
+        }
+
+        elevenlabs-convai {
+          width: 100% !important;
+          max-width: 380px !important;
+          margin: 0 auto !important;
+          background: transparent !important;
+        }
+      `}</style>
     </main>
+  );
+}
+
+/* Small helper component */
+function Capability({ icon: Icon, title, text }) {
+  return (
+    <div className="bg-slate-900/60 border border-white/5 rounded-2xl p-6 hover:border-cyan-500/30 transition-colors">
+      <Icon className="w-7 h-7 text-cyan-400 mb-3" />
+      <h4 className="font-bold mb-1">{title}</h4>
+      <p className="text-sm text-gray-400">{text}</p>
+    </div>
   );
 }

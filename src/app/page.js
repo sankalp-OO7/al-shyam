@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
 import LoadingOverlay from "@/components/LoadingOverlay";
+import ChatBot from "@/components/ChatBot";
 
 // New Component Imports
 import AboutUs from "@/components/AboutUs";
@@ -16,6 +17,7 @@ import Services from "@/components/Services";
 import Pricing from "@/components/Pricing"; // Maps to former Projects slot
 import Technology from "@/components/Technology"; // Maps to former Career/Gallery slot
 import ContactUs from "@/components/ContactUs";
+import Agent from "@/components/Agent-11labs";
 
 // --- CONTENT Animation Variants ---
 const contentFadeIn = {
@@ -93,6 +95,8 @@ export default function Home() {
     <>
       {/* 1. Render the separate LoadingOverlay component */}
       <LoadingOverlay isLoading={isLoading} />
+      <ChatBot />
+      <Agent />
       {/* <ShamsgsFloatingWidget /> */}
 
       {/* 2. Main Content Wrapper */}
