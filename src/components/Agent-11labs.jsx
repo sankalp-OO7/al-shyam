@@ -1,268 +1,186 @@
 "use client";
 import { useEffect, useState } from "react";
-import { MessageCircle, X, Mic, AlertCircle } from "lucide-react";
+import { MessageCircle, X, Mic } from "lucide-react";
 
 export default function ResponsiveElevenLabs() {
   const [isOpen, setIsOpen] = useState(false);
-  const [permissionState, setPermissionState] = useState("prompt"); // prompt, granted, denied, checking
-  const [showPermissionUI, setShowPermissionUI] = useState(false);
+  const [isLoadingPermission, setIsLoadingPermission] = useState(false);
+  const [hasAskedThisSession, setHasAskedThisSession] = useState(false);
 
   useEffect(() => {
-    // Load ElevenLabs script
     const script = document.createElement("script");
     script.src = "https://unpkg.com/@elevenlabs/convai-widget-embed";
     script.async = true;
+    script.onload = () => {
+      console.log("✅ ElevenLabs script loaded");
+    };
     document.body.appendChild(script);
-
-    // Check current microphone permission status
-    checkPermissionStatus();
 
     return () => {
       if (document.body.contains(script)) document.body.removeChild(script);
     };
   }, []);
 
-  const checkPermissionStatus = async () => {
-    try {
-      if (navigator.permissions && navigator.permissions.query) {
-        const result = await navigator.permissions.query({
-          name: "microphone",
-        });
-        setPermissionState(result.state);
+  const requestPermissions = async () => {
+    setIsLoadingPermission(true);
 
-        // Listen for permission changes
-        result.onchange = () => {
-          setPermissionState(result.state);
-        };
-      }
-    } catch (err) {
-      console.log("Permission API not supported, will request on interaction");
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+          autoGainControl: true,
+        },
+      });
+
+      console.log("✅ Microphone permission granted");
+
+      stream.getTracks().forEach((track) => {
+        track.stop();
+      });
+
+      setIsLoadingPermission(false);
+      setHasAskedThisSession(true);
+    } catch (error) {
+      setIsLoadingPermission(false);
+      setHasAskedThisSession(true);
+      console.warn("⚠️ Microphone permission denied:", error.name);
     }
   };
 
-  const requestMicrophonePermission = async () => {
-    setPermissionState("checking");
-    setShowPermissionUI(true);
-
-    try {
-      // Request microphone access - this triggers the browser's permission popup
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-
-      // Success! Stop the test stream immediately
-      stream.getTracks().forEach((track) => track.stop());
-
-      // Update state
-      setPermissionState("granted");
-      setShowPermissionUI(false);
-
-      // Small delay to ensure permission is fully processed
-      setTimeout(() => {
-        setIsOpen(true);
-      }, 300);
-    } catch (err) {
-      console.error("Microphone permission error:", err);
-
-      if (err.name === "NotAllowedError") {
-        setPermissionState("denied");
-      } else if (err.name === "NotFoundError") {
-        alert("No microphone found on your device.");
-        setShowPermissionUI(false);
-      } else {
-        alert(
-          "Unable to access microphone. Please check your browser settings."
-        );
-        setShowPermissionUI(false);
-      }
-    }
-  };
-
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     if (isOpen) {
-      // Close the widget
       setIsOpen(false);
+      setHasAskedThisSession(false);
       return;
     }
 
-    // Check if we're on a secure connection
-    if (!window.isSecureContext) {
-      alert(
-        "Microphone access requires HTTPS or localhost. Please use a secure connection."
-      );
-      return;
+    // Open widget
+    setIsOpen(true);
+
+    // Request mic permission after a short delay
+    if (!hasAskedThisSession && window.isSecureContext) {
+      setTimeout(() => {
+        requestPermissions();
+      }, 500);
     }
-
-    // If permission already granted, open directly
-    if (permissionState === "granted") {
-      setIsOpen(true);
-      return;
-    }
-
-    // Otherwise, request permission first
-    requestMicrophonePermission();
-  };
-
-  const handleResetPermission = () => {
-    setShowPermissionUI(false);
-    alert(
-      "To reset microphone permissions:\n\n" +
-        "Chrome: Click the lock icon (🔒) in the address bar → Site settings → Reset permissions\n\n" +
-        "Safari: Safari menu → Settings for this website → Microphone → Allow\n\n" +
-        "Firefox: Click the site information icon → More information → Permissions → Use the Microphone"
-    );
   };
 
   return (
     <>
-      {/* Permission Request Overlay */}
-      {showPermissionUI && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[25000] flex items-center justify-center p-4">
-          <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 max-w-md w-full border-2 border-cyan-500/30 shadow-2xl">
-            <div className="flex flex-col items-center text-center space-y-4">
-              {permissionState === "checking" && (
-                <>
-                  <div className="relative">
-                    <Mic className="w-16 h-16 text-cyan-400" />
-                    <div className="absolute inset-0 animate-ping">
-                      <Mic className="w-16 h-16 text-cyan-400/50" />
-                    </div>
-                  </div>
-                  <h3 className="text-2xl font-bold text-white">
-                    Microphone Access Required
-                  </h3>
-                  <p className="text-gray-300">
-                    Please click{" "}
-                    <strong className="text-cyan-400">"Allow"</strong> when your
-                    browser asks for microphone permission.
-                  </p>
-                  <div className="flex gap-2">
-                    <div
-                      className="w-3 h-3 bg-cyan-400 rounded-full animate-bounce"
-                      style={{ animationDelay: "0s" }}
-                    ></div>
-                    <div
-                      className="w-3 h-3 bg-cyan-400 rounded-full animate-bounce"
-                      style={{ animationDelay: "0.2s" }}
-                    ></div>
-                    <div
-                      className="w-3 h-3 bg-cyan-400 rounded-full animate-bounce"
-                      style={{ animationDelay: "0.4s" }}
-                    ></div>
-                  </div>
-                </>
-              )}
-
-              {permissionState === "denied" && (
-                <>
-                  <AlertCircle className="w-16 h-16 text-red-400" />
-                  <h3 className="text-2xl font-bold text-white">
-                    Permission Blocked
-                  </h3>
-                  <p className="text-gray-300">
-                    You've blocked microphone access. To use voice chat, you'll
-                    need to enable it in your browser settings.
-                  </p>
-                  <div className="flex gap-3 w-full">
-                    <button
-                      onClick={handleResetPermission}
-                      className="flex-1 bg-cyan-500 hover:bg-cyan-600 text-black font-semibold py-3 px-4 rounded-lg transition-all"
-                    >
-                      How to Fix
-                    </button>
-                    <button
-                      onClick={() => setShowPermissionUI(false)}
-                      className="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-lg transition-all"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </>
-              )}
+      {/* Loading Overlay - Small, non-intrusive */}
+      {isLoadingPermission && (
+        <div className="fixed bottom-[110px] left-6 z-[25000] pointer-events-none">
+          <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-4 border border-cyan-500/30 shadow-2xl max-w-xs">
+            <div className="flex items-center gap-3">
+              <div className="relative flex-shrink-0">
+                <div className="absolute inset-0 bg-cyan-500/20 rounded-full animate-ping"></div>
+                <div className="relative bg-gradient-to-br from-cyan-400 to-cyan-600 p-2 rounded-full">
+                  <Mic className="w-5 h-5 text-white" strokeWidth={2} />
+                </div>
+              </div>
+              <div>
+                <p className="text-white text-sm font-semibold">
+                  Enable Voice?
+                </p>
+                <p className="text-gray-400 text-xs">Click Allow or Block</p>
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* ElevenLabs Widget Container */}
-      <div
-        className="elevenlabs-container"
-        style={{
-          display: isOpen ? "block" : "none",
-          opacity: isOpen ? 1 : 0,
-          pointerEvents: isOpen ? "auto" : "none",
-        }}
-      >
+      {/* ElevenLabs Widget - Controlled by custom element attribute */}
+      <div style={{ display: isOpen ? "block" : "none" }}>
         <elevenlabs-convai agent-id="agent_8501kem2h5h4ed3vttatwx9b5fxh"></elevenlabs-convai>
       </div>
 
-      {/* Toggle Button */}
+      {/* Main Toggle Button */}
       <button
         onClick={handleButtonClick}
-        className={`fixed bottom-6 left-6 z-[20000] flex h-16 w-16 items-center justify-center rounded-full shadow-2xl transition-all active:scale-90 ${
-          isOpen
-            ? "bg-red-500 hover:bg-red-600"
-            : permissionState === "granted"
-            ? "bg-cyan-500 hover:bg-cyan-600"
-            : "bg-cyan-500 hover:bg-cyan-600 animate-pulse"
-        }`}
-        aria-label={isOpen ? "Close voice assistant" : "Open voice assistant"}
+        disabled={isLoadingPermission}
+        aria-label={isOpen ? "Close assistant" : "Open assistant"}
+        className={`
+          fixed bottom-6 left-6 z-[20000]
+          flex items-center justify-center
+          h-16 w-16 rounded-full
+          shadow-2xl transition-all duration-300
+          disabled:opacity-70 disabled:cursor-wait
+          hover:scale-105 active:scale-95
+          ${
+            isOpen
+              ? "bg-gradient-to-br from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
+              : "bg-gradient-to-br from-cyan-400 via-cyan-500 to-blue-500 hover:from-cyan-500 hover:via-cyan-600 hover:to-blue-600"
+          }
+        `}
       >
         {isOpen ? (
-          <X size={30} className="text-white" />
+          <X size={32} className="text-white" strokeWidth={2.5} />
         ) : (
-          <MessageCircle size={30} className="text-black" />
+          <MessageCircle size={32} className="text-white" strokeWidth={2.5} />
         )}
 
-        {/* Permission indicator */}
-        {!isOpen && permissionState !== "granted" && (
-          <span className="absolute -top-1 -right-1 flex h-4 w-4">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-4 w-4 bg-yellow-500"></span>
-          </span>
+        {!isOpen && !isLoadingPermission && (
+          <>
+            <span className="absolute inset-0 rounded-full bg-cyan-300 animate-ping opacity-30"></span>
+            <span className="absolute inset-0 rounded-full bg-cyan-400 animate-pulse opacity-40"></span>
+          </>
         )}
       </button>
 
       <style jsx global>{`
-        /* Hide default ElevenLabs launcher */
+        /* HIDE the default ElevenLabs launcher completely */
         #elevenlabs-convai-widget {
           display: none !important;
+          visibility: hidden !important;
+          opacity: 0 !important;
+          pointer-events: none !important;
         }
 
-        /* Desktop positioning */
-        @media (min-width: 768px) {
-          elevenlabs-convai {
-            position: fixed !important;
-            bottom: 100px !important;
-            left: 20px !important;
-            width: 400px !important;
-            max-height: 600px !important;
-            z-index: 15000 !important;
-          }
+        /* Position the actual chat widget at BOTTOM LEFT */
+        elevenlabs-convai {
+          position: fixed !important;
+          bottom: 100px !important;
+          left: 24px !important;
+          right: auto !important;
+          top: auto !important;
+          width: 400px !important;
+          max-width: calc(100vw - 48px) !important;
+          height: 600px !important;
+          max-height: calc(100vh - 140px) !important;
+          z-index: 15000 !important;
+          border-radius: 20px !important;
+          overflow: hidden !important;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4) !important;
+          background: transparent !important;
+          border: none !important;
         }
 
-        /* Mobile positioning */
+        /* Mobile responsive */
         @media (max-width: 767px) {
           elevenlabs-convai {
-            position: fixed !important;
-            bottom: 100px !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-            width: 90vw !important;
-            max-width: 400px !important;
-            max-height: 70vh !important;
-            z-index: 15000 !important;
+            left: 12px !important;
+            right: 12px !important;
+            width: calc(100vw - 24px) !important;
+            max-width: 100% !important;
+            height: 500px !important;
+            max-height: calc(100vh - 140px) !important;
           }
         }
 
-        /* Smooth transitions */
-        .elevenlabs-container {
-          transition: opacity 0.3s ease-in-out;
+        /* Make sure the iframe inside is visible */
+        elevenlabs-convai iframe {
+          width: 100% !important;
+          height: 100% !important;
+          border: none !important;
+          border-radius: 20px !important;
         }
 
-        /* Ensure widget is accessible */
-        elevenlabs-convai {
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-          border-radius: 16px;
-          overflow: hidden;
+        /* Remove any forced backgrounds */
+        elevenlabs-convai,
+        elevenlabs-convai > *,
+        elevenlabs-convai iframe {
+          background: transparent !important;
         }
       `}</style>
     </>
