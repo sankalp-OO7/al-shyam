@@ -16,6 +16,8 @@ const geistMono = Geist_Mono({
 // ULTRA SEO-OPTIMIZED METADATA FOR SHAMS GLOBAL SYSTEMS
 export const metadata = {
   // Primary Meta Tags - Keyword Heavy for Top Rankings
+  manifest: "/site.webmanifest",
+
   title: {
     default:
       "ShamsGS - Shams Global Systems | #1 AI Forex Trading Robot & Expert Advisor MT4/MT5",
@@ -443,7 +445,7 @@ export default function RootLayout({ children }) {
             availability: "https://schema.org/InStock",
             url: "https://www.shamsgs.com/pricing",
             priceValidUntil: new Date(
-              new Date().setFullYear(new Date().getFullYear() + 1)
+              new Date().setFullYear(new Date().getFullYear() + 1),
             )
               .toISOString()
               .split("T")[0],
@@ -469,7 +471,7 @@ export default function RootLayout({ children }) {
             availability: "https://schema.org/InStock",
             url: "https://www.shamsgs.com/pricing",
             priceValidUntil: new Date(
-              new Date().setFullYear(new Date().getFullYear() + 1)
+              new Date().setFullYear(new Date().getFullYear() + 1),
             )
               .toISOString()
               .split("T")[0],
@@ -495,7 +497,7 @@ export default function RootLayout({ children }) {
             availability: "https://schema.org/InStock",
             url: "https://www.shamsgs.com/pricing",
             priceValidUntil: new Date(
-              new Date().setFullYear(new Date().getFullYear() + 1)
+              new Date().setFullYear(new Date().getFullYear() + 1),
             )
               .toISOString()
               .split("T")[0],
